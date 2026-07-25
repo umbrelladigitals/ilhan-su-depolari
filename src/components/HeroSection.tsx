@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { MessageSquare, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export interface HeroSlideItem {
   id?: string
@@ -51,32 +51,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
     return () => clearInterval(timer)
   }, [slides.length])
 
-  // Sadeleştirilmiş Varsayılan Slayt
+  // Minimalist Varsayılan Slayt
   const defaultSlide: HeroSlideItem = {
-    title: 'Yüksek Mukavemetli Depo & Pompa Çözümleri',
-    subtitle: 'Polietilen, Paslanmaz Modüler ve Polyester Su Depolarında 25 Yıllık Sanayi Tecrübesi.',
-    badgeText: 'ANKARA FABRİKA TESLİMİ & ÜCRETSİZ KEŞİF',
+    title: 'Yüksek Kaliteli Su Depoları',
+    subtitle: 'Polietilen ve Paslanmaz Depolama Çözümleri',
+    badgeText: 'İlhan Su Depoları',
     bgType: 'video',
     bgMediaUrl: '/videos/hero_video.mp4',
-    primaryButtonText: 'Ürünleri İncele',
+    primaryButtonText: 'Ürün Kataloğunu İncele',
     primaryButtonLink: '/urunler',
-    whatsappButtonText: 'WhatsApp ile Hızlı Fiyat Al',
-    whatsappCustomMessage: 'Merhaba, su depoları hakkında detaylı bilgi ve fiyat teklifi almak istiyorum.',
   }
 
   const currentSlide = slides.length > 0 ? slides[currentIndex] : defaultSlide
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
 
   return (
-    <section className="relative min-h-[75dvh] sm:min-h-[85dvh] w-full flex items-center justify-center pt-20 sm:pt-28 pb-10 overflow-hidden bg-slate-950">
-      {/* ─── Arka Plan Katmanı (Görsel & Video Şeffaf & Belirgin) ─── */}
+    <section className="relative min-h-[60dvh] sm:min-h-[70dvh] w-full flex items-center justify-center pt-6 sm:pt-10 pb-8 overflow-hidden bg-slate-100 border-b border-slate-200">
+      {/* ─── Net Arka Plan (Görsel & Video Tamamen Görünür) ─── */}
       <div className="absolute inset-0 z-0" suppressHydrationWarning>
         {mounted ? (
           currentSlide.bgType === 'image' ? (
             <img
               src={currentSlide.bgMediaUrl || '/images/hero_bg.jpg'}
               alt={currentSlide.title}
-              className="w-full h-full object-cover object-center filter brightness-[0.9] contrast-[1.05] transition-all duration-700"
+              className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05] transition-all duration-700"
             />
           ) : (
             <video
@@ -87,7 +84,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
               muted
               playsInline
               poster="/images/hero_bg.jpg"
-              className="w-full h-full object-cover object-center filter brightness-[0.9] contrast-[1.05]"
+              className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.05]"
             >
               <source src={currentSlide.bgMediaUrl || '/videos/hero_video.mp4'} type="video/mp4" />
             </video>
@@ -96,11 +93,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
           <img
             src="/images/hero_bg.jpg"
             alt="Hero Background"
-            className="w-full h-full object-cover object-center filter brightness-[0.9]"
+            className="w-full h-full object-cover object-center filter brightness-[0.92]"
           />
         )}
-        {/* Şeffaf & Sade Gradyan Overlay (Görselin Çok Daha Fazla Gözükmesi İçin İnce Katman) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/30" />
+        {/* İnce Şeffaf Minimalist Karartma */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/30 to-slate-950/20" />
       </div>
 
       {/* Slayt Okları */}
@@ -108,60 +105,42 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
         <>
           <button
             onClick={() => setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length)}
-            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-slate-900/60 text-white hover:bg-sky-600 transition-all backdrop-blur-md border border-white/20"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-white/80 text-slate-800 hover:bg-sky-600 hover:text-white transition-all backdrop-blur-md border border-slate-200 shadow-sm"
             aria-label="Önceki"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           <button
             onClick={() => setCurrentIndex((prev) => (prev + 1) % slides.length)}
-            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-3 sm:p-3.5 rounded-full bg-slate-900/60 text-white hover:bg-sky-600 transition-all backdrop-blur-md border border-white/20"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-white/80 text-slate-800 hover:bg-sky-600 hover:text-white transition-all backdrop-blur-md border border-slate-200 shadow-sm"
             aria-label="Sonraki"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </>
       )}
 
-      {/* ─── Hero Sadeleştirilmiş İçerik ─── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-        {/* Üst Rozet */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-950/70 border border-sky-400/40 text-sky-300 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider backdrop-blur-md shadow-md mb-4 sm:mb-6">
-          <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-          <span>{currentSlide.badgeText || 'ANKARA FABRİKA TESLİMİ & ÜCRETSİZ KEŞİF'}</span>
-        </div>
-
-        {/* Sade Başlık */}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-lg max-w-4xl mx-auto mb-3 sm:mb-5">
+      {/* ─── Minimalist İçi Boş Sade İçerik ─── */}
+      <div className="relative z-10 max-w-3xl mx-auto px-4 text-center my-auto space-y-4">
+        {/* Minimalist Tek Satır Başlık */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-md">
           {currentSlide.title}
         </h1>
 
-        {/* Kısa ve Net Alt Metin */}
-        <p className="text-xs sm:text-base md:text-lg text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow mb-6 sm:mb-8">
+        {/* Kısa ve Öz Tek Cümle Alt Metin */}
+        <p className="text-sm sm:text-base text-slate-100 font-medium max-w-lg mx-auto drop-shadow-sm">
           {currentSlide.subtitle}
         </p>
 
-        {/* Butonlar */}
-        <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
+        {/* Tek Minimalist Aksiyon Butonu */}
+        <div className="pt-2 flex justify-center">
           <Link
             href={currentSlide.primaryButtonLink || '/urunler'}
-            className="btn-primary-sky px-5 py-3 sm:px-7 sm:py-3.5 text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2"
+            className="btn-primary-sky px-6 py-3 text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg"
           >
-            <span>{currentSlide.primaryButtonText || 'Ürünleri İncele'}</span>
+            <span>{currentSlide.primaryButtonText || 'Ürün Kataloğunu İncele'}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
-
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-              currentSlide.whatsappCustomMessage || 'Merhaba, İlhan Su Depoları hakkında bilgi ve fiyat almak istiyorum.'
-            )}`}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-emerald-whatsapp whatsapp-pulse px-5 py-3 sm:px-7 sm:py-3.5 text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2"
-          >
-            <MessageSquare className="w-4 h-4 fill-current" />
-            <span>{currentSlide.whatsappButtonText || 'WhatsApp ile Hızlı Fiyat Al'}</span>
-          </a>
         </div>
       </div>
     </section>

@@ -2,7 +2,10 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
-/* ─── Base Styles ─── */
+/* ═══════════════════════════════════════════════════
+   Full Light Design Token System (Strict No Inline CSS)
+   ═══════════════════════════════════════════════════ */
+
 @layer base {
   body {
     background-color: #f8fafc;
@@ -15,10 +18,7 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   Mobile Responsive Typography & Small Font Utilities
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Mobile Small Typography ─── */
 @media (max-width: 639px) {
   body {
     font-size: 13px;
@@ -42,10 +42,7 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   UI Spacing & Layout Tokens
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Layout Tokens ─── */
 .page-wrapper {
   padding-top: 6rem;
   padding-bottom: 4rem;
@@ -60,14 +57,14 @@
 }
 
 .section-padding {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 @media (min-width: 640px) {
   .section-padding {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 }
 
@@ -75,8 +72,8 @@
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0.85rem;
-  padding-right: 0.85rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -86,38 +83,33 @@
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   Light & Dark Surface Consistency Tokens
-   ═══════════════════════════════════════════════════ */
-
-.bg-surface-light {
-  background-color: #f8fafc;
-}
-
-.bg-surface-white {
+/* ─── Full Light Card Tokens ─── */
+.card-light-premium {
   background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bg-surface-dark {
-  background: linear-gradient(180deg, #0f172a 0%, #090d16 100%);
+.card-light-premium:hover {
+  border-color: #7dd3fc;
+  box-shadow: 0 16px 32px -8px rgba(2, 132, 199, 0.12);
+  transform: translateY(-3px);
 }
 
-.bg-surface-glass-dark {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.map-iframe-container {
+  border: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* ═══════════════════════════════════════════════════
-   Buttons & Badges Token Palette
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Light Button Tokens ─── */
 .btn-primary-sky {
   background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   color: #ffffff;
   font-weight: 700;
-  border-radius: 0.85rem;
+  border-radius: 0.75rem;
   box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -132,7 +124,7 @@
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #ffffff;
   font-weight: 800;
-  border-radius: 0.85rem;
+  border-radius: 0.75rem;
   box-shadow: 0 4px 14px -2px rgba(16, 185, 129, 0.35);
   transition: all 0.3s ease;
 }
@@ -143,27 +135,20 @@
   box-shadow: 0 8px 20px -3px rgba(16, 185, 129, 0.45);
 }
 
-/* ═══════════════════════════════════════════════════
-   Light Theme Card
-   ═══════════════════════════════════════════════════ */
-
-.light-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* ─── Badge Tokens ─── */
+.badge-light-sky {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
 }
 
-.light-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.12);
-  transform: translateY(-2px);
+.badge-light-amber {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
 }
 
-/* ═══════════════════════════════════════════════════
-   Floating Glass Header (Light Mode)
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Header & Nav ─── */
 .glass-header-light {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
@@ -171,56 +156,11 @@
   border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-/* ═══════════════════════════════════════════════════
-   Double Bezel Card (Dark Panels)
-   ═══════════════════════════════════════════════════ */
-
-.double-bezel {
-  border-radius: 1.25rem;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.08), rgba(30, 41, 59, 0.6));
-  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.3);
-}
-
-.double-bezel-inner {
-  border-radius: 1.2rem;
-  overflow: hidden;
-}
-
-/* ═══════════════════════════════════════════════════
-   Glass Panel (Dark Glassmorphism)
-   ═══════════════════════════════════════════════════ */
-
-.glass-panel {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* ═══════════════════════════════════════════════════
-   Glow Box Shadows
-   ═══════════════════════════════════════════════════ */
-
-.shadow-glow-sm {
-  box-shadow: 0 4px 14px -3px rgba(14, 165, 233, 0.35);
-}
-
-.shadow-glow-lg {
-  box-shadow: 0 0 20px 4px rgba(14, 165, 233, 0.45);
-}
-
-.shadow-glow-whatsapp {
-  box-shadow: 0 8px 25px -5px rgba(37, 211, 102, 0.35);
-}
-
-/* ═══════════════════════════════════════════════════
-   Animations
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Animations ─── */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -229,13 +169,13 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.25s ease-out forwards;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -247,36 +187,21 @@
   animation: slideDown 0.25s ease-out forwards;
 }
 
-/* ═══════════════════════════════════════════════════
-   Nav Link Underline Animation
-   ═══════════════════════════════════════════════════ */
-
-.nav-link-underline {
-  position: relative;
+/* ─── WhatsApp Pulse ─── */
+@keyframes whatsappPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
 }
 
-.nav-link-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #0284c7, #38bdf8);
-  border-radius: 1px;
-  transition: width 0.3s ease, left 0.3s ease;
+.whatsapp-pulse {
+  animation: whatsappPulse 2s infinite;
 }
 
-.nav-link-underline:hover::after,
-.nav-link-underline.active::after {
-  width: 100%;
-  left: 0;
-}
-
-/* ═══════════════════════════════════════════════════
-   Custom Scrollbar
-   ═══════════════════════════════════════════════════ */
-
+/* ─── Custom Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -292,35 +217,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #0284c7;
-}
-
-/* ═══════════════════════════════════════════════════
-   WhatsApp Pulse Button
-   ═══════════════════════════════════════════════════ */
-
-@keyframes whatsappPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
-  }
-}
-
-.whatsapp-pulse {
-  animation: whatsappPulse 2s infinite;
-}
-
-/* ═══════════════════════════════════════════════════
-   Form Input Focus Ring
-   ═══════════════════════════════════════════════════ */
-
-.input-focus {
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.input-focus:focus {
-  border-color: #0284c7;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
-  outline: none;
 }
