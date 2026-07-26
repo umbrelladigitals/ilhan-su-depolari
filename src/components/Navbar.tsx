@@ -63,6 +63,7 @@ const megaMenuCategories = [
 
 export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
   const pathname = usePathname()
+  const [mounted, setMounted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false)
@@ -78,6 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
   const siteName = siteSettings?.siteName || 'İlhan Su Depoları'
 
   useEffect(() => {
+    setMounted(true)
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
@@ -141,8 +143,9 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
       {/* ─── 2. Floating Island Header (Yüzen Ada Header - Pointer Events Pass-Through) ─── */}
       <header
+        suppressHydrationWarning
         className={`fixed left-0 right-0 z-50 pointer-events-none transition-all duration-300 ${
-          scrolled ? 'top-3' : 'top-10'
+          mounted && scrolled ? 'top-3' : 'top-10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
