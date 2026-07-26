@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import type { Product, CategoryType } from '@/types'
 import { Search, Layers } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
@@ -14,36 +14,52 @@ interface ProductsClientProps {
 export const matchesCategory = (p: Product, cat: CategoryType | string) => {
   if (!cat || cat === 'all') return true
 
-  const pCatSlug = typeof p.category === 'object' ? (p.category as any)?.slug : String(p.category || '')
+  const pCatSlug = (typeof p.category === 'object' ? (p.category as any)?.slug : String(p.category || '')).toLowerCase()
   const pCatName = (p.categoryName || (typeof p.category === 'object' ? (p.category as any)?.name : '') || '').toLowerCase()
   const pName = (p.name || '').toLowerCase()
   const targetCat = String(cat).toLowerCase()
 
-  if (targetCat === 'vertical_tank' || targetCat === 'polietilen-su-depolari') {
+  if (
+    targetCat === 'vertical_tank' ||
+    targetCat === 'polietilen-su-depolari' ||
+    targetCat === 'dikey-su-depolari' ||
+    targetCat === 'dikey'
+  ) {
     return (
-      pCatSlug === 'vertical_tank' ||
-      pCatSlug === 'polietilen-su-depolari' ||
+      pCatSlug.includes('vertical') ||
+      pCatSlug.includes('dikey') ||
+      pCatSlug.includes('polietilen') ||
       pCatName.includes('dikey') ||
-      pCatName.includes('polietilen') ||
       pName.includes('dikey') ||
       (pName.includes('polietilen') && !pName.includes('yatay'))
     )
   }
 
-  if (targetCat === 'horizontal_tank' || targetCat === 'polyester-su-depolari') {
+  if (
+    targetCat === 'horizontal_tank' ||
+    targetCat === 'polyester-su-depolari' ||
+    targetCat === 'yatay-su-depolari' ||
+    targetCat === 'yatay'
+  ) {
     return (
-      pCatSlug === 'horizontal_tank' ||
-      pCatSlug === 'polyester-su-depolari' ||
+      pCatSlug.includes('horizontal') ||
+      pCatSlug.includes('yatay') ||
+      pCatSlug.includes('polyester') ||
       pCatName.includes('yatay') ||
-      pCatName.includes('polyester') ||
       pName.includes('yatay')
     )
   }
 
-  if (targetCat === 'industrial_pump' || targetCat === 'paslanmaz-moduler-depolar') {
+  if (
+    targetCat === 'industrial_pump' ||
+    targetCat === 'paslanmaz-moduler-depolar' ||
+    targetCat === 'endustriyel-pompalar' ||
+    targetCat === 'endüstriyel'
+  ) {
     return (
-      pCatSlug === 'industrial_pump' ||
-      pCatSlug === 'paslanmaz-moduler-depolar' ||
+      pCatSlug.includes('industrial') ||
+      pCatSlug.includes('endustriyel') ||
+      pCatSlug.includes('paslanmaz') ||
       pCatName.includes('endüstriyel') ||
       pCatName.includes('paslanmaz') ||
       pName.includes('endüstriyel') ||
@@ -52,9 +68,14 @@ export const matchesCategory = (p: Product, cat: CategoryType | string) => {
     )
   }
 
-  if (targetCat === 'submersible_pump') {
+  if (
+    targetCat === 'submersible_pump' ||
+    targetCat === 'dalgic-pompalar' ||
+    targetCat === 'dalgic'
+  ) {
     return (
-      pCatSlug === 'submersible_pump' ||
+      pCatSlug.includes('submersible') ||
+      pCatSlug.includes('dalgic') ||
       pCatName.includes('dalgıç') ||
       pName.includes('dalgıç')
     )
@@ -67,23 +88,20 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   initialProducts,
   initialCategory = 'all',
 }) => {
-  const router = useRouter()
   const searchParams = useSearchParams()
-  const urlCategory = searchParams.get('category')
+  const urlCat = searchParams?.get('category')
 
-  // Selected category state updated directly by user clicks
-  const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(null)
+  const [activeCategory, setActiveCategory] = useState<CategoryType>(
+    (urlCat as CategoryType) || (initialCategory as CategoryType) || 'all'
+  )
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // Dynamically compute active category: selectedCategory takes precedence, then urlCategory, then initialCategory, then 'all'
-  const activeCategory = selectedCategory || (urlCategory as CategoryType) || (initialCategory as CategoryType) || 'all'
-
-  // Update selectedCategory if urlCategory changes externally
+  // URL ?category= parametresi değişirse aktif kategoriyi senkronize et
   useEffect(() => {
-    if (urlCategory) {
-      setSelectedCategory(urlCategory as CategoryType)
+    if (urlCat) {
+      setActiveCategory(urlCat as CategoryType)
     }
-  }, [urlCategory])
+  }, [urlCat])
 
   const categories: { id: CategoryType; label: string }[] = [
     { id: 'all', label: 'Tüm Ürünler' },
@@ -93,12 +111,16 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
     { id: 'submersible_pump', label: 'Dalgıç Pompa Sistemleri' },
   ]
 
-  const handleCategorySelect = (catId: CategoryType) => {
-    setSelectedCategory(catId)
-    if (catId === 'all') {
-      router.push('/urunler', { scroll: false })
-    } else {
-      router.push(`/urunler?category=${catId}`, { scroll: false })
+  const handleCategoryClick = (catId: CategoryType) => {
+    setActiveCategory(catId)
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href)
+      if (catId === 'all') {
+        url.searchParams.delete('category')
+      } else {
+        url.searchParams.set('category', catId)
+      }
+      window.history.replaceState({}, '', url.toString())
     }
   }
 
@@ -140,8 +162,8 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
         </div>
       </div>
 
-      {/* Category Pills Filter */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+      {/* Category Pills Filter (Kategori Butonları) */}
+      <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10 relative z-20">
         {categories.map((cat) => {
           const count = initialProducts.filter((p) => matchesCategory(p, cat.id)).length
           const isSelected = activeCategory === cat.id
@@ -149,14 +171,14 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
             <button
               key={cat.id}
               type="button"
-              onClick={() => handleCategorySelect(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer relative z-10 ${
+              onClick={() => handleCategoryClick(cat.id)}
+              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 ${
                 isSelected
-                  ? 'bg-sky-600 text-white shadow-md shadow-sky-600/25 scale-105 border border-sky-500'
+                  ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30 scale-105 border border-sky-500 ring-2 ring-sky-400/30'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300'
               }`}
             >
-              {cat.label} <span className="opacity-75">({count})</span>
+              {cat.label} <span className="opacity-80">({count})</span>
             </button>
           )
         })}
@@ -179,7 +201,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
           <button
             type="button"
             onClick={() => {
-              handleCategorySelect('all')
+              handleCategoryClick('all')
               setSearchQuery('')
             }}
             className="btn-primary-sky px-5 py-2.5 text-xs font-extrabold cursor-pointer"

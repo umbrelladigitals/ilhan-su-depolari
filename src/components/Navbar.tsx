@@ -139,14 +139,14 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
         </div>
       </div>
 
-      {/* ─── 2. Floating Island Header (Yüzen Ada Header) ─── */}
+      {/* ─── 2. Floating Island Header (Yüzen Ada Header - Pointer Events Pass-Through) ─── */}
       <header
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 pointer-events-none transition-all duration-300 ${
           scrolled ? 'top-3' : 'top-10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <nav className="glass-header-light rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl border border-slate-200/90">
+          <nav className="glass-header-light pointer-events-auto rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl border border-slate-200/90">
             {/* Logo */}
             <Link href="/" onClick={closeAllMenus} className="flex items-center gap-3 cursor-pointer group">
               <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
@@ -468,7 +468,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2 animate-slideDown">
+          <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2 animate-slideDown pointer-events-auto">
             <div className="bg-white rounded-2xl p-4 shadow-2xl border border-slate-200 space-y-2">
               <Link
                 href="/"
