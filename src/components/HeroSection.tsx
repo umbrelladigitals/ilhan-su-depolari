@@ -5,16 +5,16 @@ import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export interface HeroSlideItem {
-  id?: string | number
-  title: string
-  subtitle: string
-  badgeText?: string
-  bgType?: 'video' | 'image'
-  bgMediaUrl?: string
-  primaryButtonText?: string
-  primaryButtonLink?: string
-  whatsappButtonText?: string
-  whatsappCustomMessage?: string
+  id?: string | number | null
+  title?: string | null
+  subtitle?: string | null
+  badgeText?: string | null
+  bgType?: 'video' | 'image' | string | null
+  bgMediaUrl?: string | null
+  primaryButtonText?: string | null
+  primaryButtonLink?: string | null
+  whatsappButtonText?: string | null
+  whatsappCustomMessage?: string | null
 }
 
 interface HeroSectionProps {
@@ -72,7 +72,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
           currentSlide.bgType === 'image' ? (
             <img
               src={currentSlide.bgMediaUrl || '/images/hero_bg.jpg'}
-              alt={currentSlide.title}
+              alt={currentSlide.title || 'İlhan Su Depoları'}
               className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05] transition-all duration-700"
             />
           ) : (
@@ -128,9 +128,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSetti
         </h1>
 
         {/* Kısa ve Öz Tek Cümle Alt Metin */}
-        <p className="text-sm sm:text-base text-slate-100 font-medium max-w-lg mx-auto drop-shadow-sm">
-          {currentSlide.subtitle}
-        </p>
+        {currentSlide.subtitle && (
+          <p className="text-sm sm:text-base text-slate-100 font-medium max-w-lg mx-auto drop-shadow-sm">
+            {currentSlide.subtitle}
+          </p>
+        )}
 
         {/* Tek Minimalist Aksiyon Butonu */}
         <div className="pt-2 flex justify-center">
