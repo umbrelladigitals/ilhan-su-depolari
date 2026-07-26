@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import type { Product, CategoryType } from '@/types'
 import { Search, Layers } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
@@ -10,12 +11,79 @@ interface ProductsClientProps {
   initialCategory?: string
 }
 
+export const matchesCategory = (p: Product, cat: CategoryType | string) => {
+  if (!cat || cat === 'all') return true
+
+  const pCatSlug = typeof p.category === 'object' ? (p.category as any)?.slug : String(p.category || '')
+  const pCatName = (p.categoryName || (typeof p.category === 'object' ? (p.category as any)?.name : '') || '').toLowerCase()
+  const pName = (p.name || '').toLowerCase()
+  const targetCat = String(cat).toLowerCase()
+
+  if (targetCat === 'vertical_tank' || targetCat === 'polietilen-su-depolari') {
+    return (
+      pCatSlug === 'vertical_tank' ||
+      pCatSlug === 'polietilen-su-depolari' ||
+      pCatName.includes('dikey') ||
+      pCatName.includes('polietilen') ||
+      pName.includes('dikey') ||
+      (pName.includes('polietilen') && !pName.includes('yatay'))
+    )
+  }
+
+  if (targetCat === 'horizontal_tank' || targetCat === 'polyester-su-depolari') {
+    return (
+      pCatSlug === 'horizontal_tank' ||
+      pCatSlug === 'polyester-su-depolari' ||
+      pCatName.includes('yatay') ||
+      pCatName.includes('polyester') ||
+      pName.includes('yatay')
+    )
+  }
+
+  if (targetCat === 'industrial_pump' || targetCat === 'paslanmaz-moduler-depolar') {
+    return (
+      pCatSlug === 'industrial_pump' ||
+      pCatSlug === 'paslanmaz-moduler-depolar' ||
+      pCatName.includes('endüstriyel') ||
+      pCatName.includes('paslanmaz') ||
+      pName.includes('endüstriyel') ||
+      pName.includes('santrifüj') ||
+      (pName.includes('pompa') && !pName.includes('dalgıç'))
+    )
+  }
+
+  if (targetCat === 'submersible_pump') {
+    return (
+      pCatSlug === 'submersible_pump' ||
+      pCatName.includes('dalgıç') ||
+      pName.includes('dalgıç')
+    )
+  }
+
+  return pCatSlug === targetCat || pCatSlug.includes(targetCat) || targetCat.includes(pCatSlug)
+}
+
 export const ProductsClient: React.FC<ProductsClientProps> = ({
   initialProducts,
   initialCategory = 'all',
 }) => {
-  const [activeCategory, setActiveCategory] = useState<CategoryType>((initialCategory as CategoryType) || 'all')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const urlCategory = searchParams.get('category')
+
+  const [activeCategory, setActiveCategory] = useState<CategoryType>(
+    (urlCategory as CategoryType) || (initialCategory as CategoryType) || 'all'
+  )
   const [searchQuery, setSearchQuery] = useState<string>('')
+
+  // URL'deki ?category= parametresi değiştiğinde aktif kategoriyi güncelle
+  useEffect(() => {
+    if (urlCategory) {
+      setActiveCategory(urlCategory as CategoryType)
+    } else if (initialCategory) {
+      setActiveCategory(initialCategory as CategoryType)
+    }
+  }, [urlCategory, initialCategory])
 
   const categories: { id: CategoryType; label: string }[] = [
     { id: 'all', label: 'Tüm Ürünler' },
@@ -25,23 +93,13 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
     { id: 'submersible_pump', label: 'Dalgıç Pompa Sistemleri' },
   ]
 
-  const matchesCategory = (p: Product, cat: CategoryType) => {
-    if (cat === 'all') return true
-    const pCat = typeof p.category === 'object' ? (p.category as any)?.slug : p.category
-    
-    if (cat === 'vertical_tank') {
-      return pCat === 'vertical_tank' || pCat === 'polietilen-su-depolari' || p.name.toLowerCase().includes('dikey')
+  const handleCategorySelect = (catId: CategoryType) => {
+    setActiveCategory(catId)
+    if (catId === 'all') {
+      router.push('/urunler', { scroll: false })
+    } else {
+      router.push(`/urunler?category=${catId}`, { scroll: false })
     }
-    if (cat === 'horizontal_tank') {
-      return pCat === 'horizontal_tank' || p.name.toLowerCase().includes('yatay')
-    }
-    if (cat === 'industrial_pump') {
-      return pCat === 'industrial_pump' || p.name.toLowerCase().includes('pompa') || p.name.toLowerCase().includes('santrifüj')
-    }
-    if (cat === 'submersible_pump') {
-      return pCat === 'submersible_pump' || p.name.toLowerCase().includes('dalgıç')
-    }
-    return pCat === cat
   }
 
   const filteredProducts = initialProducts.filter((p) => {
@@ -90,7 +148,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
             <button
               key={cat.id}
               type="button"
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => handleCategorySelect(cat.id)}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer ${
                 activeCategory === cat.id
                   ? 'bg-sky-600 text-white shadow-md shadow-sky-600/25 scale-105 border border-sky-500'
@@ -119,7 +177,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
           <p className="text-xs text-slate-500">Lütfen farklı bir kategori seçiniz veya arama terimini sıfırlayınız.</p>
           <button
             onClick={() => {
-              setActiveCategory('all')
+              handleCategorySelect('all')
               setSearchQuery('')
             }}
             className="btn-primary-sky px-5 py-2.5 text-xs font-extrabold"

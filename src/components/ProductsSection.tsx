@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { PRODUCTS } from '../data/products'
 import type { CategoryType, Product } from '../types'
 import { ProductCard } from './ProductCard'
+import { matchesCategory } from '../app/(frontend)/urunler/ProductsClient'
 import { Layers } from 'lucide-react'
 
 interface ProductsSectionProps {
@@ -22,25 +23,6 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
     { id: 'industrial_pump', label: 'Endüstriyel Tip Pompalar' },
     { id: 'submersible_pump', label: 'Dalgıç Pompa Sistemleri' },
   ]
-
-  const matchesCategory = (p: Product, cat: CategoryType) => {
-    if (cat === 'all') return true
-    const pCat = typeof p.category === 'object' ? (p.category as any)?.slug : p.category
-    
-    if (cat === 'vertical_tank') {
-      return pCat === 'vertical_tank' || pCat === 'polietilen-su-depolari' || p.name.toLowerCase().includes('dikey')
-    }
-    if (cat === 'horizontal_tank') {
-      return pCat === 'horizontal_tank' || p.name.toLowerCase().includes('yatay')
-    }
-    if (cat === 'industrial_pump') {
-      return pCat === 'industrial_pump' || p.name.toLowerCase().includes('pompa') || p.name.toLowerCase().includes('santrifüj')
-    }
-    if (cat === 'submersible_pump') {
-      return pCat === 'submersible_pump' || p.name.toLowerCase().includes('dalgıç')
-    }
-    return pCat === cat
-  }
 
   const filteredProducts = products.filter((p) => matchesCategory(p, activeCategory))
 
@@ -81,7 +63,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
           </div>
         </div>
 
-        {/* ─── Görsel Odaklı Büyük 3'lü Kart Izgarası (Ekran Görüntüsündeki Tasarım) ─── */}
+        {/* ─── Görsel Odaklı Büyük 3'lü Kart Izgarası ─── */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredProducts.map((product) => (
