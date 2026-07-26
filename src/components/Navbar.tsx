@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
   return (
     <>
-      {/* ─── 1. Top Announcement Bar (Vite Orijinal Üst Bar) ─── */}
+      {/* ─── 1. Top Announcement Bar (Orijinal Üst Bar) ─── */}
       <div className="bg-slate-900 text-white text-xs py-2 px-4 relative z-50">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2">
@@ -139,9 +139,9 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
         </div>
       </div>
 
-      {/* ─── 2. Floating Island Header (Vite Orijinal Yüzen Ada Header) ─── */}
+      {/* ─── 2. Floating Island Header (Yüzen Ada Header) ─── */}
       <header
-        className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
           scrolled ? 'top-3' : 'top-10'
         }`}
       >
@@ -179,30 +179,28 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
               {/* Ürünlerimiz & Görsel MegaMenu */}
               <div
-                className="relative group/products"
+                className="relative group/products flex items-center"
                 ref={productsRef}
+                onMouseEnter={() => setProductsMegaMenuOpen(true)}
               >
-                <button
-                  type="button"
-                  onClick={() => setProductsMegaMenuOpen(!productsMegaMenuOpen)}
-                  onMouseEnter={() => setProductsMegaMenuOpen(true)}
+                <Link
+                  href="/urunler"
+                  onClick={closeAllMenus}
                   className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
                     isActive('/urunler') || productsMegaMenuOpen
                       ? 'bg-white text-sky-700 shadow-sm font-extrabold'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 >
-                  <Link href="/urunler" onClick={(e) => e.stopPropagation()}>
-                    <span>Ürünlerimiz</span>
-                  </Link>
+                  <span>Ürünlerimiz</span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
                       productsMegaMenuOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
                     }`}
                   />
-                </button>
+                </Link>
 
-                {/* VISUAL MEGA MENU CONTAINER (Vite Orijinal 2 Kolonlu Kartlı Yapı) */}
+                {/* VISUAL MEGA MENU CONTAINER */}
                 {productsMegaMenuOpen && (
                   <div
                     onMouseLeave={() => setProductsMegaMenuOpen(false)}
@@ -289,32 +287,37 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
               </div>
 
               {/* Kurumsal Dropdown */}
-              <div className="relative" ref={corporateRef}>
-                <button
-                  type="button"
-                  onClick={() => setCorporateDropdownOpen(!corporateDropdownOpen)}
+              <div
+                className="relative group/corporate flex items-center"
+                ref={corporateRef}
+                onMouseEnter={() => setCorporateDropdownOpen(true)}
+              >
+                <Link
+                  href="/kurumsal"
+                  onClick={closeAllMenus}
                   className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
                     isActive('/kurumsal') || corporateDropdownOpen
                       ? 'bg-white text-sky-700 shadow-sm font-extrabold'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                   }`}
                 >
-                  <Link href="/kurumsal" onClick={(e) => e.stopPropagation()}>
-                    <span>Kurumsal</span>
-                  </Link>
+                  <span>Kurumsal</span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
                       corporateDropdownOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
                     }`}
                   />
-                </button>
+                </Link>
 
                 {corporateDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl p-2 shadow-xl border border-slate-200 animate-fadeIn space-y-1 z-50">
+                  <div
+                    onMouseLeave={() => setCorporateDropdownOpen(false)}
+                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl p-2 shadow-xl border border-slate-200 animate-fadeIn space-y-1 z-50"
+                  >
                     <Link
                       href="/kurumsal?tab=about"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-sky-50 hover:text-sky-700"
+                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-sky-50 hover:text-sky-700 block"
                     >
                       <div className="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
                         <Info className="w-4 h-4" />
@@ -328,7 +331,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                     <Link
                       href="/kurumsal?tab=hr"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"
+                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 block"
                     >
                       <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
                         <Users className="w-4 h-4" />
@@ -342,7 +345,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                     <Link
                       href="/kurumsal?tab=quality"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-purple-50 hover:text-purple-700"
+                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-purple-50 hover:text-purple-700 block"
                     >
                       <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
                         <ShieldCheck className="w-4 h-4" />
