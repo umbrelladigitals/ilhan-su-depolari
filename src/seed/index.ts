@@ -50,15 +50,15 @@ export async function seedPayload() {
     if (categoriesCount.totalDocs === 0) {
       console.log('Seeding categories...')
       const categoryItems = [
-        { title: 'Dikey Su Deposu', slug: 'vertical_tank', description: 'Polietilen ve polyester monoblok dikey depolar', icon: 'ShieldCheck' },
-        { title: 'Yatay Su Depoları', slug: 'horizontal_tank', description: 'Alçak tavan uyumlu yatay su depoları', icon: 'Waves' },
-        { title: 'Endüstriyel Tip Pompalar', slug: 'industrial_pump', description: 'Paslanmaz çelik ağır hizmet santrifüj pompalar', icon: 'Zap' },
-        { title: 'Dalgıç Pompa', slug: 'submersible_pump', description: 'Derin kuyu ve drenaj dalgıç pompaları', icon: 'ShieldCheck' },
+        { name: 'Dikey Su Deposu', slug: 'vertical_tank', description: 'Polietilen ve polyester monoblok dikey depolar', icon: 'ShieldCheck' },
+        { name: 'Yatay Su Depoları', slug: 'horizontal_tank', description: 'Alçak tavan uyumlu yatay su depoları', icon: 'Waves' },
+        { name: 'Endüstriyel Tip Pompalar', slug: 'industrial_pump', description: 'Paslanmaz çelik ağır hizmet santrifüj pompalar', icon: 'Zap' },
+        { name: 'Dalgıç Pompa', slug: 'submersible_pump', description: 'Derin kuyu ve drenaj dalgıç pompaları', icon: 'ShieldCheck' },
       ]
       for (const cat of categoryItems) {
         await payload.create({
           collection: 'categories',
-          data: cat,
+          data: cat as any,
         })
       }
     }
@@ -89,7 +89,7 @@ export async function seedPayload() {
               warranty: p.specs.warranty,
               foodGrade: p.specs.foodGrade,
             },
-          },
+          } as any,
         })
       }
     }
@@ -119,7 +119,7 @@ export async function seedPayload() {
               description: h.description,
               completed: h.completed,
             })),
-          },
+          } as any,
         })
       }
     }
@@ -178,7 +178,7 @@ export async function seedPayload() {
             type: j.type,
             description: j.description,
             requirements: j.requirements.map(r => ({ req: r })),
-          },
+          } as any,
         })
       }
     }
