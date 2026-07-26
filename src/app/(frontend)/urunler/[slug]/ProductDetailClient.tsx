@@ -82,21 +82,30 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
         {/* FULL-BLEED LEFT IMAGE LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start mb-12 sm:mb-16">
-          {/* LEFT COLUMN (7 cols): STICKY PRODUCT PHOTO */}
+          {/* LEFT COLUMN (7 cols): STICKY FULL PRODUCT PHOTO CARD */}
           <div className="lg:col-span-7 lg:sticky lg:top-28 self-start">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-50 aspect-[4/3] lg:aspect-[4/5] min-h-[280px] sm:min-h-[480px] lg:min-h-[560px] w-full flex items-center justify-center p-6">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl bg-slate-900 aspect-[4/3] lg:aspect-[4/5] min-h-[320px] sm:min-h-[520px] lg:min-h-[620px] w-full flex items-center justify-center group">
               <img
                 src={image}
                 alt={productName}
                 onError={(e) => {
                   ;(e.target as HTMLImageElement).src = '/images/hero_bg.jpg'
                 }}
-                className="w-full h-full object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-500"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-[0.95] group-hover:brightness-[0.90]"
               />
 
-              {/* Minimal Capacity Overlay Tag */}
-              <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-slate-900/90 backdrop-blur-md text-white font-extrabold text-[11px] sm:text-xs border border-slate-700 shadow-md">
-                Kapasite: {capacityRange}
+              {/* Soft bottom dark gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20 pointer-events-none" />
+
+              {/* Capacity Badge Top Right */}
+              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-white/90 backdrop-blur-md text-slate-900 font-extrabold text-xs sm:text-sm border border-white/50 shadow-md">
+                {capacityRange}
+              </div>
+
+              {/* Product Name Badge Bottom Left */}
+              <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-slate-950/80 backdrop-blur-md text-white font-extrabold text-xs sm:text-sm border border-white/20 shadow-lg flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>{productName}</span>
               </div>
             </div>
           </div>
