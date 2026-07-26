@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { MapPin, Phone, Mail, Clock, MessageSquare } from 'lucide-react'
+import { MapPin, Phone, Clock, MessageSquare } from 'lucide-react'
 
 interface ContactSectionProps {
   siteSettings?: any
@@ -10,7 +10,6 @@ interface ContactSectionProps {
 export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) => {
   const whatsappNumber = siteSettings?.whatsapp || '903125431358'
   const phoneDisplay = siteSettings?.phone || '0312 543 1358'
-  const emailDisplay = siteSettings?.email || 'info@ilhansudepolari.com'
   const addressDisplay = siteSettings?.address || 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara'
   const workingHoursDisplay = siteSettings?.workingHours || 'Pazartesi - Cumartesi: 08:30 - 18:30'
 

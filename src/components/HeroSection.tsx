@@ -22,7 +22,7 @@ interface HeroSectionProps {
   siteSettings?: any
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [], siteSettings }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
   const [mounted, setMounted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)

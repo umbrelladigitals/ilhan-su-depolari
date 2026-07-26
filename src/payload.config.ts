@@ -1,5 +1,6 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { tr } from '@payloadcms/translations/languages/tr'
 import { en } from '@payloadcms/translations/languages/en'
@@ -20,6 +21,22 @@ import { SiteSettings } from './payload/globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const databaseURI = process.env.DATABASE_URI
+
+const db = databaseURI
+  ? postgresAdapter({
+      pool: {
+        connectionString: databaseURI,
+      },
+      push: true,
+    })
+  : sqliteAdapter({
+      client: {
+        url: `file:${path.resolve(dirname, '../sudeposu.db')}`,
+      },
+      push: true,
+      wal: true,
+    })
 
 export default buildConfig({
   i18n: {
@@ -63,10 +80,5 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URI || 'postgres://postgres:postgres@127.0.0.1:5432/sudeposu',
-    },
-    push: true,
-  }),
+  db,
 })

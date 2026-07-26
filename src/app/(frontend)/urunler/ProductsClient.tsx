@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Product, CategoryType } from '@/types'
 import { Search, Layers } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
@@ -14,7 +14,8 @@ interface ProductsClientProps {
 export const matchesCategory = (p: Product, cat: CategoryType | string) => {
   if (!cat || cat === 'all') return true
 
-  const pCatSlug = (typeof p.category === 'object' ? (p.category as any)?.slug : String(p.category || '')).toLowerCase()
+  const rawCategory = typeof p.category === 'object' ? (p.category as any)?.slug : p.category
+  const pCatSlug = String(rawCategory || '').toLowerCase()
   const pCatName = (p.categoryName || (typeof p.category === 'object' ? (p.category as any)?.name : '') || '').toLowerCase()
   const pName = (p.name || '').toLowerCase()
   const targetCat = String(cat).toLowerCase()
@@ -88,6 +89,8 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   initialProducts,
   initialCategory = 'all',
 }) => {
+  const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const urlCat = searchParams?.get('category')
 
@@ -96,11 +99,9 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   )
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // URL ?category= parametresi değişirse aktif kategoriyi senkronize et
+  // Geri/ileri navigasyonunda ve kategori parametresi kaldırıldığında durumu senkronize et.
   useEffect(() => {
-    if (urlCat) {
-      setActiveCategory(urlCat as CategoryType)
-    }
+    setActiveCategory((urlCat as CategoryType) || 'all')
   }, [urlCat])
 
   const categories: { id: CategoryType; label: string }[] = [
@@ -113,15 +114,15 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
 
   const handleCategoryClick = (catId: CategoryType) => {
     setActiveCategory(catId)
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href)
-      if (catId === 'all') {
-        url.searchParams.delete('category')
-      } else {
-        url.searchParams.set('category', catId)
-      }
-      window.history.replaceState({}, '', url.toString())
+
+    const params = new URLSearchParams(searchParams?.toString())
+    if (catId === 'all') {
+      params.delete('category')
+    } else {
+      params.set('category', catId)
     }
+    const query = params.toString()
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
   }
 
   const filteredProducts = initialProducts.filter((p) => {
@@ -163,7 +164,10 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
       </div>
 
       {/* Category Pills Filter (Kategori Butonları) */}
-      <div className="flex flex-wrap items-center justify-center gap-2.5 mb-10 relative z-20">
+      <div
+        className="flex flex-wrap items-center justify-center gap-2.5 mb-10 relative z-20"
+        aria-label="Ürün kategorileri"
+      >
         {categories.map((cat) => {
           const count = initialProducts.filter((p) => matchesCategory(p, cat.id)).length
           const isSelected = activeCategory === cat.id
@@ -172,7 +176,8 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
               key={cat.id}
               type="button"
               onClick={() => handleCategoryClick(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 ${
+              aria-pressed={isSelected}
+              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 ${
                 isSelected
                   ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30 scale-105 border border-sky-500 ring-2 ring-sky-400/30'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300'
@@ -186,7 +191,11 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
 
       {/* Product Cards Grid (3-Col Visual Cards) */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          aria-live="polite"
+          aria-label={`${filteredProducts.length} ürün gösteriliyor`}
+        >
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id || (product as any).slug}

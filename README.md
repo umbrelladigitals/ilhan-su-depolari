@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# İlhan Su Depoları
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Next.js ve Payload CMS tabanlı kurumsal web sitesi.
 
-Currently, two official plugins are available:
+## Gereksinimler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 20 veya üzeri
+- pnpm
 
-## React Compiler
+## Yerel geliştirme
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+pnpm install
+pnpm dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Uygulama varsayılan olarak `http://localhost:3000` adresinde açılır. Payload
+yönetim paneli `http://localhost:3000/admin` adresindedir.
+
+Yerel geliştirmede SQLite kullanılır ve veritabanı proje kökündeki
+`sudeposu.db` dosyasında tutulur. PostgreSQL kullanmak için `DATABASE_URI`
+ortam değişkenini geçerli bir PostgreSQL bağlantı adresi olarak tanımlayın.
+
+## Komutlar
+
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm start
+```

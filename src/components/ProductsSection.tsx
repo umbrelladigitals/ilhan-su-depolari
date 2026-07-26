@@ -46,7 +46,10 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
           </div>
 
           {/* Kategori Filtre Butonları */}
-          <div className="flex flex-wrap items-center gap-2 relative z-20">
+          <div
+            className="flex flex-wrap items-center gap-2 relative z-20"
+            aria-label="Ürün kategorileri"
+          >
             {categories.map((cat) => {
               const count = products.filter((p) => matchesCategory(p, cat.id)).length
               const isSelected = activeCategory === cat.id
@@ -55,7 +58,8 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                   key={cat.id}
                   type="button"
                   onClick={() => handleCategoryClick(cat.id)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 ${
+                  aria-pressed={isSelected}
+                  className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 ${
                     isSelected
                       ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30 scale-105 border border-sky-500 ring-2 ring-sky-400/30'
                       : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300'
@@ -70,7 +74,11 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
 
         {/* ─── Görsel Odaklı Büyük 3'lü Kart Izgarası ─── */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            aria-live="polite"
+            aria-label={`${filteredProducts.length} ürün gösteriliyor`}
+          >
             {filteredProducts.map((product) => (
               <ProductCard key={product.id || (product as any).slug} product={product} />
             ))}

@@ -29,6 +29,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     router.push(`/urunler/${product.id || (product as any).slug}`)
   }
 
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleCardClick()
+    }
+  }
+
   const handleWhatsAppOrder = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -39,7 +46,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div
       onClick={handleCardClick}
-      className="group relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-500 aspect-[3/4] bg-slate-900 flex flex-col justify-end cursor-pointer block select-none"
+      onKeyDown={handleCardKeyDown}
+      role="link"
+      tabIndex={0}
+      aria-label={`${product.name} ürün detaylarını görüntüle`}
+      className="group relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-500 aspect-[3/4] bg-slate-900 flex flex-col justify-end cursor-pointer block select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
     >
       {/* ─── Full Card Background Image (Visible on hover as well) ─── */}
       <img
