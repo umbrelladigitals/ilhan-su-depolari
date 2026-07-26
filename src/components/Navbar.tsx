@@ -177,35 +177,52 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                 Ana Sayfa
               </Link>
 
-              {/* Ürünlerimiz & Görsel MegaMenu */}
+              {/* Ürünlerimiz & Görsel MegaMenu (Hover & Click Tam Uyumlu) */}
               <div
-                className="relative group/products flex items-center"
+                className="relative group/products flex items-center py-1"
                 ref={productsRef}
                 onMouseEnter={() => setProductsMegaMenuOpen(true)}
+                onMouseLeave={() => setProductsMegaMenuOpen(false)}
               >
-                <Link
-                  href="/urunler"
-                  onClick={closeAllMenus}
-                  className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    isActive('/urunler') || productsMegaMenuOpen
-                      ? 'bg-white text-sky-700 shadow-sm font-extrabold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                <div className="flex items-center">
+                  <Link
+                    href="/urunler"
+                    onClick={closeAllMenus}
+                    className={`px-3 py-1.5 rounded-l-lg text-sm font-semibold transition-all cursor-pointer ${
+                      isActive('/urunler') || productsMegaMenuOpen
+                        ? 'bg-white text-sky-700 font-extrabold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    Ürünlerimiz
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => setProductsMegaMenuOpen(!productsMegaMenuOpen)}
+                    className={`px-2 py-1.5 rounded-r-lg text-sm font-semibold transition-all cursor-pointer ${
+                      isActive('/urunler') || productsMegaMenuOpen
+                        ? 'bg-white text-sky-700 shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        productsMegaMenuOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                {/* VISUAL MEGA MENU CONTAINER (pt-2 ile fare temasını kesmeyen sıfır boşluklu kaplama) */}
+                <div
+                  className={`absolute top-full -left-12 pt-2 w-[740px] z-50 transition-all duration-200 ${
+                    productsMegaMenuOpen
+                      ? 'opacity-100 visible translate-y-0'
+                      : 'opacity-0 invisible -translate-y-1 group-hover/products:opacity-100 group-hover/products:visible group-hover/products:translate-y-0'
                   }`}
                 >
-                  <span>Ürünlerimiz</span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      productsMegaMenuOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
-                    }`}
-                  />
-                </Link>
-
-                {/* VISUAL MEGA MENU CONTAINER */}
-                {productsMegaMenuOpen && (
-                  <div
-                    onMouseLeave={() => setProductsMegaMenuOpen(false)}
-                    className="absolute top-full -left-12 mt-2 w-[740px] bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 animate-fadeIn grid grid-cols-12 gap-6 z-50"
-                  >
+                  <div className="bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 grid grid-cols-12 gap-6">
                     {/* Left Column (8 cols): Category Grid */}
                     <div className="col-span-8 space-y-3">
                       <div className="flex justify-between items-center pb-2 border-b border-slate-100">
@@ -283,37 +300,54 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                       </Link>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
 
-              {/* Kurumsal Dropdown */}
+              {/* Kurumsal Dropdown (Hover & Click Tam Uyumlu) */}
               <div
-                className="relative group/corporate flex items-center"
+                className="relative group/corporate flex items-center py-1"
                 ref={corporateRef}
                 onMouseEnter={() => setCorporateDropdownOpen(true)}
+                onMouseLeave={() => setCorporateDropdownOpen(false)}
               >
-                <Link
-                  href="/kurumsal"
-                  onClick={closeAllMenus}
-                  className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    isActive('/kurumsal') || corporateDropdownOpen
-                      ? 'bg-white text-sky-700 shadow-sm font-extrabold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                <div className="flex items-center">
+                  <Link
+                    href="/kurumsal"
+                    onClick={closeAllMenus}
+                    className={`px-3 py-1.5 rounded-l-lg text-sm font-semibold transition-all cursor-pointer ${
+                      isActive('/kurumsal') || corporateDropdownOpen
+                        ? 'bg-white text-sky-700 font-extrabold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    Kurumsal
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => setCorporateDropdownOpen(!corporateDropdownOpen)}
+                    className={`px-2 py-1.5 rounded-r-lg text-sm font-semibold transition-all cursor-pointer ${
+                      isActive('/kurumsal') || corporateDropdownOpen
+                        ? 'bg-white text-sky-700 shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        corporateDropdownOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div
+                  className={`absolute top-full left-0 pt-2 w-56 z-50 transition-all duration-200 ${
+                    corporateDropdownOpen
+                      ? 'opacity-100 visible translate-y-0'
+                      : 'opacity-0 invisible -translate-y-1 group-hover/corporate:opacity-100 group-hover/corporate:visible group-hover/corporate:translate-y-0'
                   }`}
                 >
-                  <span>Kurumsal</span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      corporateDropdownOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
-                    }`}
-                  />
-                </Link>
-
-                {corporateDropdownOpen && (
-                  <div
-                    onMouseLeave={() => setCorporateDropdownOpen(false)}
-                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl p-2 shadow-xl border border-slate-200 animate-fadeIn space-y-1 z-50"
-                  >
+                  <div className="bg-white rounded-2xl p-2 shadow-xl border border-slate-200 space-y-1">
                     <Link
                       href="/kurumsal?tab=about"
                       onClick={closeAllMenus}
@@ -356,7 +390,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                       </div>
                     </Link>
                   </div>
-                )}
+                </div>
               </div>
 
               {/* SSS */}
@@ -424,7 +458,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Mobil Menü Aç/Kapat"
-                className="p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+                className="p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -451,7 +485,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                 <button
                   type="button"
                   onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                  className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between"
+                  className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between cursor-pointer"
                 >
                   <span className="text-sky-700 font-extrabold">Ürünlerimiz & Kategoriler</span>
                   <ChevronDown
@@ -497,7 +531,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                 <button
                   type="button"
                   onClick={() => setMobileCorporateOpen(!mobileCorporateOpen)}
-                  className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between"
+                  className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between cursor-pointer"
                 >
                   <span className="text-slate-800 font-extrabold">Kurumsal</span>
                   <ChevronDown

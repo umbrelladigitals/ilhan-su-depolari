@@ -71,19 +71,19 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   const searchParams = useSearchParams()
   const urlCategory = searchParams.get('category')
 
-  const [activeCategory, setActiveCategory] = useState<CategoryType>(
-    (urlCategory as CategoryType) || (initialCategory as CategoryType) || 'all'
-  )
+  // Selected category state updated directly by user clicks
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType | null>(null)
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // URL'deki ?category= parametresi değiştiğinde aktif kategoriyi güncelle
+  // Dynamically compute active category: selectedCategory takes precedence, then urlCategory, then initialCategory, then 'all'
+  const activeCategory = selectedCategory || (urlCategory as CategoryType) || (initialCategory as CategoryType) || 'all'
+
+  // Update selectedCategory if urlCategory changes externally
   useEffect(() => {
     if (urlCategory) {
-      setActiveCategory(urlCategory as CategoryType)
-    } else if (initialCategory) {
-      setActiveCategory(initialCategory as CategoryType)
+      setSelectedCategory(urlCategory as CategoryType)
     }
-  }, [urlCategory, initialCategory])
+  }, [urlCategory])
 
   const categories: { id: CategoryType; label: string }[] = [
     { id: 'all', label: 'Tüm Ürünler' },
@@ -94,7 +94,7 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
   ]
 
   const handleCategorySelect = (catId: CategoryType) => {
-    setActiveCategory(catId)
+    setSelectedCategory(catId)
     if (catId === 'all') {
       router.push('/urunler', { scroll: false })
     } else {
@@ -144,13 +144,14 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
       <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
         {categories.map((cat) => {
           const count = initialProducts.filter((p) => matchesCategory(p, cat.id)).length
+          const isSelected = activeCategory === cat.id
           return (
             <button
               key={cat.id}
               type="button"
               onClick={() => handleCategorySelect(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer ${
-                activeCategory === cat.id
+              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer relative z-10 ${
+                isSelected
                   ? 'bg-sky-600 text-white shadow-md shadow-sky-600/25 scale-105 border border-sky-500'
                   : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300'
               }`}
@@ -176,11 +177,12 @@ export const ProductsClient: React.FC<ProductsClientProps> = ({
           <h3 className="text-lg font-extrabold text-slate-800">Aramanıza uygun ürün bulunamadı.</h3>
           <p className="text-xs text-slate-500">Lütfen farklı bir kategori seçiniz veya arama terimini sıfırlayınız.</p>
           <button
+            type="button"
             onClick={() => {
               handleCategorySelect('all')
               setSearchQuery('')
             }}
-            className="btn-primary-sky px-5 py-2.5 text-xs font-extrabold"
+            className="btn-primary-sky px-5 py-2.5 text-xs font-extrabold cursor-pointer"
           >
             Tüm Ürünleri Göster
           </button>
