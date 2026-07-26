@@ -251,10 +251,10 @@ export const CorporateClient: React.FC<CorporateClientProps> = ({
                   <div className="pt-3 border-t border-slate-100 space-y-2">
                     <div className="text-[11px] font-bold text-slate-700">Gereksinimler:</div>
                     <ul className="space-y-1 text-[11px] text-slate-500">
-                      {job.requirements.map((req, i) => (
+                      {Array.isArray(job.requirements) && job.requirements.map((req: any, i: number) => (
                         <li key={i} className="flex items-center gap-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>{req}</span>
+                          <span>{typeof req === 'string' ? req : req?.requirement || String(req)}</span>
                         </li>
                       ))}
                     </ul>
