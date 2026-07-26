@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export interface HeroSlideItem {
-  id?: string
+  id?: string | number
   title: string
   subtitle: string
   badgeText?: string
