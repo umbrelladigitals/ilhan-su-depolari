@@ -65,7 +65,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
   const currentSlide = slides.length > 0 ? slides[currentIndex] : defaultSlide
 
   return (
-    <section className="relative min-h-[60dvh] sm:min-h-[70dvh] w-full flex items-center justify-center pt-6 sm:pt-10 pb-8 overflow-hidden bg-slate-100 border-b border-slate-200">
+    <section className="relative min-h-[100dvh] w-full flex items-center justify-center pt-24 sm:pt-28 pb-12 overflow-hidden bg-slate-100 border-b border-slate-200">
       {/* ─── Net Arka Plan (Görsel & Video Tamamen Görünür) ─── */}
       <div className="absolute inset-0 z-0" suppressHydrationWarning>
         {mounted ? (
