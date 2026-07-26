@@ -24,10 +24,14 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
     { id: 'submersible_pump', label: 'Dalgıç Pompa Sistemleri' },
   ]
 
+  const handleCategoryClick = (catId: CategoryType) => {
+    setActiveCategory(catId)
+  }
+
   const filteredProducts = products.filter((p) => matchesCategory(p, activeCategory))
 
   return (
-    <section id="products" className="section-padding bg-slate-50 relative border-b border-slate-200/60">
+    <section id="products" className="section-padding bg-slate-50 relative border-b border-slate-200/60 z-10">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4">
@@ -42,21 +46,22 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
           </div>
 
           {/* Kategori Filtre Butonları */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 relative z-20">
             {categories.map((cat) => {
               const count = products.filter((p) => matchesCategory(p, cat.id)).length
+              const isSelected = activeCategory === cat.id
               return (
                 <button
                   key={cat.id}
                   type="button"
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer ${
-                    activeCategory === cat.id
-                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/25 scale-105 border border-sky-500'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80'
+                  onClick={() => handleCategoryClick(cat.id)}
+                  className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer select-none relative z-20 ${
+                    isSelected
+                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30 scale-105 border border-sky-500 ring-2 ring-sky-400/30'
+                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300'
                   }`}
                 >
-                  {cat.label} <span className="opacity-75">({count})</span>
+                  {cat.label} <span className="opacity-80">({count})</span>
                 </button>
               )
             })}

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type { Product } from '../types'
 import { Check, Info, MessageSquare, ArrowUpRight } from 'lucide-react'
 
@@ -11,6 +11,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const router = useRouter()
+
   const categoryLabel = product.categoryName
     || (product.category === 'vertical_tank'  ? 'Dikey Su Deposu'
       : product.category === 'horizontal_tank' ? 'Yatay Su Deposu'
@@ -23,6 +25,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         ? rawCap : `${rawCap} Litre`)
     : null
 
+  const handleCardClick = () => {
+    router.push(`/urunler/${product.id || (product as any).slug}`)
+  }
+
   const handleWhatsAppOrder = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -31,9 +37,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   }
 
   return (
-    <Link
-      href={`/urunler/${product.id}`}
-      className="group relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-500 aspect-[3/4] bg-slate-900 flex flex-col justify-end cursor-pointer block"
+    <div
+      onClick={handleCardClick}
+      className="group relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-500 aspect-[3/4] bg-slate-900 flex flex-col justify-end cursor-pointer block select-none"
     >
       {/* ─── Full Card Background Image (Visible on hover as well) ─── */}
       <img
@@ -118,8 +124,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </span>
 
           <button
+            type="button"
             onClick={handleWhatsAppOrder}
-            className="py-2.5 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs transition-all flex items-center justify-center gap-1 shadow-sm shrink-0"
+            className="py-2.5 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs transition-all flex items-center justify-center gap-1 shadow-sm shrink-0 cursor-pointer"
             title="WhatsApp Sipariş"
           >
             <MessageSquare className="w-4 h-4 fill-current" />
@@ -128,6 +135,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
       </div>
-    </Link>
+    </div>
   )
 }
