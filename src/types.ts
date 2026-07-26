@@ -37,13 +37,13 @@ export interface CartItem {
 }
 
 export interface JobPosition {
-  id: string;
+  id: string | number;
   title: string;
   department: string;
   location: string;
   type: string;
   description: string;
-  requirements: string[];
+  requirements?: string[] | any;
 }
 
 export type OrderStatusStep = 'placed' | 'production' | 'quality' | 'shipping' | 'delivered';
