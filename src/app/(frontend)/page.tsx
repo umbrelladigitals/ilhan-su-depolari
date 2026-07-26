@@ -5,7 +5,6 @@ import { getProducts, getHeroSlides, getSiteSettings, getFaqs } from '@/lib/payl
 import { HeroSection } from '@/components/HeroSection'
 import { ProductsSection } from '@/components/ProductsSection'
 import { AboutSection } from '@/components/AboutSection'
-import { CalculatorSection } from '@/components/CalculatorSection'
 import { FaqSection } from '@/components/FaqSection'
 import { ContactSection } from '@/components/ContactSection'
 
@@ -50,13 +49,10 @@ export default async function HomePage() {
       {/* 3. About / Corporate Overview */}
       <AboutSection siteSettings={siteSettings} />
 
-      {/* 4. Tank Capacity Calculator Section */}
-      <CalculatorSection siteSettings={siteSettings} />
-
-      {/* 5. Frequently Asked Questions Section */}
+      {/* 4. Frequently Asked Questions Section */}
       <FaqSection faqs={faqs} siteSettings={siteSettings} />
 
-      {/* 6. Contact & Location Section */}
+      {/* 5. Contact & Location Section */}
       <ContactSection siteSettings={siteSettings} />
     </div>
   )
