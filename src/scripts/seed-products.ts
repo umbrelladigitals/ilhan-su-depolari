@@ -9,7 +9,7 @@ async function seedProducts() {
 
     // 1. Kategorileri al veya oluştur
     let categoriesRes = await payload.find({ collection: 'categories' })
-    let catMap: Record<string, string> = {}
+    let catMap: Record<string, any> = {}
 
     for (const cat of categoriesRes.docs) {
       catMap[cat.slug] = cat.id
