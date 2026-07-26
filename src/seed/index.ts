@@ -29,7 +29,6 @@ export async function seedPayload() {
         data: {
           siteName: 'İlhan Su Depoları',
           phone: '0312 543 1358',
-          whatsappNumber: '903125431358',
           email: 'info@ilhansudepolari.com',
           address: 'Atakent Mahallesi 1471 Sokak No:1/1 Etimesgut / Ankara',
           workingHours: 'PZT - CUM: 09:00 - 18:00',
@@ -40,7 +39,7 @@ export async function seedPayload() {
             facebook: 'https://facebook.com/ilhansudepolari',
             youtube: 'https://youtube.com/ilhansudepolari',
           },
-        },
+        } as any,
       })
     } catch (e) {
       console.warn('Site Settings update warn:', e)
@@ -192,7 +191,7 @@ export async function seedPayload() {
         {
           question: 'Polietilen su depoları kokma veya tat değişimi yapar mı?',
           answer: 'Hayır, İlhan Su Depoları ürünleri %100 orijinal food-grade (gıda tüzüğüne uygun) LLDPE polietilenden imal edilmektedir. İçerisindeki su kokmaz, tat değiştirmez ve yosun tutmaz.',
-          category: 'teknik' as const,
+          category: 'genel' as const,
         },
         {
           question: 'Depo teslimatları nasıl yapılıyor?',
@@ -213,7 +212,7 @@ export async function seedPayload() {
       for (const f of faqs) {
         await payload.create({
           collection: 'faqs',
-          data: f,
+          data: f as any,
         })
       }
     }
