@@ -39,10 +39,10 @@ export interface CartItem {
 export interface JobPosition {
   id: string | number;
   title: string;
-  department: string;
-  location: string;
-  type: string;
-  description: string;
+  department?: string | null;
+  location?: string | null;
+  type?: string | null;
+  description?: string | null;
   requirements?: string[] | any;
 }
 
