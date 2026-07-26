@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Plus, Minus, HelpCircle, MessageSquare } from 'lucide-react'
 
 interface FaqClientProps {
-  initialFaqs: { id: string | number; question: string; answer: string; category?: string }[]
+  initialFaqs: { id: string | number; question: string; answer: string; category?: string | null }[]
 }
 
 export const FaqClient: React.FC<FaqClientProps> = ({ initialFaqs }) => {
