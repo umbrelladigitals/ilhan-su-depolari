@@ -2,15 +2,27 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { PRODUCTS } from '@/data/products'
 
-// 1. Hero Slaytlarını Getir
+// 1. Site Ayarlarını Getir (Header, Footer, İletişim vs.)
+export async function getSiteSettings() {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const settings = await payload.findGlobal({
+      slug: 'site-settings',
+    })
+    return settings
+  } catch (error) {
+    console.error('getSiteSettings hatası:', error)
+    return null
+  }
+}
+
+// 2. Hero Slaytlarını Getir
 export async function getHeroSlides() {
   try {
     const payload = await getPayload({ config: configPromise })
     const result = await payload.find({
       collection: 'hero-slides',
-      where: {
-        isActive: { equals: true },
-      },
+      where: { isActive: { equals: true } },
       sort: 'order',
     })
     return result.docs || []
@@ -20,36 +32,15 @@ export async function getHeroSlides() {
   }
 }
 
-// 2. Genel Site Ayarlarını Getir
-export async function getSiteSettings() {
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const settings = await payload.findGlobal({ slug: 'site-settings' })
-    return settings
-  } catch (error) {
-    console.error('getSiteSettings hatası:', error)
-    return null
-  }
-}
-
-// 3. Ürünleri Getir (Veritabanı + Static Fallback Eşitlemeli)
+// 3. Ürünleri Getir (Kategoriye göre filtrelenebilir, Fallback ile tam uyumlu)
 export async function getProducts(categorySlug?: string) {
   try {
     const payload = await getPayload({ config: configPromise })
-    const query: any = {
-      collection: 'products',
-      limit: 100,
-    }
+    let query: any = { collection: 'products', limit: 100 }
 
     if (categorySlug && categorySlug !== 'all') {
-      const categoryRes = await payload.find({
-        collection: 'categories',
-        where: { slug: { equals: categorySlug } },
-      })
-      if (categoryRes.docs.length > 0) {
-        query.where = {
-          category: { equals: categoryRes.docs[0].id },
-        }
+      query.where = {
+        'category.slug': { equals: categorySlug },
       }
     }
 
@@ -64,8 +55,8 @@ export async function getProducts(categorySlug?: string) {
       startingPrice: doc.startingPrice || (doc.price ? `${doc.price.toLocaleString('tr-TR')} ₺` : 'Fiyat Alınız'),
     }))
 
-    const dbSlugs = new Set(dbProducts.map((p: any) => p.id || p.slug))
-    const missingStaticProducts = PRODUCTS.filter((p) => !dbSlugs.has(p.id) && !dbSlugs.has(p.slug))
+    const dbSlugs = new Set(dbProducts.map((p: any) => p.id || (p as any).slug))
+    const missingStaticProducts = PRODUCTS.filter((p) => !dbSlugs.has(p.id) && !dbSlugs.has((p as any).slug))
 
     const allCombined = [...dbProducts, ...missingStaticProducts]
 
@@ -121,13 +112,13 @@ export async function getProductBySlug(slugOrId: string) {
 
     // 3. Fallback: Static PRODUCTS listesinde id veya slug eşleştir
     const fallback = PRODUCTS.find(
-      (p) => String(p.id) === String(slugOrId) || p.slug === slugOrId
+      (p) => String(p.id) === String(slugOrId) || (p as any).slug === slugOrId
     )
     return fallback || null
   } catch (error) {
     console.error('getProductBySlug hatası:', error)
     const fallback = PRODUCTS.find(
-      (p) => String(p.id) === String(slugOrId) || p.slug === slugOrId
+      (p) => String(p.id) === String(slugOrId) || (p as any).slug === slugOrId
     )
     return fallback || null
   }
