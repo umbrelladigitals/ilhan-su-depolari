@@ -17,8 +17,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const phoneDisplay = (siteSettings as any)?.phone || '0312 543 1358'
 
   return (
-    <html lang="tr">
-      <body className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+    <html lang="tr" suppressHydrationWarning>
+      <body className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between selection:bg-sky-500 selection:text-white" suppressHydrationWarning>
         <Navbar siteSettings={siteSettings} />
         <main className="flex-grow">{children}</main>
         <Footer siteSettings={siteSettings} />

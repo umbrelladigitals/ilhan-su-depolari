@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
   return (
     <>
       {/* ─── 1. Top Announcement Bar (Orijinal Üst Bar) ─── */}
-      <div className="bg-slate-900 text-white text-xs py-2 px-4 relative z-50">
+      <div suppressHydrationWarning className="bg-slate-900 text-white text-xs py-2 px-4 relative z-50">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -149,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <nav className="glass-header-light pointer-events-auto rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl border border-slate-200/90">
+          <nav suppressHydrationWarning className="glass-header-light pointer-events-auto rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl border border-slate-200/90">
             {/* Logo */}
             <Link href="/" onClick={closeAllMenus} className="flex items-center gap-3 cursor-pointer group">
               <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
