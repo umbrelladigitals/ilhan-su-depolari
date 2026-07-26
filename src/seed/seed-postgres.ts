@@ -2,7 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '../payload.config'
 
 async function seedPostgres() {
-  console.log('🌱 PostgreSQL Veritabanı Seed Ediliyor...')
+  console.log('🌱 PostgreSQL Veritabanı Seed İşlemi Başlatılıyor...')
   const payload = await getPayload({ config: configPromise })
 
   // 1. Admin Kullanıcısı
@@ -13,55 +13,15 @@ async function seedPostgres() {
       data: {
         email: 'admin@ilhansudepolari.com',
         password: 'Admin123456!',
-        name: 'İlhan Su Depoları Yönetici',
-        role: 'admin',
       },
     })
-    console.log('✅ Admin kullanıcısı oluşturuldu: admin@ilhansudepolari.com')
+    console.log('✅ Admin kullanıcısı oluşturuldu.')
   }
 
-  // 2. Hero Slaytları
-  const heroSlidesData = [
-    {
-      title: 'Yüksek Kaliteli Su Depolama Çözümleri',
-      subtitle: 'Polietilen Dikey, Yatay ve Paslanmaz Modüler Su Depolarında 25 Yıllık Sanayi Tecrübesi',
-      badgeText: 'Ankara Fabrika Teslimi & Ücretsiz Keşif',
-      bgType: 'video',
-      bgMediaUrl: '/videos/hero_video.mp4',
-      primaryButtonText: 'Ürünlerimizi İnceleyin',
-      primaryButtonLink: '/urunler',
-      whatsappButtonText: 'WhatsApp ile Hızlı Fiyat Al',
-      whatsappCustomMessage: 'Merhaba, su depoları fiyatları ve özellikleri hakkında detaylı bilgi almak istiyorum.',
-      order: 1,
-      isActive: true,
-    },
-    {
-      title: 'Paslanmaz Modüler Depo Teknolojisi',
-      subtitle: 'Bina içi dar alanlar ve şantiyeler için yerinde montaj yapılabilen 304/316 kalite hijyenik su depoları.',
-      badgeText: 'Gıda Sınıfı & 10 Yıl Garanti',
-      bgType: 'image',
-      bgMediaUrl: '/images/hero_bg.jpg',
-      primaryButtonText: 'Modüler Depoları Görün',
-      primaryButtonLink: '/urunler?category=paslanmaz-moduler-depolar',
-      whatsappButtonText: 'Teklif Alın',
-      whatsappCustomMessage: 'Merhaba, paslanmaz modüler su deposu teklifi almak istiyorum.',
-      order: 2,
-      isActive: true,
-    },
-  ]
-
-  for (const slide of heroSlidesData) {
-    const existing = await payload.find({ collection: 'hero-slides', where: { title: { equals: slide.title } } })
-    if (existing.docs.length === 0) {
-      await payload.create({ collection: 'hero-slides', data: slide as any })
-    }
-  }
-  console.log('✅ Hero Slaytları eklendi.')
-
-  // 3. SSS (FAQs)
+  // 2. SSS (FAQs)
   const faqsData = [
     {
-      question: 'Polietilen su depoları koku veya su lezzeti bozması yapar mı?',
+      question: 'Polietilen su depoları kokma veya insan sağlığına zarar verme riski taşır mı?',
       answer: 'Hayır. Depolarımız T.C. Sağlık Bakanlığı onaylı, %100 gıda sınıfı LLDPE hammaddeden imal edilmektedir. Bakteri üretmez, kokusuzdur ve su kalitesini etkilemez.',
       order: 1,
       isPublished: true,
@@ -102,11 +62,11 @@ async function seedPostgres() {
     { name: 'Yeraltı Depoları', slug: 'yeralti-depolari', description: 'Toprak altı kullanımına uygun takviyeli özel tasarım su depoları.', icon: 'Shield' },
   ]
 
-  const createdCategories: Record<string, string> = {}
+  const createdCategories: Record<string, any> = {}
   for (const cat of categoriesData) {
     const existing = await payload.find({ collection: 'categories', where: { slug: { equals: cat.slug } } })
     if (existing.docs.length === 0) {
-      const doc = await payload.create({ collection: 'categories', data: cat })
+      const doc: any = await payload.create({ collection: 'categories', data: cat as any })
       createdCategories[cat.slug] = doc.id
     } else {
       createdCategories[cat.slug] = existing.docs[0].id
@@ -169,7 +129,7 @@ async function seedPostgres() {
   for (const prod of productsData) {
     const existing = await payload.find({ collection: 'products', where: { slug: { equals: prod.slug } } })
     if (existing.docs.length === 0) {
-      await payload.create({ collection: 'products', data: prod })
+      await payload.create({ collection: 'products', data: prod as any })
     }
   }
   console.log('✅ Ürünler eklendi/doğrulandı.')
@@ -195,7 +155,7 @@ async function seedPostgres() {
       siteMetaTitle: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Depolar',
       siteMetaDescription: 'Ankara su deposu üreticisi İlhan Su Depoları. Polietilen dikey, yatay ve paslanmaz modüler su depoları uygun fiyat ve garantiyle.',
       siteMetaKeywords: 'su deposu, ankara su deposu, polietilen su deposu, paslanmaz modüler depo',
-    },
+    } as any,
   })
   console.log('✅ Site Settings ve SEO verileri güncellendi.')
 
