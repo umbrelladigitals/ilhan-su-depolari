@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getJobPositions } from '@/lib/payload'
+import { getJobPositions, getSiteSettings } from '@/lib/payload'
 import { CorporateClient } from './CorporateClient'
 
 export const metadata: Metadata = {
@@ -16,12 +16,15 @@ export default async function CorporatePage({
   searchParams: Promise<{ tab?: string }>
 }) {
   const { tab } = await searchParams
-  const initialJobs = await getJobPositions()
+  const [initialJobs, siteSettings] = await Promise.all([
+    getJobPositions(),
+    getSiteSettings(),
+  ])
 
   return (
     <div className="page-wrapper bg-white">
       <div className="container-custom">
-        <CorporateClient initialTab={tab || 'about'} initialJobs={initialJobs} />
+        <CorporateClient initialTab={tab || 'about'} initialJobs={initialJobs} siteSettings={siteSettings} />
       </div>
     </div>
   )

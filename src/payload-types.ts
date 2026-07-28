@@ -75,6 +75,7 @@ export interface Config {
     faqs: Faq;
     users: User;
     media: Media;
+    blogs: Blog;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +91,7 @@ export interface Config {
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    blogs: BlogsSelect<false> | BlogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -350,6 +352,47 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs".
+ */
+export interface Blog {
+  id: number;
+  title: string;
+  slug: string;
+  summary: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image?: string | null;
+  author?: (number | null) | User;
+  publishedAt?: string | null;
+  isActive?: boolean | null;
+  readTime?: string | null;
+  category?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -403,6 +446,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'blogs';
+        value: number | Blog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -636,6 +683,31 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs_select".
+ */
+export interface BlogsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  summary?: T;
+  content?: T;
+  image?: T;
+  author?: T;
+  publishedAt?: T;
+  isActive?: T;
+  readTime?: T;
+  category?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -681,13 +753,25 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: number;
   siteName?: string | null;
+  lightLogo?: string | null;
+  darkLogo?: string | null;
   phone?: string | null;
   whatsapp?: string | null;
   email?: string | null;
   address?: string | null;
   workingHours?: string | null;
+  announcementBarText?: string | null;
   googleMapsEmbedUrl?: string | null;
   footerText?: string | null;
+  headerLogoText?: string | null;
+  headerLogoSubtext?: string | null;
+  navHomeText?: string | null;
+  navProductsText?: string | null;
+  navCorporateText?: string | null;
+  navBlogText?: string | null;
+  navFaqText?: string | null;
+  navContactText?: string | null;
+  whatsappBtnText?: string | null;
   aboutTitle?: string | null;
   aboutDescription?: string | null;
   statExperience?: string | null;
@@ -715,13 +799,25 @@ export interface SiteSetting {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
+  lightLogo?: T;
+  darkLogo?: T;
   phone?: T;
   whatsapp?: T;
   email?: T;
   address?: T;
   workingHours?: T;
+  announcementBarText?: T;
   googleMapsEmbedUrl?: T;
   footerText?: T;
+  headerLogoText?: T;
+  headerLogoSubtext?: T;
+  navHomeText?: T;
+  navProductsText?: T;
+  navCorporateText?: T;
+  navBlogText?: T;
+  navFaqText?: T;
+  navContactText?: T;
+  whatsappBtnText?: T;
   aboutTitle?: T;
   aboutDescription?: T;
   statExperience?: T;

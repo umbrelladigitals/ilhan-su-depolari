@@ -140,7 +140,7 @@ async function seedPostgres() {
     data: {
       siteName: 'İlhan Su Depoları',
       phone: '0312 543 1358',
-      whatsapp: '903125431358',
+      whatsapp: '+905412401119',
       email: 'info@ilhansudepolari.com',
       address: 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara',
       workingHours: 'Pazartesi - Cumartesi: 08:30 - 18:30',

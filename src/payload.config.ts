@@ -16,6 +16,7 @@ import { Orders } from './payload/collections/Orders'
 import { JobPositions } from './payload/collections/JobPositions'
 import { Faqs } from './payload/collections/Faqs'
 import { HeroSlides } from './payload/collections/HeroSlides'
+import { Blogs } from './payload/collections/Blogs'
 
 import { SiteSettings } from './payload/globals/SiteSettings'
 
@@ -61,13 +62,14 @@ export default buildConfig({
     Faqs,
     Users,
     Media,
+    Blogs,
   ],
   globals: [
     SiteSettings,
   ],
   plugins: [
     seoPlugin({
-      collections: ['products'],
+      collections: ['products', 'blogs'],
       globals: ['site-settings'],
       uploadsCollection: 'media',
       generateTitle: ({ doc }: any) => `${doc?.name || doc?.siteName || 'İlhan Su Depoları'} — Su Depolama Teknolojileri`,

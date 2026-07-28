@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react'
 import { Plus, Minus, HelpCircle, MessageSquare } from 'lucide-react'
+import { getWhatsAppUrl } from '@/lib/whatsapp'
 
 interface FaqClientProps {
   initialFaqs: { id: string | number; question: string; answer: string; category?: string | null }[]
+  siteSettings?: any
 }
 
-export const FaqClient: React.FC<FaqClientProps> = ({ initialFaqs }) => {
+export const FaqClient: React.FC<FaqClientProps> = ({ initialFaqs, siteSettings }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
@@ -64,7 +66,7 @@ export const FaqClient: React.FC<FaqClientProps> = ({ initialFaqs }) => {
           <p className="text-xs text-slate-600 mt-0.5">Müşteri temsilcimiz WhatsApp üzerinden sorularınızı anında yanıtlar.</p>
         </div>
         <a
-          href="https://wa.me/903125431358?text=Merhaba,%20su%20depoları%20ve%20pompalar%20hakkında%20sorum%20var."
+          href={getWhatsAppUrl(siteSettings?.whatsapp, 'Merhaba, su depoları ve pompalar hakkında sorum var.')}
           target="_blank"
           rel="noreferrer"
           className="btn-emerald-whatsapp px-5 py-3 text-xs flex items-center justify-center gap-2 shrink-0"

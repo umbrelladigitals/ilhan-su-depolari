@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Calculator, ArrowRight, Droplets } from 'lucide-react'
+import { getWhatsAppUrl } from '../lib/whatsapp'
 
 interface CalculatorSectionProps {
   onOrderCapacity?: (capacityStr: string) => void
@@ -15,7 +16,7 @@ export const CalculatorSection: React.FC<CalculatorSectionProps> = ({ onOrderCap
 
   const title = siteSettings?.calculatorTitle || 'İhtiyacınıza Uygun Depo Hacmini Hesaplayın'
   const subtitle = siteSettings?.calculatorSubtitle || 'Kişi sayısı, kullanım amacı ve istediğiniz yedekleme süresine göre ideal su deposu kapasitenizi otomatik belirleyin.'
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
+  const whatsappNumber = siteSettings?.whatsapp
 
   const consumptionMap: Record<string, number> = {
     residential: 150,
@@ -46,7 +47,7 @@ export const CalculatorSection: React.FC<CalculatorSectionProps> = ({ onOrderCap
       onOrderCapacity(capacityStr)
     } else {
       const text = `Merhaba İlhan Su Depoları, Depo Kapasite Hesaplama Aracı üzerinden teklif almak istiyorum:\n- *Hesaplanan İhtiyaç:* ${capacityStr}\n- *Tavsiye Edilen Depo:* ${getRecommendedTank(calculatedLiters)}\n- *Kullanım Alanı:* ${usageType}\n- *Kişi Sayısı:* ${people} Kişi\n- *Yedekleme:* ${reserveDays} Gün`
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank')
+      window.open(getWhatsAppUrl(whatsappNumber, text), '_blank')
     }
   }
 

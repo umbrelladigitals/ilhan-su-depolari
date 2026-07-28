@@ -10,7 +10,7 @@ interface AboutSectionProps {
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ siteSettings }) => {
   const title = siteSettings?.aboutTitle || '25 Yıllık Sanayi Tecrübesiyle Güvenli Su Depolama'
-  const description = siteSettings?.aboutDescription || 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Ostim sanayisinde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.'
+  const description = siteSettings?.aboutDescription || 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.'
   const statExperience = siteSettings?.statExperience || '25+'
   const statTanks = siteSettings?.statTanksProduced || '15.000+'
   const statSatisfaction = siteSettings?.statSatisfaction || '%99.8'

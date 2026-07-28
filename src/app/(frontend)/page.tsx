@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { getProducts, getHeroSlides, getSiteSettings, getFaqs } from '@/lib/payload'
+import { getProducts, getHeroSlides, getSiteSettings, getFaqs, getBlogs } from '@/lib/payload'
 import { HeroSection } from '@/components/HeroSection'
 import { ProductsSection } from '@/components/ProductsSection'
 import { AboutSection } from '@/components/AboutSection'
+import { BlogSection } from '@/components/BlogSection'
 import { FaqSection } from '@/components/FaqSection'
 import { ContactSection } from '@/components/ContactSection'
 
@@ -31,11 +32,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [slides, siteSettings, products, faqs] = await Promise.all([
+  const [slides, siteSettings, products, faqs, blogs] = await Promise.all([
     getHeroSlides(),
     getSiteSettings(),
     getProducts('all'),
     getFaqs(),
+    getBlogs(3),
   ])
 
   return (
@@ -49,10 +51,13 @@ export default async function HomePage() {
       {/* 3. About / Corporate Overview */}
       <AboutSection siteSettings={siteSettings} />
 
-      {/* 4. Frequently Asked Questions Section */}
+      {/* 4. Blog & Articles Section */}
+      <BlogSection blogs={blogs} />
+
+      {/* 5. Frequently Asked Questions Section */}
       <FaqSection faqs={faqs} siteSettings={siteSettings} />
 
-      {/* 5. Contact & Location Section */}
+      {/* 6. Contact & Location Section */}
       <ContactSection siteSettings={siteSettings} />
     </div>
   )

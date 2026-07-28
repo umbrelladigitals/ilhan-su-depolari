@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import type { Product } from '../types'
 import { Check, Info, MessageSquare, ArrowUpRight } from 'lucide-react'
 
+import { getWhatsAppUrl } from '../lib/whatsapp'
+
 interface ProductCardProps {
   product: Product
   onAddToCart?: (product: Product, quantity: number, capacity: string) => void
@@ -40,7 +42,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     e.preventDefault()
     e.stopPropagation()
     const text = `Merhaba İlhan Su Depoları, Sipariş Vermek İstiyorum:\n- *Ürün:* ${product.name}\n- *Kategori:* ${categoryLabel}\n- *Fiyat:* ${product.startingPrice || 'Teklif Alın'}\n\nStok ve teslimat hakkında bilgi alabilir miyim?`
-    window.open(`https://wa.me/903125431358?text=${encodeURIComponent(text)}`, '_blank')
+    window.open(getWhatsAppUrl(undefined, text), '_blank')
   }
 
   return (

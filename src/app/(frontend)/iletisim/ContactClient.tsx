@@ -3,7 +3,13 @@
 import React, { useState } from 'react'
 import { MapPin, Phone, MessageSquare, Send, CheckCircle2, Clock } from 'lucide-react'
 
-export const ContactClient: React.FC = () => {
+import { getWhatsAppUrl, formatWhatsAppDisplay } from '@/lib/whatsapp'
+
+interface ContactClientProps {
+  siteSettings?: any
+}
+
+export const ContactClient: React.FC<ContactClientProps> = ({ siteSettings }) => {
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
@@ -12,6 +18,10 @@ export const ContactClient: React.FC = () => {
   })
 
   const [submitted, setSubmitted] = useState(false)
+
+  const phoneDisplay = siteSettings?.phone || '0312 543 1358'
+  const addressDisplay = siteSettings?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
+  const workingHoursDisplay = siteSettings?.workingHours || 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı'
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,7 +34,7 @@ export const ContactClient: React.FC = () => {
 
   const openWhatsAppContact = () => {
     const text = `Merhaba İlhan Su Depoları, İletişim sayfasından yazıyorum:\n- *İsim:* ${formState.name}\n- *Telefon:* ${formState.phone}\n- *Konu:* ${formState.subject}\n- *Mesaj:* ${formState.message}`
-    window.open(`https://wa.me/903125431358?text=${encodeURIComponent(text)}`, '_blank')
+    window.open(getWhatsAppUrl(siteSettings?.whatsapp, text), '_blank')
   }
 
   return (
@@ -40,7 +50,7 @@ export const ContactClient: React.FC = () => {
           Bizimle İletişime Geçin
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Ofis ve depolarımızı ziyaret edebilir veya 0312 543 1358 hattımız üzerinden teklif alabilirsiniz.
+          Ofis ve depolarımızı ziyaret edebilir veya {phoneDisplay} hattımız üzerinden teklif alabilirsiniz.
         </p>
       </div>
 
@@ -55,7 +65,7 @@ export const ContactClient: React.FC = () => {
             <div>
               <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Adresimiz</h4>
               <p className="text-xs text-slate-700 font-medium mt-1 leading-relaxed">
-                Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara
+                {addressDisplay}
               </p>
             </div>
           </div>
@@ -66,9 +76,9 @@ export const ContactClient: React.FC = () => {
               <Phone className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Telefon / Satış Hattı</h4>
-              <a href="tel:03125431358" className="text-xs text-sky-700 font-extrabold mt-1 block hover:underline">
-                0312 543 1358
+              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Telefon / Fax</h4>
+              <a href={`tel:${phoneDisplay.replace(/\s+/g, '')}`} className="text-xs text-sky-700 font-extrabold mt-1 block hover:underline">
+                {phoneDisplay}
               </a>
               <p className="text-[11px] text-slate-500 mt-0.5">Sipariş, bilgi ve teklif hattı</p>
             </div>
@@ -81,7 +91,7 @@ export const ContactClient: React.FC = () => {
             </div>
             <div>
               <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Çalışma Saatleri</h4>
-              <p className="text-xs text-slate-800 font-semibold mt-1">Pazartesi - Cumartesi: 08:30 - 18:30</p>
+              <p className="text-xs text-slate-800 font-semibold mt-1">{workingHoursDisplay}</p>
             </div>
           </div>
 
@@ -93,12 +103,12 @@ export const ContactClient: React.FC = () => {
             <div>
               <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">WhatsApp Canlı Destek</h4>
               <a
-                href="https://wa.me/903125431358?text=Merhaba,%20su%20depoları%20ve%20pompaları%20hakkında%20bilgi%20almak%20istiyorum."
+                href={getWhatsAppUrl(siteSettings?.whatsapp, 'Merhaba, su depoları ve pompaları hakkında bilgi almak istiyorum.')}
                 target="_blank"
                 rel="noreferrer"
                 className="text-xs text-emerald-700 font-extrabold mt-1 block hover:underline"
               >
-                0312 543 1358 (Anında Yanıt)
+                {formatWhatsAppDisplay(siteSettings?.whatsapp)} (Anında Yanıt)
               </a>
             </div>
           </div>
@@ -131,7 +141,7 @@ export const ContactClient: React.FC = () => {
                         type="text"
                         value={formState.phone}
                         onChange={e => setFormState({ ...formState, phone: e.target.value })}
-                        placeholder="0312 543 1358"
+                        placeholder={phoneDisplay}
                         className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs input-focus"
                       />
                     </div>
@@ -156,7 +166,7 @@ export const ContactClient: React.FC = () => {
                       rows={4}
                       value={formState.message}
                       onChange={e => setFormState({ ...formState, message: e.target.value })}
-                      placeholder="Hangi depo tipi veya pompa hakkında bilgi almak istiyorsunuz?"
+                      placeholder="Hangi depo tipi hakkında bilgi almak istiyorsunuz?"
                       className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs input-focus"
                     />
                   </div>

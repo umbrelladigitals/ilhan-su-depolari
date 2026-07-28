@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { CategoryType } from '../types'
+import { Logo } from './Logo'
+import { getWhatsAppUrl } from '../lib/whatsapp'
 import {
-  Droplets,
   Menu,
   X,
   MessageSquare,
@@ -74,9 +75,19 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
   const corporateRef = useRef<HTMLDivElement>(null)
   const productsRef = useRef<HTMLDivElement>(null)
 
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
+  // Dinamik Admin Panel Ayarları (Payload CMS Globals)
+  const whatsappNumber = siteSettings?.whatsapp
   const phoneDisplay = siteSettings?.phone || '0312 543 1358'
   const siteName = siteSettings?.siteName || 'İlhan Su Depoları'
+  const announcementText = siteSettings?.announcementBarText || `${siteName} — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat`
+
+  const navHomeText = siteSettings?.navHomeText || 'Ana Sayfa'
+  const navProductsText = siteSettings?.navProductsText || 'Ürünlerimiz'
+  const navCorporateText = siteSettings?.navCorporateText || 'Kurumsal'
+  const navBlogText = siteSettings?.navBlogText || 'Blog'
+  const navFaqText = siteSettings?.navFaqText || 'SSS'
+  const navContactText = siteSettings?.navContactText || 'İletişim'
+  const whatsappBtnText = siteSettings?.whatsappBtnText || 'WHATSAPP TEKLİF AL'
 
   useEffect(() => {
     setMounted(true)
@@ -120,17 +131,17 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
   return (
     <>
-      {/* ─── 1. Top Announcement Bar (Orijinal Üst Bar) ─── */}
+      {/* ─── 1. Top Announcement Bar (Üst Duyuru Bandı) ─── */}
       <div suppressHydrationWarning className="bg-slate-900 text-white text-xs py-2 px-4 relative z-50">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-semibold text-slate-200">
-              {siteName} — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat
+              {announcementText}
             </span>
           </div>
           <a
-            href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20ürünleri%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum.`}
+            href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları ürünleri hakkında bilgi ve fiyat almak istiyorum.')}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 text-emerald-400 font-bold hover:underline"
@@ -141,46 +152,34 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
         </div>
       </div>
 
-      {/* ─── 2. Floating Island Header (Yüzen Ada Header - Pointer Events Pass-Through) ─── */}
+      {/* ─── 2. Floating Island Header ─── */}
       <header
         suppressHydrationWarning
         className={`fixed left-0 right-0 z-50 pointer-events-none transition-all duration-300 ${
           mounted && scrolled ? 'top-3' : 'top-10'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <nav suppressHydrationWarning className="glass-header-light pointer-events-auto rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xl border border-slate-200/90">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
+          <nav suppressHydrationWarning className="glass-header-light pointer-events-auto rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between shadow-xl border border-slate-200/90 bg-white/95 backdrop-blur-md">
             {/* Logo */}
-            <Link href="/" onClick={closeAllMenus} className="flex items-center gap-3 cursor-pointer group">
-              <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                <Droplets className="w-6 h-6" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-display font-extrabold tracking-tight text-slate-900">
-                  İLHAN <span className="text-sky-600">SU DEPOLARI</span>
-                </span>
-                <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase hidden sm:block">
-                  Depo & Pompa Sistemleri
-                </span>
-              </div>
-            </Link>
+            <Logo siteSettings={siteSettings} variant="light" onClick={closeAllMenus} imageClassName="h-9 sm:h-11 w-auto object-contain" />
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200">
+            {/* Desktop & Tablet Navigation Links (md:flex ile ekran genişliğinde her zaman görünür) */}
+            <div className="hidden md:flex items-center gap-1 bg-slate-100/90 p-1.5 rounded-xl border border-slate-200">
               {/* Ana Sayfa */}
               <Link
                 href="/"
                 onClick={closeAllMenus}
-                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                className={`px-3 lg:px-4 py-1.5 rounded-lg text-xs lg:text-sm font-semibold transition-all ${
                   isActive('/', true)
                     ? 'bg-white text-sky-700 shadow-sm font-extrabold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
-                Ana Sayfa
+                {navHomeText}
               </Link>
 
-              {/* Ürünlerimiz & Görsel MegaMenu (Hover & Click Tam Uyumlu) */}
+              {/* Ürünlerimiz & MegaMenu */}
               <div
                 className="relative group/products flex items-center py-1"
                 ref={productsRef}
@@ -191,46 +190,45 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   <Link
                     href="/urunler"
                     onClick={closeAllMenus}
-                    className={`px-3 py-1.5 rounded-l-lg text-sm font-semibold transition-all cursor-pointer ${
+                    className={`px-2.5 lg:px-3 py-1.5 rounded-l-lg text-xs lg:text-sm font-semibold transition-all cursor-pointer ${
                       isActive('/urunler') || productsMegaMenuOpen
                         ? 'bg-white text-sky-700 font-extrabold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                     }`}
                   >
-                    Ürünlerimiz
+                    {navProductsText}
                   </Link>
 
                   <button
                     type="button"
                     onClick={() => setProductsMegaMenuOpen(!productsMegaMenuOpen)}
-                    className={`px-2 py-1.5 rounded-r-lg text-sm font-semibold transition-all cursor-pointer ${
+                    className={`px-1.5 lg:px-2 py-1.5 rounded-r-lg text-xs lg:text-sm font-semibold transition-all cursor-pointer ${
                       isActive('/urunler') || productsMegaMenuOpen
                         ? 'bg-white text-sky-700 shadow-sm'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                     }`}
                   >
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 ${
                         productsMegaMenuOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
                       }`}
                     />
                   </button>
                 </div>
 
-                {/* VISUAL MEGA MENU CONTAINER (pt-2 ile fare temasını kesmeyen sıfır boşluklu kaplama) */}
+                {/* MEGA MENU CONTAINER */}
                 <div
-                  className={`absolute top-full -left-12 pt-2 w-[740px] z-50 transition-all duration-200 ${
+                  className={`absolute top-full -left-12 pt-2 w-[680px] lg:w-[740px] z-50 transition-all duration-200 ${
                     productsMegaMenuOpen
                       ? 'opacity-100 visible translate-y-0'
                       : 'opacity-0 invisible -translate-y-1 group-hover/products:opacity-100 group-hover/products:visible group-hover/products:translate-y-0'
                   }`}
                 >
                   <div className="bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 grid grid-cols-12 gap-6">
-                    {/* Left Column (8 cols): Category Grid */}
                     <div className="col-span-8 space-y-3">
                       <div className="flex justify-between items-center pb-2 border-b border-slate-100">
                         <span className="text-[11px] font-bold text-sky-600 uppercase tracking-wider">
-                          Ürün & Pompa Kategorileri
+                          Ürün Kategorilerimiz
                         </span>
                         <Link
                           href="/urunler"
@@ -250,21 +248,18 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                               key={cat.id}
                               href={`/urunler?category=${cat.id}`}
                               onClick={closeAllMenus}
-                              className="p-3.5 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200/80 hover:border-sky-200 cursor-pointer transition-all group/cat flex flex-col justify-between"
+                              className="p-3 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200/80 hover:border-sky-200 cursor-pointer transition-all group/cat flex flex-col justify-between"
                             >
                               <div className="flex items-center justify-between">
-                                <div className={`w-8 h-8 rounded-xl ${cat.iconBg} flex items-center justify-center`}>
+                                <div className={`w-7 h-7 rounded-xl ${cat.iconBg} flex items-center justify-center`}>
                                   <IconComponent className="w-4 h-4" />
                                 </div>
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">
+                                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">
                                   {cat.badge}
                                 </span>
                               </div>
-                              <div className="font-bold text-xs text-slate-900 group-hover/cat:text-sky-700 mt-2.5">
+                              <div className="font-bold text-xs text-slate-900 group-hover/cat:text-sky-700 mt-2">
                                 {cat.title}
-                              </div>
-                              <div className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">
-                                {cat.desc}
                               </div>
                             </Link>
                           )
@@ -272,23 +267,18 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                       </div>
                     </div>
 
-                    {/* Right Column (4 cols): Visual Featured Card */}
                     <div className="col-span-4 bg-gradient-to-b from-sky-900 to-slate-900 text-white rounded-2xl p-4 flex flex-col justify-between overflow-hidden relative group/card">
-                      <div className="relative z-10 space-y-1.5">
-                        <span className="text-[10px] font-bold text-sky-300 uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/10 backdrop-blur-md">
-                          Görsel Kataloğumuz
+                      <div className="relative z-10 space-y-1">
+                        <span className="text-[9px] font-bold text-sky-300 uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md">
+                          Fabrika Üretimi
                         </span>
-                        <h4 className="text-xs font-bold text-white leading-snug">Yüksek Mukavemet & Basınç Gücü</h4>
-                        <p className="text-[10px] text-slate-300">Gıda tipi depolar ve ağır hizmet paslanmaz pompalar.</p>
+                        <h4 className="text-xs font-bold text-white leading-snug">Gıda Sınıfı Polietilen</h4>
                       </div>
 
-                      <div className="relative my-3 rounded-xl overflow-hidden aspect-[4/3] border border-white/20">
+                      <div className="relative my-2 rounded-xl overflow-hidden aspect-[4/3] border border-white/20">
                         <img
-                          src="/images/industrial_pump.jpg"
-                          alt="Endüstriyel Pompa"
-                          onError={(e) => {
-                            ;(e.target as HTMLImageElement).src = '/images/hero_bg.jpg'
-                          }}
+                          src="/images/hero_bg.jpg"
+                          alt="İlhan Su Depoları"
                           className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500"
                         />
                       </div>
@@ -296,9 +286,9 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                       <Link
                         href="/urunler"
                         onClick={closeAllMenus}
-                        className="relative z-10 w-full py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors"
+                        className="relative z-10 w-full py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-sm transition-colors"
                       >
-                        <span>Tümünü İncele</span>
+                        <span>İncele</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
@@ -306,7 +296,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                 </div>
               </div>
 
-              {/* Kurumsal Dropdown (Hover & Click Tam Uyumlu) */}
+              {/* Kurumsal */}
               <div
                 className="relative group/corporate flex items-center py-1"
                 ref={corporateRef}
@@ -317,26 +307,26 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   <Link
                     href="/kurumsal"
                     onClick={closeAllMenus}
-                    className={`px-3 py-1.5 rounded-l-lg text-sm font-semibold transition-all cursor-pointer ${
+                    className={`px-2.5 lg:px-3 py-1.5 rounded-l-lg text-xs lg:text-sm font-semibold transition-all cursor-pointer ${
                       isActive('/kurumsal') || corporateDropdownOpen
                         ? 'bg-white text-sky-700 font-extrabold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                     }`}
                   >
-                    Kurumsal
+                    {navCorporateText}
                   </Link>
 
                   <button
                     type="button"
                     onClick={() => setCorporateDropdownOpen(!corporateDropdownOpen)}
-                    className={`px-2 py-1.5 rounded-r-lg text-sm font-semibold transition-all cursor-pointer ${
+                    className={`px-1.5 lg:px-2 py-1.5 rounded-r-lg text-xs lg:text-sm font-semibold transition-all cursor-pointer ${
                       isActive('/kurumsal') || corporateDropdownOpen
                         ? 'bg-white text-sky-700 shadow-sm'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                     }`}
                   >
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 ${
                         corporateDropdownOpen ? 'rotate-180 text-sky-600' : 'text-slate-400'
                       }`}
                     />
@@ -354,72 +344,76 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                     <Link
                       href="/kurumsal?tab=about"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-sky-50 hover:text-sky-700 block"
+                      className="w-full p-2 rounded-xl text-xs text-left font-semibold flex items-center gap-2 transition-colors text-slate-700 hover:bg-sky-50 hover:text-sky-700 block"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
-                        <Info className="w-4 h-4" />
-                      </div>
+                      <Info className="w-4 h-4 text-sky-600 shrink-0" />
                       <div>
                         <div className="font-bold text-slate-900">Hakkımızda</div>
-                        <div className="text-[10px] text-slate-400 font-normal">25 Yıllık tecrübemiz & vizyon</div>
                       </div>
                     </Link>
 
                     <Link
                       href="/kurumsal?tab=hr"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 block"
+                      className="w-full p-2 rounded-xl text-xs text-left font-semibold flex items-center gap-2 transition-colors text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 block"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                        <Users className="w-4 h-4" />
-                      </div>
+                      <Users className="w-4 h-4 text-emerald-600 shrink-0" />
                       <div>
                         <div className="font-bold text-slate-900">İnsan Kaynakları</div>
-                        <div className="text-[10px] text-slate-400 font-normal">Açık pozisyonlar & başvuru</div>
                       </div>
                     </Link>
 
                     <Link
                       href="/kurumsal?tab=quality"
                       onClick={closeAllMenus}
-                      className="w-full p-2.5 rounded-xl text-xs text-left font-semibold flex items-center gap-2.5 transition-colors text-slate-700 hover:bg-purple-50 hover:text-purple-700 block"
+                      className="w-full p-2 rounded-xl text-xs text-left font-semibold flex items-center gap-2 transition-colors text-slate-700 hover:bg-purple-50 hover:text-purple-700 block"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
-                        <ShieldCheck className="w-4 h-4" />
-                      </div>
+                      <ShieldCheck className="w-4 h-4 text-purple-600 shrink-0" />
                       <div>
                         <div className="font-bold text-slate-900">Kalite Belgelerimiz</div>
-                        <div className="text-[10px] text-slate-400 font-normal">ISO 9001 & Gıda Onayları</div>
                       </div>
                     </Link>
                   </div>
                 </div>
               </div>
 
+              {/* Blog */}
+              <Link
+                href="/blog"
+                onClick={closeAllMenus}
+                className={`px-3 lg:px-4 py-1.5 rounded-lg text-xs lg:text-sm font-semibold transition-all ${
+                  isActive('/blog')
+                    ? 'bg-white text-sky-700 shadow-sm font-extrabold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                }`}
+              >
+                {navBlogText}
+              </Link>
+
               {/* SSS */}
               <Link
                 href="/sss"
                 onClick={closeAllMenus}
-                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                className={`px-3 lg:px-4 py-1.5 rounded-lg text-xs lg:text-sm font-semibold transition-all ${
                   isActive('/sss', true)
                     ? 'bg-white text-sky-700 shadow-sm font-extrabold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
-                SSS
+                {navFaqText}
               </Link>
 
               {/* İletişim */}
               <Link
                 href="/iletisim"
                 onClick={closeAllMenus}
-                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                className={`px-3 lg:px-4 py-1.5 rounded-lg text-xs lg:text-sm font-semibold transition-all ${
                   isActive('/iletisim', true)
                     ? 'bg-white text-sky-700 shadow-sm font-extrabold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
-                İletişim
+                {navContactText}
               </Link>
             </div>
 
@@ -427,34 +421,33 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
             <div className="hidden sm:flex items-center gap-2">
               <a
                 href={`tel:${phoneDisplay.replace(/\s+/g, '')}`}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all flex items-center gap-1.5"
+                className="px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all flex items-center gap-1.5 shrink-0"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-sky-600" />
-                <span className="hidden md:inline">{phoneDisplay}</span>
+                <span>{phoneDisplay}</span>
               </a>
 
               <a
-                href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20ürünleri%20hakkında%20teklif%20almak%20istiyorum.`}
+                href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları ürünleri hakkında teklif almak istiyorum.')}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-emerald-whatsapp px-4 py-2 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-sm"
+                className="btn-emerald-whatsapp px-3.5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-sm shrink-0"
               >
                 <MessageSquare className="w-3.5 h-3.5 fill-current" />
-                <span className="hidden md:inline">WHATSAPP TEKLİF AL</span>
-                <span className="md:hidden">Teklif Al</span>
+                <span>{whatsappBtnText}</span>
               </a>
             </div>
 
-            {/* Mobile Menu Toggle Button */}
-            <div className="flex lg:hidden items-center gap-2">
+            {/* Mobile / Small Screen Menu Toggle Button */}
+            <div className="flex md:hidden items-center gap-2">
               <a
-                href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20hakkında%20teklif%20almak%20istiyorum.`}
+                href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları hakkında teklif almak istiyorum.')}
                 target="_blank"
                 rel="noreferrer"
-                className="sm:hidden px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-sm"
+                className="sm:hidden px-2.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-sm"
               >
                 <MessageSquare className="w-3.5 h-3.5 fill-current" />
-                <span>Teklif Al</span>
+                <span>Teklif</span>
               </a>
 
               <button
@@ -471,7 +464,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden max-w-7xl mx-auto px-4 mt-2 animate-slideDown pointer-events-auto">
+          <div className="md:hidden max-w-7xl mx-auto px-4 mt-2 animate-slideDown pointer-events-auto">
             <div className="bg-white rounded-2xl p-4 shadow-2xl border border-slate-200 space-y-2">
               <Link
                 href="/"
@@ -480,7 +473,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   isActive('/', true) ? 'bg-sky-50 text-sky-700 font-extrabold' : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                <span>Ana Sayfa</span>
+                <span>{navHomeText}</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </Link>
 
@@ -490,7 +483,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
                   className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between cursor-pointer"
                 >
-                  <span className="text-sky-700 font-extrabold">Ürünlerimiz & Kategoriler</span>
+                  <span className="text-sky-700 font-extrabold">{navProductsText} & Kategoriler</span>
                   <ChevronDown
                     className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${
                       mobileProductsOpen ? 'rotate-180 text-sky-600' : ''
@@ -536,7 +529,7 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   onClick={() => setMobileCorporateOpen(!mobileCorporateOpen)}
                   className="w-full p-2.5 rounded-xl text-sm font-semibold text-slate-800 hover:bg-sky-50 flex items-center justify-between cursor-pointer"
                 >
-                  <span className="text-slate-800 font-extrabold">Kurumsal</span>
+                  <span className="text-slate-800 font-extrabold">{navCorporateText}</span>
                   <ChevronDown
                     className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${
                       mobileCorporateOpen ? 'rotate-180 text-sky-600' : ''
@@ -577,13 +570,24 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
               </div>
 
               <Link
+                href="/blog"
+                onClick={closeAllMenus}
+                className={`w-full p-3 rounded-xl text-sm font-semibold flex justify-between items-center ${
+                  isActive('/blog') ? 'bg-sky-50 text-sky-700 font-extrabold' : 'text-slate-700 hover:bg-slate-50'
+                }`}
+              >
+                <span>{navBlogText} & Rehberler</span>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </Link>
+
+              <Link
                 href="/sss"
                 onClick={closeAllMenus}
                 className={`w-full p-3 rounded-xl text-sm font-semibold flex justify-between items-center ${
                   isActive('/sss', true) ? 'bg-sky-50 text-sky-700 font-extrabold' : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                <span>Sıkça Sorulan Sorular (SSS)</span>
+                <span>{navFaqText}</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </Link>
 
@@ -594,18 +598,18 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
                   isActive('/iletisim', true) ? 'bg-sky-50 text-sky-700 font-extrabold' : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                <span>İletişim</span>
+                <span>{navContactText}</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </Link>
 
               <a
-                href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20hakkında%20teklif%20almak%20istiyorum.`}
+                href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları hakkında teklif almak istiyorum.')}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-emerald-whatsapp w-full mt-3 py-3 px-4 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 text-center"
               >
                 <MessageSquare className="w-4 h-4 fill-current shrink-0" />
-                <span>WhatsApp Teklif Al</span>
+                <span>{whatsappBtnText}</span>
               </a>
             </div>
           </div>

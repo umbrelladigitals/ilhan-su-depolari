@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Plus, Minus, HelpCircle, MessageSquare } from 'lucide-react'
+import { getWhatsAppUrl } from '../lib/whatsapp'
 
 interface FaqSectionProps {
   faqs?: any[]
@@ -27,7 +28,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ faqs = [], siteSettings 
   ]
 
   const items = faqs.length > 0 ? faqs : defaultFaqs
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
+  const whatsappNumber = siteSettings?.whatsapp
 
   return (
     <section id="faq" className="section-padding bg-slate-50 border-b border-slate-200/60 relative">
@@ -87,7 +88,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ faqs = [], siteSettings 
             <p className="text-xs text-slate-600 mt-0.5">Teknik ekibimiz WhatsApp üzerinden sorularınızı anında yanıtlar.</p>
           </div>
           <a
-            href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20hakkında%20sorum%20var.`}
+            href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları hakkında sorum var.')}
             target="_blank"
             rel="noreferrer"
             className="btn-emerald-whatsapp px-5 py-3 text-xs flex items-center justify-center gap-2 shrink-0"

@@ -3,15 +3,14 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Check, MessageSquare, PhoneCall, ChevronRight, Sparkles } from 'lucide-react'
-
-const WHATSAPP_NUMBER = '903125431358'
-const PHONE_DISPLAY = '0312 543 1358'
+import { getWhatsAppUrl } from '@/lib/whatsapp'
 
 interface ProductDetailClientProps {
   product: any
+  siteSettings?: any
 }
 
-export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product }) => {
+export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, siteSettings }) => {
   const capacityOptionsMap: Record<string, string[]> = {
     vertical_tank: ['500 Litre', '1.000 Litre', '2.000 Litre', '5.000 Litre', '10.000 Litre', '20.000 Litre'],
     horizontal_tank: ['1.000 Litre', '3.000 Litre', '5.000 Litre', '10.000 Litre', '20.000 Litre', '50.000 Litre'],
@@ -46,12 +45,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
   const handleDirectWhatsAppOrder = () => {
     const text = `Merhaba İlhan Su Depoları, *${productName}* ürününden fiyat teklifi almak istiyorum:\n\n📌 *TEKLİF DETAYLARI:*\n- *Ürün:* ${productName}\n- *Kategori:* ${categoryName}\n- *Seçilen Kapasite / Ölçü:* ${selectedCapacityOption}\n- *Adet:* ${quantity} Adet\n- *Hammadde / Malzeme:* ${material}\n\nLütfen özel fiyat, stok ve teslimat bilgisi iletir misiniz?`
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank')
+    window.open(getWhatsAppUrl(siteSettings?.whatsapp, text), '_blank')
   }
 
   const handleWhatsAppQuote = () => {
     const text = `Merhaba İlhan Su Depoları, *${productName}* hakkında özel fiyat teklifi almak istiyorum:\n- *Seçilen Kapasite:* ${selectedCapacityOption}\n- *Adet:* ${quantity}`
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank')
+    window.open(getWhatsAppUrl(siteSettings?.whatsapp, text), '_blank')
   }
 
   return (
@@ -200,13 +199,18 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 <span>ANINDA BİLGİ & TEKLİF AL</span>
               </button>
 
-              <a
-                href={`tel:${PHONE_DISPLAY.replace(/\s+/g, '')}`}
-                className="w-full py-3 sm:py-3.5 px-5 sm:px-6 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200 transition-all flex items-center justify-center gap-2"
-              >
-                <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-600" />
-                <span>TELEFONDAN İLETİŞİME GEÇ ({PHONE_DISPLAY})</span>
-              </a>
+              {(() => {
+                const phoneNum = siteSettings?.phone || '0312 543 1358'
+                return (
+                  <a
+                    href={`tel:${phoneNum.replace(/\s+/g, '')}`}
+                    className="w-full py-3 sm:py-3.5 px-5 sm:px-6 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200 transition-all flex items-center justify-center gap-2"
+                  >
+                    <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-600" />
+                    <span>TELEFONDAN İLETİŞİME GEÇ ({phoneNum})</span>
+                  </a>
+                )
+              })()}
             </div>
 
             {/* Highlights Bullets */}

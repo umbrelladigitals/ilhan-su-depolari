@@ -56,8 +56,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
     title: 'Yüksek Kaliteli Su Depoları',
     subtitle: 'Polietilen ve Paslanmaz Depolama Çözümleri',
     badgeText: 'İlhan Su Depoları',
-    bgType: 'video',
-    bgMediaUrl: '/videos/hero_video.mp4',
+    bgType: 'image',
+    bgMediaUrl: '/images/hero_bg.jpg',
     primaryButtonText: 'Ürün Kataloğunu İncele',
     primaryButtonLink: '/urunler',
   }
@@ -66,36 +66,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
 
   return (
     <section className="relative min-h-[100dvh] w-full flex items-center justify-center pt-24 sm:pt-28 pb-12 overflow-hidden bg-slate-100 border-b border-slate-200">
-      {/* ─── Net Arka Plan (Görsel & Video Tamamen Görünür) ─── */}
+      {/* ─── Net Arka Plan (Görsel) ─── */}
       <div className="absolute inset-0 z-0" suppressHydrationWarning>
-        {mounted ? (
-          currentSlide.bgType === 'image' ? (
-            <img
-              src={currentSlide.bgMediaUrl || '/images/hero_bg.jpg'}
-              alt={currentSlide.title || 'İlhan Su Depoları'}
-              className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05] transition-all duration-700"
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              key={currentSlide.bgMediaUrl || '/videos/hero_video.mp4'}
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/images/hero_bg.jpg"
-              className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.05]"
-            >
-              <source src={currentSlide.bgMediaUrl || '/videos/hero_video.mp4'} type="video/mp4" />
-            </video>
-          )
-        ) : (
-          <img
-            src="/images/hero_bg.jpg"
-            alt="Hero Background"
-            className="w-full h-full object-cover object-center filter brightness-[0.92]"
-          />
-        )}
+        <img
+          src="/images/hero_bg.jpg"
+          alt={currentSlide.title || 'İlhan Su Depoları'}
+          className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05]"
+        />
         {/* İnce Şeffaf Minimalist Karartma */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/30 to-slate-950/20" />
       </div>

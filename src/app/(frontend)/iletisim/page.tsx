@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ContactClient } from './ContactClient'
+import { getSiteSettings } from '@/lib/payload'
 
 export const metadata: Metadata = {
   title: 'İletişim & Adres — İlhan Su Depoları',
@@ -7,11 +8,13 @@ export const metadata: Metadata = {
     'Ankara Etimesgut adresimiz, telefon: 0312 543 1358, WhatsApp sipariş hattı ve hızlı iletişim formu.',
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getSiteSettings()
+
   return (
     <div className="page-wrapper bg-slate-50">
       <div className="container-custom">
-        <ContactClient />
+        <ContactClient siteSettings={siteSettings} />
       </div>
     </div>
   )

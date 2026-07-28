@@ -15,15 +15,18 @@ import {
   Compass,
   Award,
 } from 'lucide-react'
+import { getWhatsAppUrl } from '@/lib/whatsapp'
 
 interface CorporateClientProps {
   initialTab?: string
   initialJobs?: JobPosition[]
+  siteSettings?: any
 }
 
 export const CorporateClient: React.FC<CorporateClientProps> = ({
   initialTab = 'about',
   initialJobs = [],
+  siteSettings,
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<CorporateSubTab>((initialTab as CorporateSubTab) || 'about')
 
@@ -45,7 +48,7 @@ export const CorporateClient: React.FC<CorporateClientProps> = ({
 
   const openWhatsAppHR = () => {
     const text = `Merhaba İlhan Su Depoları İK Departmanı, İş başvurusu yapmak istiyorum:\n- *Pozisyon:* ${applicantPosition}\n- *İsim:* ${applicantName}\n- *Telefon:* ${applicantPhone}\n- *Özgeçmiş/Not:* ${applicantNote}`
-    window.open(`https://wa.me/903125431358?text=${encodeURIComponent(text)}`, '_blank')
+    window.open(getWhatsAppUrl(siteSettings?.whatsapp, text), '_blank')
   }
 
   return (
@@ -205,7 +208,7 @@ export const CorporateClient: React.FC<CorporateClientProps> = ({
 
             <div className="lg:col-span-4 text-center lg:text-right">
               <a
-                href="https://wa.me/903125431358?text=Merhaba,%20projemiz%20için%20su%20deposu%20ve%20pompa%20danışmanlığı%20almak%20istiyoruz."
+                href={getWhatsAppUrl(siteSettings?.whatsapp, 'Merhaba, projemiz için su deposu ve pompa danışmanlığı almak istiyoruz.')}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-emerald-whatsapp py-3.5 px-6 text-xs inline-flex items-center gap-2"

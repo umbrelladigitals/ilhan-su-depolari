@@ -28,12 +28,26 @@ export async function seedPayload() {
         slug: 'site-settings',
         data: {
           siteName: 'İlhan Su Depoları',
+          lightLogo: '/images/light_logo.png',
+          darkLogo: '/images/dark_logo.png',
           phone: '0312 543 1358',
+          whatsapp: '+905412401119',
           email: 'info@ilhansudepolari.com',
-          address: 'Atakent Mahallesi 1471 Sokak No:1/1 Etimesgut / Ankara',
-          workingHours: 'PZT - CUM: 09:00 - 18:00',
-          announcementBarText: 'İlhan Su Depoları — Etimesgut / Ankara • Türkiye Geneli Teslimat',
-          footerText: 'İlhan Su Depoları; dikey ve yatay polietilen su depoları, endüstriyel tip santrifüj pompalar ve paslanmaz dalgıç pompa çözümlerinde güvenin adresidir.',
+          address: 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara',
+          workingHours: 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı',
+          announcementBarText: 'İlhan Su Depoları — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat',
+          footerText: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır. Ankara polietilen ve paslanmaz modüler su deposu imalatçısı.',
+          headerLogoText: 'İLHAN SU DEPOLARI',
+          headerLogoSubtext: 'Depo & Pompa Sistemleri',
+          navHomeText: 'Ana Sayfa',
+          navProductsText: 'Ürünlerimiz',
+          navCorporateText: 'Kurumsal',
+          navBlogText: 'Blog',
+          navFaqText: 'SSS',
+          navContactText: 'İletişim',
+          whatsappBtnText: 'WHATSAPP TEKLİF AL',
+          aboutTitle: '25 Yıllık Sanayi Tecrübesiyle Güvenli Su Depolama',
+          aboutDescription: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
           socialMedia: {
             instagram: 'https://instagram.com/ilhansudepolari',
             facebook: 'https://facebook.com/ilhansudepolari',
@@ -67,28 +81,30 @@ export async function seedPayload() {
     const productsCount = await payload.count({ collection: 'products' })
     if (productsCount.totalDocs === 0) {
       console.log('Seeding products...')
+      const allCategories = await payload.find({ collection: 'categories', limit: 100 })
+      const catMap: Record<string, string | number> = {}
+      for (const catDoc of allCategories.docs) {
+        catMap[(catDoc as any).slug] = catDoc.id
+      }
+
       for (const p of PRODUCTS) {
+        const catId = catMap[p.category] || allCategories.docs[0]?.id
+        if (!catId) continue
+
         await payload.create({
           collection: 'products',
           data: {
             name: p.name,
             slug: p.id,
-            categorySlug: p.category as any,
-            categoryName: p.categoryName,
+            category: catId,
+            capacity: p.capacityRange || '500 Lt - 20.000 Lt',
+            dimensions: p.specs?.dimensions || '',
+            material: p.material || '',
+            description: p.description || '',
+            inStock: true,
             image: p.image,
-            capacityRange: p.capacityRange,
-            material: p.material,
-            description: p.description,
-            startingPrice: p.startingPrice,
-            badge: p.badge || '',
-            features: p.features.map(f => ({ feature: f })),
-            specs: {
-              dimensions: p.specs.dimensions,
-              thickness: p.specs.thickness,
-              outletSize: p.specs.outletSize,
-              warranty: p.specs.warranty,
-              foodGrade: p.specs.foodGrade,
-            },
+            features: p.features,
+            specs: p.specs,
           } as any,
         })
       }
@@ -213,6 +229,96 @@ export async function seedPayload() {
         await payload.create({
           collection: 'faqs',
           data: f as any,
+        })
+      }
+    }
+
+    // 8. Seed Blogs
+    const blogsCount = await payload.count({ collection: 'blogs' })
+    if (blogsCount.totalDocs === 0) {
+      console.log('Seeding blogs...')
+      const sampleBlogs = [
+        {
+          title: 'Polietilen Su Deposu Seçerken Dikkat Edilmesi Gereken 5 Önemli Nokta',
+          slug: 'polietilen-su-deposu-secerken-dikkat-edilmesi-gerekenler',
+          summary: 'Doğru su deposu seçimi hem sağlık hem de uzun ömürlü kullanım açısından kritiktir. İşte hammadde kalitesinden et kalınlığına dikkat etmeniz gereken 5 temel kural.',
+          image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80',
+          category: 'Rehber & Tavsiyeler',
+          readTime: '4 dk',
+          publishedAt: new Date().toISOString(),
+          isActive: true,
+          content: {
+            root: {
+              type: 'root',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: 'Su deposu alırken yalnızca fiyat odaklı düşünmek ileride ciddi sızıntı, koku ve bakteri sorunlarına yol açabilir. İlhan Su Depoları olarak %100 orijinal food-grade polietilen hammadde kullanarak imal ettiğimiz depolarımızda en yüksek kalite standartlarını sağlıyoruz.' }],
+                },
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: '1. Hammadde Kalitesi: Gıdaya uygun UV katkılı LLDPE polietilen tercih edilmelidir.' }],
+                },
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: '2. Et Kalınlığı ve Monoblok Yapı: Kaynaksız ve birleşimsiz tek parça döküm depolar uzun ömürlüdür.' }],
+                },
+              ],
+            },
+          },
+        },
+        {
+          title: 'Paslanmaz Modüler Su Depolarının Avantajları ve Kullanım Alanları',
+          slug: 'paslanmaz-modular-su-depolari-avantajlari',
+          summary: 'Bina altları, dar kapılı alanlar ve büyük tonajlı tesisler için en ideal çözüm olan AISI 304 / 316 paslanmaz modüler su depolarını yakından inceleyin.',
+          image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80',
+          category: 'Endüstriyel Çözümler',
+          readTime: '6 dk',
+          publishedAt: new Date().toISOString(),
+          isActive: true,
+          content: {
+            root: {
+              type: 'root',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: 'Modüler paslanmaz su depoları, parçalar halinde nakledilerek kurulum alanında cıvatalı veya kaynaklı olarak birleştirilen yüksek teknolojili depolama çözümleridir.' }],
+                },
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: 'Dar bodrum kapılarından ve kazan dairelerinden kolayca geçirilerek yüksek kapasiteli depolama olanağı sunar.' }],
+                },
+              ],
+            },
+          },
+        },
+        {
+          title: 'Su Deposu Temizliği ve Bakımı Nasıl Yapılır? Adım Adım Rehber',
+          slug: 'su-deposu-temizligi-ve-bakimi-nasil-yapilir',
+          summary: 'Deponuzda bakteri, yosun ve tortu oluşumunu önlemek için periyodik bakım şarttır. Sağlığınız için su deposu hijyen rehberimize göz atın.',
+          image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+          category: 'Hijyen & Bakım',
+          readTime: '5 dk',
+          publishedAt: new Date().toISOString(),
+          isActive: true,
+          content: {
+            root: {
+              type: 'root',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [{ type: 'text', text: 'Periyodik olarak en az yılda bir kez su depolarının dezenfekte edilmesi ve dip tortularının arındırılması gerekmektedir.' }],
+                },
+              ],
+            },
+          },
+        },
+      ]
+
+      for (const b of sampleBlogs) {
+        await payload.create({
+          collection: 'blogs',
+          data: b as any,
         })
       }
     }

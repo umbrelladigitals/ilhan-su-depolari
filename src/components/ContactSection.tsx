@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { MapPin, Phone, Clock, MessageSquare } from 'lucide-react'
+import { getWhatsAppUrl, formatWhatsAppDisplay } from '../lib/whatsapp'
 
 interface ContactSectionProps {
   siteSettings?: any
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) => {
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
+  const whatsappNumber = siteSettings?.whatsapp
   const phoneDisplay = siteSettings?.phone || '0312 543 1358'
-  const addressDisplay = siteSettings?.address || 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara'
-  const workingHoursDisplay = siteSettings?.workingHours || 'Pazartesi - Cumartesi: 08:30 - 18:30'
+  const addressDisplay = siteSettings?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
+  const workingHoursDisplay = siteSettings?.workingHours || 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı'
 
   return (
     <section id="contact" className="section-padding bg-white text-slate-900 relative border-t border-slate-200/80">
@@ -30,7 +31,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) 
               </h2>
 
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
-                Ankara Ostim fabrikamızdan doğrudan teslimat ve yerinde keşif hizmeti vermekteyiz.
+                Ankara Etimesgut adresimizden doğrudan teslimat ve yerinde keşif hizmeti vermekteyiz.
               </p>
             </div>
 
@@ -50,7 +51,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) 
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-500">Telefon Hatlarımız</div>
+                  <div className="text-xs font-bold text-slate-500">Telefon / Fax</div>
                   <a href={`tel:${phoneDisplay.replace(/\s+/g, '')}`} className="text-xs font-extrabold text-sky-700 hover:underline mt-0.5 block">
                     {phoneDisplay}
                   </a>
@@ -64,12 +65,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) 
                 <div>
                   <div className="text-xs font-bold text-slate-500">WhatsApp Canlı Hat</div>
                   <a
-                    href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20ürünleri%20hakkında%20teklif%20almak%20istiyorum.`}
+                    href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları ürünleri hakkında teklif almak istiyorum.')}
                     target="_blank"
                     rel="noreferrer"
                     className="text-xs font-extrabold text-emerald-600 hover:underline mt-0.5 block"
                   >
-                    +90 312 543 1358 (Tıkla & Teklif Al)
+                    {formatWhatsAppDisplay(whatsappNumber)} (Tıkla & Teklif Al)
                   </a>
                 </div>
               </div>
@@ -86,7 +87,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) 
             </div>
 
             <a
-              href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20hakkında%20teklif%20ve%20fiyat%20almak%20istiyorum.`}
+              href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları hakkında teklif ve fiyat almak istiyorum.')}
               target="_blank"
               rel="noreferrer"
               className="btn-emerald-whatsapp w-full py-3.5 px-4 text-xs font-extrabold flex items-center justify-center gap-2 text-center shadow-md mt-2"
@@ -96,7 +97,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ siteSettings }) 
             </a>
           </div>
 
-          {/* Google Harita Embed (Sıfır Inline Style!) */}
+          {/* Google Harita Embed */}
           <div className="lg:col-span-7 rounded-2xl overflow-hidden border border-slate-200 shadow-lg h-[350px] lg:h-auto min-h-[350px]">
             <iframe
               title="İlhan Su Depoları Konum Haritası"

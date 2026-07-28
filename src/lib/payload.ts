@@ -168,3 +168,39 @@ export async function getJobPositions() {
     return []
   }
 }
+
+// 8. Blog Yazılarını Getir
+export async function getBlogs(limit = 10) {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const result = await payload.find({
+      collection: 'blogs',
+      where: { isActive: { equals: true } },
+      sort: '-publishedAt',
+      limit,
+    })
+    return result.docs || []
+  } catch (error) {
+    console.error('getBlogs hatası:', error)
+    return []
+  }
+}
+
+// 9. Tek Bir Blog Yazısını Slug'a Göre Getir
+export async function getBlogBySlug(slug: string) {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const result = await payload.find({
+      collection: 'blogs',
+      where: {
+        slug: { equals: slug },
+        isActive: { equals: true },
+      },
+    })
+    return result.docs?.[0] || null
+  } catch (error) {
+    console.error('getBlogBySlug hatası:', error)
+    return null
+  }
+}
+

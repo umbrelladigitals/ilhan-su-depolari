@@ -3,7 +3,9 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Droplets, MapPin, Phone, MessageSquare, ChevronRight, Clock, ShieldCheck } from 'lucide-react'
+import { Logo } from './Logo'
+import { MapPin, Phone, MessageSquare, ChevronRight, Clock, ShieldCheck } from 'lucide-react'
+import { getWhatsAppUrl } from '../lib/whatsapp'
 
 interface FooterProps {
   siteSettings?: any
@@ -16,10 +18,10 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
     return null
   }
 
-  const whatsappNumber = siteSettings?.whatsapp || '903125431358'
+  const whatsappNumber = siteSettings?.whatsapp
   const phoneDisplay = siteSettings?.phone || '0312 543 1358'
-  const address = siteSettings?.address || 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara'
-  const siteName = siteSettings?.siteName || 'İlhan Su Depoları'
+  const address = siteSettings?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
+  const workingHours = siteSettings?.workingHours || 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı'
   const footerText = siteSettings?.footerText || `© ${new Date().getFullYear()} İlhan Su Depoları. Tüm hakları saklıdır.`
 
   return (
@@ -29,22 +31,10 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-slate-200">
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-4 space-y-3">
-            <Link href="/" className="flex items-center gap-3 group inline-flex">
-              <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md">
-                <Droplets className="w-6 h-6" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-extrabold tracking-tight text-slate-900 uppercase">
-                  {siteName}
-                </span>
-                <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase">
-                  Depo & Pompa Sistemleri
-                </span>
-              </div>
-            </Link>
+            <Logo siteSettings={siteSettings} variant="dark" imageClassName="h-10 sm:h-12 w-auto object-contain" />
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              İlhan Su Depoları; dikey ve yatay polietilen su depoları, endüstriyel tip santrifüj pompalar ve paslanmaz dalgıç pompa çözümlerinde güvenin adresidir.
+              {siteSettings?.aboutDescription || 'İlhan Su Depoları; dikey ve yatay polietilen su depoları, endüstriyel tip santrifüj pompalar ve paslanmaz dalgıç pompa çözümlerinde güvenin adresidir.'}
             </p>
 
             <div className="pt-1 flex flex-wrap items-center gap-2 text-xs text-slate-600 font-semibold">
@@ -60,43 +50,37 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
               <li>
                 <Link href="/" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Ana Sayfa</span>
+                  <span>{siteSettings?.navHomeText || 'Ana Sayfa'}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/urunler" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Ürünlerimiz & Çeşitler</span>
+                  <span>{siteSettings?.navProductsText || 'Ürünlerimiz & Çeşitler'}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/kurumsal?tab=about" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Hakkımızda</span>
+                  <span>{siteSettings?.navCorporateText || 'Kurumsal'}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/kurumsal?tab=hr" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
+                <Link href="/blog" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>İnsan Kaynakları (İK)</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/kurumsal?tab=quality" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Kalite & Sertifikalar</span>
+                  <span>{siteSettings?.navBlogText || 'Blog & Bilgi Rehberi'}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/sss" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Sıkça Sorulan Sorular (SSS)</span>
+                  <span>{siteSettings?.navFaqText || 'Sıkça Sorulan Sorular (SSS)'}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/iletisim" className="hover:text-sky-600 transition-colors flex items-center gap-1.5 text-slate-700">
                   <ChevronRight className="w-3.5 h-3.5 text-sky-600" />
-                  <span>İletişim & Adres</span>
+                  <span>{siteSettings?.navContactText || 'İletişim & Adres'}</span>
                 </Link>
               </li>
             </ul>
@@ -149,14 +133,14 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
               <div className="flex items-start gap-2.5">
                 <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-semibold text-slate-800">{siteSettings?.workingHours || 'Pazartesi - Cumartesi: 08:30 - 18:30'}</div>
+                  <div className="font-semibold text-slate-800">{workingHours}</div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2.5 pt-1">
                 <MessageSquare className="w-4 h-4 text-emerald-600 shrink-0 fill-current" />
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=Merhaba,%20İlhan%20Su%20Depoları%20ürünleri%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum.`}
+                  href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları ürünleri hakkında bilgi ve fiyat almak istiyorum.')}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:underline font-extrabold text-emerald-600"

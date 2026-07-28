@@ -20,16 +20,28 @@ export const SiteSettings: GlobalConfig = {
               label: 'Firma / Site Adı',
             },
             {
+              name: 'lightLogo',
+              type: 'text',
+              defaultValue: '/images/light_logo.png',
+              label: 'Açık Tema Logo Görsel Yolu / URL',
+            },
+            {
+              name: 'darkLogo',
+              type: 'text',
+              defaultValue: '/images/dark_logo.png',
+              label: 'Koyu Tema Logo Görsel Yolu / URL',
+            },
+            {
               name: 'phone',
               type: 'text',
               defaultValue: '0312 543 1358',
-              label: 'Telefon Numarası',
+              label: 'Telefon / Fax Numarası',
             },
             {
               name: 'whatsapp',
               type: 'text',
-              defaultValue: '903125431358',
-              label: 'WhatsApp Numarası (Uluslararası format, örn: 903125431358)',
+              defaultValue: '+905412401119',
+              label: 'WhatsApp Numarası (Uluslararası format, örn: +905412401119)',
             },
             {
               name: 'email',
@@ -40,14 +52,20 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'address',
               type: 'textarea',
-              defaultValue: 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara',
+              defaultValue: 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara',
               label: 'Fabrika & Adres Bilgisi',
             },
             {
               name: 'workingHours',
               type: 'text',
-              defaultValue: 'Pazartesi - Cumartesi: 08:30 - 18:30',
+              defaultValue: 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı',
               label: 'Çalışma Saatleri',
+            },
+            {
+              name: 'announcementBarText',
+              type: 'text',
+              defaultValue: 'İlhan Su Depoları — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat',
+              label: 'Üst Duyuru Bandı Metni',
             },
             {
               name: 'googleMapsEmbedUrl',
@@ -64,6 +82,65 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
+          label: 'Menü & Buton Başlıkları',
+          fields: [
+            {
+              name: 'headerLogoText',
+              type: 'text',
+              defaultValue: 'İLHAN SU DEPOLARI',
+              label: 'Header Logo Metni',
+            },
+            {
+              name: 'headerLogoSubtext',
+              type: 'text',
+              defaultValue: 'Depo & Pompa Sistemleri',
+              label: 'Header Logo Alt Metni',
+            },
+            {
+              name: 'navHomeText',
+              type: 'text',
+              defaultValue: 'Ana Sayfa',
+              label: 'Menü 1: Ana Sayfa Metni',
+            },
+            {
+              name: 'navProductsText',
+              type: 'text',
+              defaultValue: 'Ürünlerimiz',
+              label: 'Menü 2: Ürünler Metni',
+            },
+            {
+              name: 'navCorporateText',
+              type: 'text',
+              defaultValue: 'Kurumsal',
+              label: 'Menü 3: Kurumsal Metni',
+            },
+            {
+              name: 'navBlogText',
+              type: 'text',
+              defaultValue: 'Blog',
+              label: 'Menü 4: Blog Metni',
+            },
+            {
+              name: 'navFaqText',
+              type: 'text',
+              defaultValue: 'SSS',
+              label: 'Menü 5: SSS Metni',
+            },
+            {
+              name: 'navContactText',
+              type: 'text',
+              defaultValue: 'İletişim',
+              label: 'Menü 6: İletişim Metni',
+            },
+            {
+              name: 'whatsappBtnText',
+              type: 'text',
+              defaultValue: 'WHATSAPP TEKLİF AL',
+              label: 'WhatsApp Buton Metni',
+            },
+          ],
+        },
+        {
           label: 'Hakkımızda & Kurumsal',
           fields: [
             {
@@ -75,7 +152,7 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'aboutDescription',
               type: 'textarea',
-              defaultValue: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Ostim sanayisinde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
+              defaultValue: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
               label: 'Hakkımızda Detay Metni',
             },
             {
