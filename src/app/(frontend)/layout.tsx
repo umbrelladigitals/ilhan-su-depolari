@@ -8,16 +8,15 @@ import { getWhatsAppUrl } from '@/lib/whatsapp'
 
 export const metadata: Metadata = {
   title: {
-    default: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Su Depoları',
+    default: 'İlhan Su Depoları — Polietilen Plastik Su Depoları',
     template: '%s | İlhan Su Depoları',
   },
-  description: 'Ankara Etimesgut fabrikamızdan polietilen dikey, yatay su depoları, 304/316 paslanmaz modüler su depoları ve yüksek irtifa foseptik/hidrofor sistemleri.',
+  description: 'Ankara Etimesgut fabrikamızdan polietilen dikey ve yatay plastik su depoları ile hidrofor ve pompalama sistemleri.',
   keywords: [
     'su deposu',
     'ankara su deposu',
     'polietilen su deposu',
-    'paslanmaz su deposu',
-    'modüler su deposu',
+    'plastik su deposu',
     'etimesgut su deposu',
     'dikey su deposu',
     'yatay su deposu',
@@ -31,21 +30,21 @@ export const metadata: Metadata = {
     locale: 'tr_TR',
     url: 'https://sudeposu.dexsoft.com.tr',
     siteName: 'İlhan Su Depoları',
-    title: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Su Depoları',
-    description: 'Ankara Etimesgut imalatçısından gıda tüzüğüne onaylı su depoları ve hidrofor çözümleri.',
+    title: 'İlhan Su Depoları — Polietilen Plastik Su Depoları',
+    description: 'Ankara Etimesgut imalatçısından gıda tüzüğüne onaylı plastik su depoları ve hidrofor çözümleri.',
     images: [{ url: '/images/hero_bg.jpg', width: 1200, height: 630, alt: 'İlhan Su Depoları Fabrika' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Su Depoları',
-    description: 'Ankara Etimesgut imalatçısından gıda tüzüğüne onaylı su depoları ve hidrofor çözümleri.',
+    title: 'İlhan Su Depoları — Polietilen Plastik Su Depoları',
+    description: 'Ankara Etimesgut imalatçısından gıda tüzüğüne onaylı plastik su depoları ve hidrofor çözümleri.',
     images: ['/images/hero_bg.jpg'],
   },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const siteSettings = await getSiteSettings()
-  const phoneDisplay = (siteSettings as any)?.phone || '0312 543 1358'
+  const phoneDisplay = (siteSettings as any)?.phone || '0312 514 06 19'
   const addressDisplay = (siteSettings as any)?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
 
   // Organization & LocalBusiness JSON-LD Schema

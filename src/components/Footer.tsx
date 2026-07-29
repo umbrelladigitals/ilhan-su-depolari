@@ -19,7 +19,8 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
   }
 
   const whatsappNumber = siteSettings?.whatsapp
-  const phoneDisplay = siteSettings?.phone || '0312 543 1358'
+  const phoneDisplay = siteSettings?.phone || '0312 514 06 19'
+  const factoryPhoneDisplay = siteSettings?.factoryPhone || '0312 511 07 19'
   const address = siteSettings?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
   const workingHours = siteSettings?.workingHours || 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı'
   const footerText = siteSettings?.footerText || `© ${new Date().getFullYear()} İlhan Su Depoları. Tüm hakları saklıdır.`
@@ -31,10 +32,10 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-slate-200">
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-4 space-y-3">
-            <Logo siteSettings={siteSettings} variant="dark" imageClassName="h-10 sm:h-12 w-auto object-contain" />
+            <Logo siteSettings={siteSettings} variant="light" imageClassName="h-10 sm:h-12 w-auto object-contain" />
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              {siteSettings?.aboutDescription || 'İlhan Su Depoları; dikey ve yatay polietilen su depoları, endüstriyel tip santrifüj pompalar ve paslanmaz dalgıç pompa çözümlerinde güvenin adresidir.'}
+              {siteSettings?.aboutDescription || 'İlhan Su Depoları; dikey ve yatay polietilen plastik su depoları çözümlerinde güvenin adresidir.'}
             </p>
 
             <div className="pt-1 flex flex-wrap items-center gap-2 text-xs text-slate-600 font-semibold">
@@ -123,11 +124,22 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
                 <span>{address}</span>
               </div>
 
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-sky-600 shrink-0" />
-                <a href={`tel:${phoneDisplay.replace(/\s+/g, '')}`} className="hover:underline font-extrabold text-sm text-sky-700">
-                  {phoneDisplay}
-                </a>
+              <div className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <div>
+                    <span className="text-slate-500 font-bold">Ofis: </span>
+                    <a href={`tel:${phoneDisplay.replace(/\s+/g, '')}`} className="hover:underline font-extrabold text-sky-700">
+                      {phoneDisplay}
+                    </a>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-bold">Fabrika: </span>
+                    <a href={`tel:${factoryPhoneDisplay.replace(/\s+/g, '')}`} className="hover:underline font-extrabold text-sky-700">
+                      {factoryPhoneDisplay}
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="flex items-start gap-2.5">
@@ -159,7 +171,7 @@ export const Footer: React.FC<FooterProps> = ({ siteSettings }) => {
             <span>{footerText}</span>
           </div>
           <div className="text-slate-500 text-[11px]">
-            Ankara Polietilen & Paslanmaz Modüler Depo İmalatı
+            Ankara Polietilen Plastik Su Deposu İmalatı
           </div>
         </div>
       </div>

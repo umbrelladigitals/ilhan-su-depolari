@@ -54,7 +54,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
   // Minimalist Varsayılan Slayt
   const defaultSlide: HeroSlideItem = {
     title: 'Yüksek Kaliteli Su Depoları',
-    subtitle: 'Polietilen ve Paslanmaz Depolama Çözümleri',
+    subtitle: 'Polietilen Plastik Su Depolama Çözümleri',
     badgeText: 'İlhan Su Depoları',
     bgType: 'image',
     bgMediaUrl: '/images/hero_bg.jpg',

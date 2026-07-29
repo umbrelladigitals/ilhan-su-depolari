@@ -27,7 +27,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ blogs = [] }) => {
               Su Depolama & Sektörel Makaleler
             </h2>
             <p className="mt-2 text-slate-600 text-sm sm:text-base max-w-2xl">
-              Su deposu seçimi, hijyen bakımı, paslanmaz çözümler ve mühendislik rehberlerimizle ilgili güncel yazılarımızı okuyun.
+              Su deposu seçimi, hijyen bakımı, polietilen plastik tank çözümleri ve mühendislik rehberlerimizle ilgili güncel yazılarımızı okuyun.
             </p>
           </div>
           <Link

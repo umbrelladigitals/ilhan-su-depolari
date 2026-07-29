@@ -46,7 +46,7 @@ export const Products: CollectionConfig = {
     {
       name: 'material',
       type: 'text',
-      label: 'Malzeme Tipi (Polietilen, Paslanmaz, Polyester)',
+      label: 'Malzeme Tipi (Polietilen, Plastik)',
     },
     {
       name: 'price',
@@ -56,7 +56,12 @@ export const Products: CollectionConfig = {
     {
       name: 'description',
       type: 'textarea',
-      label: 'Açıklama / Detaylar',
+      label: 'Kısa Açıklama',
+    },
+    {
+      name: 'detailedDescription',
+      type: 'textarea',
+      label: 'Detaylı SEO Açıklaması (Alt Bölüm İçin)',
     },
     {
       name: 'inStock',

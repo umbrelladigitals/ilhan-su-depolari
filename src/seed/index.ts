@@ -30,13 +30,14 @@ export async function seedPayload() {
           siteName: 'İlhan Su Depoları',
           lightLogo: '/images/light_logo.png',
           darkLogo: '/images/dark_logo.png',
-          phone: '0312 543 1358',
+          phone: '0312 514 06 19',
+          factoryPhone: '0312 511 07 19',
           whatsapp: '+905412401119',
           email: 'info@ilhansudepolari.com',
           address: 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara',
           workingHours: 'Pazartesi - Cumartesi 09:00 - 18:00 Pazar: Kapalı',
           announcementBarText: 'İlhan Su Depoları — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat',
-          footerText: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır. Ankara polietilen ve paslanmaz modüler su deposu imalatçısı.',
+          footerText: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır. Ankara polietilen plastik su deposu imalatçısı.',
           headerLogoText: 'İLHAN SU DEPOLARI',
           headerLogoSubtext: 'Depo & Pompa Sistemleri',
           navHomeText: 'Ana Sayfa',
@@ -47,7 +48,7 @@ export async function seedPayload() {
           navContactText: 'İletişim',
           whatsappBtnText: 'WHATSAPP TEKLİF AL',
           aboutTitle: '25 Yıllık Sanayi Tecrübesiyle Güvenli Su Depolama',
-          aboutDescription: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
+          aboutDescription: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen plastik su depoları imalatı gerçekleştiriyoruz.',
           socialMedia: {
             instagram: 'https://instagram.com/ilhansudepolari',
             facebook: 'https://facebook.com/ilhansudepolari',
@@ -64,9 +65,9 @@ export async function seedPayload() {
     if (categoriesCount.totalDocs === 0) {
       console.log('Seeding categories...')
       const categoryItems = [
-        { name: 'Dikey Su Deposu', slug: 'vertical_tank', description: 'Polietilen ve polyester monoblok dikey depolar', icon: 'ShieldCheck' },
-        { name: 'Yatay Su Depoları', slug: 'horizontal_tank', description: 'Alçak tavan uyumlu yatay su depoları', icon: 'Waves' },
-        { name: 'Endüstriyel Tip Pompalar', slug: 'industrial_pump', description: 'Paslanmaz çelik ağır hizmet santrifüj pompalar', icon: 'Zap' },
+        { name: 'Dikey Su Deposu', slug: 'vertical_tank', description: 'Polietilen monoblok dikey depolar', icon: 'ShieldCheck' },
+        { name: 'Yatay Su Depoları', slug: 'horizontal_tank', description: 'Alçak tavan uyumlu yatay polietilen su depoları', icon: 'Waves' },
+        { name: 'Endüstriyel Tip Pompalar', slug: 'industrial_pump', description: 'Ağır hizmet santrifüj pompalar', icon: 'Zap' },
         { name: 'Dalgıç Pompa', slug: 'submersible_pump', description: 'Derin kuyu ve drenaj dalgıç pompaları', icon: 'ShieldCheck' },
       ]
       for (const cat of categoryItems) {
@@ -172,14 +173,14 @@ export async function seedPayload() {
           ],
         },
         {
-          title: 'Argon & Gazaltı Kaynak Ustası (CTP / Metal)',
+          title: 'Polietilen Plastik Su Deposu Kalıp & Montaj Ustası',
           department: 'Atölye & Kalite',
-          location: 'Ankara / Şaşmaz',
+          location: 'Ankara / Kahramankazan',
           type: 'Tam Zamanlı',
-          description: 'Paslanmaz modüler su deposu şasileri ve flanş bağlantılarının kaynak işlerini yapacak sertifikalı kaynak ustası.',
+          description: 'Polietilen dikey ve yatay su depolarının vana rekor montajları ve sızdırmazlık kontrollerini yapacak deneyimli montaj ustası.',
           requirements: [
-            'TIG / MIG Argon ve gazaltı kaynak sertifikasına sahip',
-            'Teknik resim okuma becerisine sahip',
+            'Plastik mamul montajı veya tesisat alanında tecrübe',
+            'Teknik çizim ve ölçülendirmeye hakim',
             'Hassas imalat ölçülerine özen gösteren',
           ],
         },
@@ -216,12 +217,12 @@ export async function seedPayload() {
         },
         {
           question: 'Garanti süresi ve kapsamı nedir?',
-          answer: 'Polietilen dikey depolarımız 5 Yıl birebir değişim garantilidir. Polyester yatay depolarımız 7 Yıl, endüstriyel pompa sistemlerimiz ise 3 Yıl garantilidir.',
+          answer: 'Polietilen dikey ve yatay depolarımız 5 Yıl birebir değişim garantilidir. Endüstriyel pompa sistemlerimiz ise 3 Yıl garantilidir.',
           category: 'garanti' as const,
         },
         {
           question: 'Özel ölçü veya tonajda depo üretiyor musunuz?',
-          answer: 'Evet! Polyester (CTP) ve modüler paslanmaz depolarımızda mekanınızın kapı ve yükseklik ölçülerine göre yerinde imalat seçeneğimiz mevcuttur.',
+          answer: 'Evet! İnce ve dikey modellerimizde mekanınızın kapı ve yükseklik ölçülerine göre özel kalıplama ve tonaj seçeneklerimiz mevcuttur.',
           category: 'genel' as const,
         },
       ]
@@ -268,11 +269,11 @@ export async function seedPayload() {
           },
         },
         {
-          title: 'Paslanmaz Modüler Su Depolarının Avantajları ve Kullanım Alanları',
-          slug: 'paslanmaz-modular-su-depolari-avantajlari',
-          summary: 'Bina altları, dar kapılı alanlar ve büyük tonajlı tesisler için en ideal çözüm olan AISI 304 / 316 paslanmaz modüler su depolarını yakından inceleyin.',
+          title: 'Polietilen Su Depolarının Avantajları ve Kullanım Alanları',
+          slug: 'polietilen-su-depolari-avantajlari',
+          summary: 'Binalar, müstakil evler ve sanayi tesisleri için en ideal çözüm olan UV katkılı yosun tutmaz polietilen su depolarını yakından inceleyin.',
           image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80',
-          category: 'Endüstriyel Çözümler',
+          category: 'Plastik Depo Çözümleri',
           readTime: '6 dk',
           publishedAt: new Date().toISOString(),
           isActive: true,
@@ -282,11 +283,7 @@ export async function seedPayload() {
               children: [
                 {
                   type: 'paragraph',
-                  children: [{ type: 'text', text: 'Modüler paslanmaz su depoları, parçalar halinde nakledilerek kurulum alanında cıvatalı veya kaynaklı olarak birleştirilen yüksek teknolojili depolama çözümleridir.' }],
-                },
-                {
-                  type: 'paragraph',
-                  children: [{ type: 'text', text: 'Dar bodrum kapılarından ve kazan dairelerinden kolayca geçirilerek yüksek kapasiteli depolama olanağı sunar.' }],
+                  children: [{ type: 'text', text: 'Polietilen su depoları monoblok ek yersiz gövde yapısı sayesinde tam sızdırmazlık ve yüksek dayanıklılık sunar.' }],
                 },
               ],
             },

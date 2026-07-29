@@ -53,16 +53,13 @@ export const matchesCategory = (p: Product, cat: CategoryType | string) => {
 
   if (
     targetCat === 'industrial_pump' ||
-    targetCat === 'paslanmaz-moduler-depolar' ||
     targetCat === 'endustriyel-pompalar' ||
     targetCat === 'endüstriyel'
   ) {
     return (
       pCatSlug.includes('industrial') ||
       pCatSlug.includes('endustriyel') ||
-      pCatSlug.includes('paslanmaz') ||
       pCatName.includes('endüstriyel') ||
-      pCatName.includes('paslanmaz') ||
       pName.includes('endüstriyel') ||
       pName.includes('santrifüj') ||
       (pName.includes('pompa') && !pName.includes('dalgıç'))

@@ -12,11 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Blog & Bilgi Rehberi — ${siteName}`,
     description:
-      'Polietilen su depoları, paslanmaz modüler sistemler, hijyen bakımı ve su depolama teknolojileri hakkında uzman makaleleri ve rehberler.',
+      'Polietilen plastik su depoları, hijyen bakımı ve su depolama teknolojileri hakkında uzman makaleleri ve rehberler.',
     openGraph: {
       title: `Blog & Bilgi Rehberi — ${siteName}`,
       description:
-        'Polietilen su depoları, paslanmaz modüler sistemler ve su depolama rehberleri.',
+        'Polietilen plastik su depoları ve su depolama rehberleri.',
     },
   }
 }
@@ -25,10 +25,10 @@ export default async function BlogListPage() {
   const blogs = await getBlogs(50)
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 sm:pt-28 pb-16">
+    <div className="page-wrapper bg-slate-50">
       {/* Header / Hero Banner */}
-      <div className="bg-slate-900 text-white py-12 md:py-16 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-slate-900 text-white py-10 md:py-14 border-b border-slate-800 rounded-3xl overflow-hidden container-custom mb-10">
+        <div className="px-4 sm:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-bold uppercase tracking-wider mb-4 border border-sky-400/30">
               <BookOpen className="w-3.5 h-3.5" />
@@ -38,14 +38,14 @@ export default async function BlogListPage() {
               Blog & Teknik Rehberler
             </h1>
             <p className="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-              Su depolama sistemleri, hijyenik tank bakımı, paslanmaz çözümler ve mühendislik tavsiyeleri hakkında merak ettiğiniz her şey.
+              Su depolama sistemleri, hijyenik tank bakımı, polietilen çözümler ve mühendislik tavsiyeleri hakkında merak ettiğiniz her şey.
             </p>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      <div className="container-custom">
         {blogs.length === 0 ? (
           <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm">
             <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-3" />

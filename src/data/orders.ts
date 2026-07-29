@@ -49,24 +49,24 @@ export const MOCK_ORDERS: Record<string, OrderTrackItem> = {
     orderCode: 'ILH-88210',
     customerName: 'Astra Kimya A.Ş.',
     customerPhone: '+90 533 *** 90 88',
-    productName: 'Paslanmaz Modüler Su Deposu 50 m³',
-    capacity: '50.000 Litre (AISI 316 Kalite)',
+    productName: 'Polietilen Dikey Su Deposu 10 Ton',
+    capacity: '10.000 Litre',
     orderDate: '19 Temmuz 2026',
     estimatedDelivery: '27 Temmuz 2026',
     currentStep: 'production',
     city: 'Kocaeli / Gebze OSB',
-    notes: 'Modüler paneller paletlendi. Montaj ekibi 26 Temmuz akşamı Gebze tesisinde hazır bulunacak.',
+    notes: 'Rotasyon kalıplaması tamamlandı. Rekor montajı 26 Temmuz tarihinde yapılacaktır.',
     history: [
       {
-        title: 'Sipariş ve Proje Çizimi Onaylandı',
+        title: 'Sipariş ve Proje Onaylandı',
         date: '19 Temmuz - 14:00',
-        description: 'Fabrika mimari yerleşim projesine göre cıvatalı modüler panel tasarımı onaylandı.',
+        description: 'Polietilen dikey depo teknik detayları onaylandı.',
         completed: true
       },
       {
-        title: 'Lazer Kesim & Modüler Pres Üretimi',
+        title: 'Rotasyon Kalıplama Üretimi',
         date: '21 Temmuz - 11:00',
-        description: 'AISI 316 paslanmaz sacların lazer kesimi ve 1x1m panel formlaması devam ediyor.',
+        description: 'LLDPE hammadde fırınlanması ve soğutma prosesi tamamlandı.',
         completed: true
       },
       {

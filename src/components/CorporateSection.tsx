@@ -24,7 +24,7 @@ export const CorporateSection: React.FC = () => {
             </span>
           </h2>
           <p className="text-slate-300 text-xs sm:text-base">
-            Gıda kodeksine %100 uygun LLDPE polietilen hammaddeleri, AISI 304/316 paslanmaz modüler panelleri ve CTP polyester depoları ile Türkiye'nin depolama teknolojisi lideri.
+            Gıda kodeksine %100 uygun LLDPE polietilen hammaddeleri ile Türkiye'nin plastik su depolama teknolojisi lideri.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export const CorporateSection: React.FC = () => {
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-white">Modern Üretim Parkuru</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Tam otomatik rotasyon kalıplama fırınları ve fiber lazer pres hatları ile pürüzsüz, monoblok ve mukavemeti artırılmış su depoları imal ediyoruz.
+                Tam otomatik rotasyon kalıplama fırınları ile pürüzsüz, monoblok ve mukavemeti artırılmış plastik su depoları imal ediyoruz.
               </p>
               <ul className="space-y-1.5 pt-2 border-t border-slate-800 text-[11px] sm:text-xs text-slate-300">
                 <li className="flex items-center gap-2">
@@ -47,7 +47,7 @@ export const CorporateSection: React.FC = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
-                  <span>Lazer Kesim Paslanmaz Cıvatalı Paneller</span>
+                  <span>UV Katkılı Sağlık Onaylı Plastik Gövde</span>
                 </li>
               </ul>
             </div>

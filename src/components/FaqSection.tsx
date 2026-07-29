@@ -22,8 +22,8 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ faqs = [], siteSettings 
       answer: 'Evet, 81 il ve ilçeye kendi özmal lojistik filomuz ile teslimat yapıyoruz. Büyük tonajlı veya ağır depolar için vinçli araçlarımızla doğrudan adresinizde istenilen noktaya indirme sağlıyoruz.',
     },
     {
-      question: 'Paslanmaz modüler su depoları dar alanlara ve bodrum katlara kurulabilir mi?',
-      answer: 'Paslanmaz modüler depolarımız standart paneller halinde imal edildiğinden dar bina girişlerinden ve kazan dairelerinden kolayca geçer. Uzman ekibimiz yerinde montajını gerçekleştirir.',
+      question: 'Polietilen dikey ve yatay su depoları dar kapılardan geçer mi?',
+      answer: 'İnce dikey ve yatay polietilen modellerimiz standart bina kapılarından ve dar geçitlerden rahatça geçebilecek kompakt boyutlarda imal edilmektedir.',
     },
   ]
 

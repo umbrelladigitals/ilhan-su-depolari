@@ -756,6 +756,7 @@ export interface SiteSetting {
   lightLogo?: string | null;
   darkLogo?: string | null;
   phone?: string | null;
+  factoryPhone?: string | null;
   whatsapp?: string | null;
   email?: string | null;
   address?: string | null;
@@ -802,6 +803,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   lightLogo?: T;
   darkLogo?: T;
   phone?: T;
+  factoryPhone?: T;
   whatsapp?: T;
   email?: T;
   address?: T;

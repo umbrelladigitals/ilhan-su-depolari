@@ -15,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
   const siteSettings = await payload.findGlobal({ slug: 'site-settings' }).catch(() => null)
 
-  const metaTitle = (siteSettings as any)?.siteMetaTitle || (siteSettings as any)?.metaTitle || (siteSettings as any)?.siteName || 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Depolar'
-  const metaDescription = (siteSettings as any)?.siteMetaDescription || (siteSettings as any)?.metaDescription || 'Ankara su deposu üreticisi İlhan Su Depoları. Yüksek kaliteli polietilen dikey, yatay ve paslanmaz modüler su depoları uygun teklif ve garantiyle.'
+  const metaTitle = (siteSettings as any)?.siteMetaTitle || (siteSettings as any)?.metaTitle || (siteSettings as any)?.siteName || 'İlhan Su Depoları — Polietilen Plastik Su Depoları'
+  const metaDescription = (siteSettings as any)?.siteMetaDescription || (siteSettings as any)?.metaDescription || 'Ankara su deposu üreticisi İlhan Su Depoları. Yüksek kaliteli polietilen dikey ve yatay plastik su depoları uygun teklif ve garantiyle.'
 
   return {
     title: metaTitle,
     description: metaDescription,
-    keywords: (siteSettings as any)?.siteMetaKeywords || (siteSettings as any)?.metaKeywords || 'su deposu, ankara su deposu, polietilen su deposu, paslanmaz modüler depo',
+    keywords: (siteSettings as any)?.siteMetaKeywords || (siteSettings as any)?.metaKeywords || 'su deposu, ankara su deposu, polietilen su deposu, plastik su deposu',
     openGraph: {
       title: metaTitle,
       description: metaDescription,

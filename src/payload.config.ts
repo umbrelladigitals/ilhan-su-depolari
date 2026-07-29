@@ -74,7 +74,7 @@ export default buildConfig({
       uploadsCollection: 'media',
       generateTitle: ({ doc }: any) => `${doc?.name || doc?.siteName || 'İlhan Su Depoları'} — Su Depolama Teknolojileri`,
       generateDescription: ({ doc }: any) =>
-        doc?.description || doc?.footerText || 'İlhan Su Depoları — Polietilen, Paslanmaz Modüler ve Polyester Su Depoları.',
+        doc?.description || doc?.footerText || 'İlhan Su Depoları — Polietilen Plastik Su Depoları.',
     }),
   ],
   editor: lexicalEditor(),

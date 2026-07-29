@@ -85,7 +85,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     notFound()
   }
 
-  const phoneDisplay = (siteSettings as any)?.phone || '0312 543 1358'
+  const phoneDisplay = (siteSettings as any)?.phone || '0312 514 06 19'
   const whatsappNumber = (siteSettings as any)?.whatsapp
 
   const formattedDate = blog.publishedAt
@@ -99,9 +99,9 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const otherBlogs = (recentBlogs || []).filter((b: any) => b.slug !== slug).slice(0, 3)
 
   return (
-    <article className="min-h-screen bg-slate-50 pt-24 sm:pt-28 pb-20">
+    <article className="page-wrapper bg-slate-50">
       {/* Top Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <div className="container-custom mb-6">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-slate-600 hover:text-sky-600 font-semibold text-sm transition-colors group"
@@ -111,7 +111,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Main Article Content */}
           <div className="lg:col-span-8">
@@ -177,7 +177,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-700">
               <h3 className="text-xl font-extrabold mb-2">Su Deposu Mu Lazım?</h3>
               <p className="text-slate-300 text-sm mb-6 leading-relaxed">
-                İhtiyacınıza uygun tonaj ve ölçülerde dikey, yatay veya paslanmaz modüler depolarda en uygun fiyat teklifini alın.
+                İhtiyacınıza uygun tonaj ve ölçülerde dikey ve yatay polietilen plastik depolarda en uygun fiyat teklifini alın.
               </p>
               <div className="space-y-3">
                 <a

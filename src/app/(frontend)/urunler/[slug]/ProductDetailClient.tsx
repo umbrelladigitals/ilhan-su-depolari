@@ -54,7 +54,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   }
 
   return (
-    <div className="pt-24 sm:pt-28 pb-16 sm:pb-24 bg-white min-h-screen">
+    <div className="page-wrapper bg-white">
       <div className="container-custom">
         {/* Breadcrumb Navigation */}
         <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
@@ -200,7 +200,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               </button>
 
               {(() => {
-                const phoneNum = siteSettings?.phone || '0312 543 1358'
+                const phoneNum = siteSettings?.phone || '0312 514 06 19'
                 return (
                   <a
                     href={`tel:${phoneNum.replace(/\s+/g, '')}`}
@@ -264,6 +264,145 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   <span className="text-slate-500 font-semibold">Sağlık Sertifikası:</span>
                   <span className="font-bold text-sky-700 text-right">%100 Gıda Onaylı & BPA Free</span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── BOTTOM DETAILED PRODUCT DESCRIPTION & SEO SALES SECTION ─── */}
+        <div className="mt-16 pt-12 border-t border-slate-200 space-y-12">
+          {/* Main Title Banner */}
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-extrabold uppercase tracking-wider inline-block">
+              Detaylı Ürün İncelemesi & Üretim Standartları
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              {productName} — Teknik Detaylar & Kullanım Rehberi
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              İlhan Su Depoları güvencesiyle üretilen gıda tüzüğüne tam uygun, UV korumalı ve yosun tutmaz %100 plastik polietilen depolama çözümü.
+            </p>
+          </div>
+
+          {/* Detailed Product Narrative Card */}
+          <div className="bg-slate-50 border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-sm space-y-6">
+            <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
+              <div className="w-10 h-10 rounded-2xl bg-sky-600 text-white flex items-center justify-center font-bold shadow-md">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-slate-900">Ürün Hakkında Kapsamlı Bilgi & Avantajlar</h3>
+                <p className="text-xs text-slate-500 font-semibold">%100 Orijinal LLDPE Plastik Polietilen Rotasyon Teknolojisi</p>
+              </div>
+            </div>
+
+            <div className="prose prose-slate max-w-none text-sm sm:text-base text-slate-700 leading-relaxed space-y-4">
+              <p className="whitespace-pre-wrap">
+                {product?.detailedDescription ? (
+                  product.detailedDescription
+                ) : (
+                  <>
+                    <strong>{productName}</strong>, yüksek yoğunluklu UV stabilizanlı 1. sınıf lineer polietilen (LLDPE) hammaddeden dikişsiz monoblok (tek parça) rotasyon teknolojisi kullanılarak üretilmiştir. Gövde üzerinde hiçbir birleşim yeri, kaynak veya ek bulunmadığı için sızdırmazlık konusunda %100 güvenlik sağlar.
+                    <br /><br />
+                    T.C. Sağlık Bakanlığı gıda maddeleri tüzüğüne uygun olarak imal edilen polietilen su depomuz; içme suyu, kullanım suyu, gıda sıvıları (süt, zeytinyağı, şıra vb.) ve kimyasal hammaddelerin güvenle depolanması için tasarlanmıştır. İç yüzeyi pürüzsüz ve dikişsizdir, bakteri ve mikrop tutmaz, koku yapmaz ve suyun berraklığını uzun yıllar korur.
+                  </>
+                )}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6 not-prose">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+                  <h4 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    Yosun Tutmaz Çift Katmanlı Yapı
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    UV katkılı özel plastik katmanı sayesinde güneş ışığının depoya nüfuz etmesini engeller. Dış mekanda uzun süre güneş altında kalsa dahi yosunlaşma yapmaz.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+                  <h4 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-sky-500" />
+                    Kompakt & Ergonomik Tasarım
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Optimum ebatları sayesinde dar kapılardan, kiler geçişlerinden ve merdiven boşluklarından sorunsuz taşınır. Hidrofor ve tesisat rekor çıkışları fabrika çıkışlı hazırdır.
+                  </p>
+                </div>
+              </div>
+
+              {!product?.detailedDescription && (
+                <p>
+                  Depolarımız kimyasal korozyona, passızlığa ve paslanmaya karşı tamamen dirençlidir. Hiçbir şekilde pas tutmaz, çürümez veya boya bakımı gerektirmez. 5 Yıl Birebir Fabrika Değişim Garantisi ile desteklenmektedir.
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* 4-Card Application Areas Grid */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-extrabold text-slate-900 text-center">Öne Çıkan Kullanım Alanları</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-8 h-8 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs">01</div>
+                <h4 className="font-extrabold text-slate-900 text-sm">Konut & Apartmanlar</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Bina hidrofor yedek su sistemleri, müstakil villa ve daire su depolamaları için %100 hijyenik çözümdür.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">02</div>
+                <h4 className="font-extrabold text-slate-900 text-sm">Tarım & Bahçe Sulama</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Hobi bahçeleri, sera sulama sistemleri ve damlama sulama altyapısı için UV korumalı ideal depo.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xs">03</div>
+                <h4 className="font-extrabold text-slate-900 text-sm">Sanayi & Tesisler</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Fabrika proses suyu, şantiye yedek suyu ve üretim tesisleri için dikişsiz yüksek dayanımlı depolama.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">04</div>
+                <h4 className="font-extrabold text-slate-900 text-sm">Gıda & İçme Suyu</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  T.C. Sağlık Bakanlığı onaylı gıda hammaddesi ile tat bozmayan, kokusuz içme suyu depolama.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Product FAQ Section */}
+          <div className="bg-sky-50/60 border border-sky-200/80 rounded-3xl p-6 sm:p-8 space-y-4">
+            <h3 className="text-lg font-extrabold text-slate-900 border-b border-sky-200 pb-3">
+              Bu Ürün Hakkında Sıkça Sorulan Sorular
+            </h3>
+            
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="bg-white p-4 rounded-xl border border-sky-100 shadow-sm space-y-1">
+                <span className="font-extrabold text-slate-900 block">Soru: Depoda yosunlaşma veya koku olur mu?</span>
+                <p className="text-slate-600">
+                  Hayır. Ürünlerimiz UV stabilizanlı %100 orijinal plastik hammaddeden üretildiği için güneş ışığını geçirmez, bakteri ve yosun oluşumunu engeller.
+                </p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl border border-sky-100 shadow-sm space-y-1">
+                <span className="font-extrabold text-slate-900 block">Soru: Teslimat ve nakliye nasıl yapılıyor?</span>
+                <p className="text-slate-600">
+                  Ankara içi fabrika teslimlerinde stoktan aynı gün teslim imkanımız mevcuttur. Şehir dışı siparişlerde anlaşmalı nakliye ile güvenli teslimat sağlanır.
+                </p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl border border-sky-100 shadow-sm space-y-1">
+                <span className="font-extrabold text-slate-900 block">Soru: Garanti süresi kaç yıldır?</span>
+                <p className="text-slate-600">
+                  Tüm polietilen plastik su depolarımız imalat hatalarına karşı 5 Yıl Resmi Fabrika Birebir Değişim Garantilidir.
+                </p>
               </div>
             </div>
           </div>

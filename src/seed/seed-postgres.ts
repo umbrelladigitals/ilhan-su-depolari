@@ -27,8 +27,8 @@ async function seedPostgres() {
       isPublished: true,
     },
     {
-      question: 'Paslanmaz modüler su depoları dar kapılardan nasıl taşınır?',
-      answer: 'Modüler su depolarımız standart kapı ve merdiven boşluklarından geçebilecek ebatta modüler paneller halinde demonte taşınır. Kurulum yerinde sertifikalı kaynakçı/montaj ekibimizce yapılır.',
+      question: 'Polietilen su depoları dar kapılardan nasıl taşınır?',
+      answer: 'İnce dikey modellerimiz standart bina kapılarından ve geçitlerden kolayca geçebilecek kompakt ebatlarda imal edilmektedir.',
       order: 2,
       isPublished: true,
     },
@@ -40,7 +40,7 @@ async function seedPostgres() {
     },
     {
       question: 'Garanti süresi ne kadardır?',
-      answer: 'Polietilen depolarımız imalat hatalarına karşı 2 yıl, paslanmaz modüler su depolarımız ise 10 yıl resmi fabrika garantilidir.',
+      answer: 'Polietilen su depolarımız imalat hatalarına karşı 5 yıl resmi fabrika garantilidir.',
       order: 4,
       isPublished: true,
     },
@@ -57,8 +57,8 @@ async function seedPostgres() {
   // 4. Kategoriler
   const categoriesData = [
     { name: 'Polietilen Su Depoları', slug: 'polietilen-su-depolari', description: 'Gıda sınıfı UV katkılı LLDPE polietilen dikey ve yatay su depoları.', icon: 'Cylinder' },
-    { name: 'Paslanmaz Modüler Depolar', slug: 'paslanmaz-moduler-depolar', description: '304/316 kalite paslanmaz çelik modüler su depoları.', icon: 'Boxes' },
-    { name: 'Polyester Su Depoları', slug: 'polyester-su-depolari', description: 'Cam elyaf takviyeli yüksek mukavemetli polyester depolar.', icon: 'Layers' },
+    { name: 'Dikey Su Depoları', slug: 'vertical_tank', description: 'Polietilen dikey monoblok yüksek hijyen depoları.', icon: 'Cylinder' },
+    { name: 'Yatay Su Depoları', slug: 'horizontal_tank', description: 'Alçak tavan uyumlu yatay polietilen su depoları.', icon: 'Waves' },
     { name: 'Yeraltı Depoları', slug: 'yeralti-depolari', description: 'Toprak altı kullanımına uygun takviyeli özel tasarım su depoları.', icon: 'Shield' },
   ]
 
@@ -113,16 +113,16 @@ async function seedPostgres() {
       image: '/images/products/polietilen_dikey_5000lt.jpg',
     },
     {
-      name: '10 Ton Paslanmaz Çelik Modüler Depo',
-      slug: '10-ton-paslanmaz-celik-moduler-depo',
-      category: createdCategories['paslanmaz-moduler-depolar'],
+      name: '10 Ton Dikey Polietilen Su Deposu',
+      slug: '10-ton-dikey-polietilen-su-deposu',
+      category: createdCategories['polietilen-su-depolari'],
       capacity: '10.000 Lt (10 Ton)',
-      dimensions: '200 x 250 x 200 cm',
-      material: '304 Kalite Paslanmaz Çelik',
-      price: 89000,
-      description: 'Yerinde montaj imkanı sunan yüksek hijyen standartlı modüler paslanmaz su deposu.',
+      dimensions: '230 x 230 x 270 cm',
+      material: 'Gıda Sınıfı LLDPE Polietilen',
+      price: 48000,
+      description: 'Geniş hacimli su yedekleme için yüksek mukavemetli polietilen su deposu.',
       inStock: true,
-      image: '/images/products/paslanmaz_moduler_10ton.jpg',
+      image: '/images/products/2000l-dikey-mavi-ilhan.jpg',
     },
   ]
 
@@ -139,22 +139,23 @@ async function seedPostgres() {
     slug: 'site-settings',
     data: {
       siteName: 'İlhan Su Depoları',
-      phone: '0312 543 1358',
+      phone: '0312 514 06 19',
+      factoryPhone: '0312 511 07 19',
       whatsapp: '+905412401119',
       email: 'info@ilhansudepolari.com',
-      address: 'Ostim OSB Mahallesi 100. Yıl Bulvarı No: 45 Yenimahalle / Ankara',
+      address: 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara',
       workingHours: 'Pazartesi - Cumartesi: 08:30 - 18:30',
       aboutTitle: '25 Yıllık Sanayi Tecrübesiyle Güvenli Su Depolama',
-      aboutDescription: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Ostim sanayisinde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
+      aboutDescription: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen plastik su depoları imalatı gerçekleştiriyoruz.',
       statExperience: '25+',
       statTanksProduced: '15.000+',
       statSatisfaction: '%99.8',
       calculatorTitle: 'İhtiyacınıza Uygun Depo Hacmini Hesaplayın',
       calculatorSubtitle: 'Kullanım amacınıza ve bina/kullanıcı sayınıza göre ideal su deposu kapasitesini saniyeler içinde hesaplayın.',
       footerText: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır.',
-      siteMetaTitle: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Depolar',
-      siteMetaDescription: 'Ankara su deposu üreticisi İlhan Su Depoları. Polietilen dikey, yatay ve paslanmaz modüler su depoları uygun fiyat ve garantiyle.',
-      siteMetaKeywords: 'su deposu, ankara su deposu, polietilen su deposu, paslanmaz modüler depo',
+      siteMetaTitle: 'İlhan Su Depoları — Polietilen Plastik Su Depoları',
+      siteMetaDescription: 'Ankara su deposu üreticisi İlhan Su Depoları. Polietilen dikey ve yatay plastik su depoları uygun fiyat ve garantiyle.',
+      siteMetaKeywords: 'su deposu, ankara su deposu, polietilen su deposu, plastik su deposu',
     } as any,
   })
   console.log('✅ Site Settings ve SEO verileri güncellendi.')

@@ -37,8 +37,8 @@ export const CalculatorSection: React.FC<CalculatorSectionProps> = ({ onOrderCap
     if (liters <= 1000) return 'Polietilen Dikey Su Deposu 1.000 L'
     if (liters <= 3000) return 'Polietilen Dikey Su Deposu 3.000 L'
     if (liters <= 5000) return 'Polietilen Dikey Su Deposu 5.000 L'
-    if (liters <= 10000) return 'Polyester Yatay Su Deposu 10.000 L'
-    return 'Paslanmaz Modüler Su Deposu (Özel Hacim)'
+    if (liters <= 10000) return 'Polietilen Yatay / Dikey Su Deposu 10.000 L'
+    return 'Polietilen Yüksek Hacim Su Deposu (Özel İmalat)'
   }
 
   const handleOrderClick = () => {

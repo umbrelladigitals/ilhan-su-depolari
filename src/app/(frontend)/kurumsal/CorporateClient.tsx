@@ -301,7 +301,7 @@ export const CorporateClient: React.FC<CorporateClientProps> = ({
                       type="text"
                       value={applicantPhone}
                       onChange={e => setApplicantPhone(e.target.value)}
-                      placeholder="0312 543 1358"
+                      placeholder="0312 514 06 19"
                       className="w-full p-3 rounded-xl bg-white border border-slate-200 text-slate-900 text-xs input-focus"
                     />
                   </div>
@@ -393,7 +393,7 @@ export const CorporateClient: React.FC<CorporateClientProps> = ({
               </div>
               <h3 className="text-xl font-extrabold text-slate-900">ISO 9001:2015 & CE Kalite Yönetimi</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Fabrika üretim hattımız ISO 9001 standartlarında denetlenmekte, paslanmaz endüstriyel tip ve dalgıç pompalarımız Avrupa CE direktiflerine tam uyum sağlamaktadır.
+                Fabrika üretim hattımız ISO 9001 standartlarında denetlenmekte, endüstriyel tip ve dalgıç pompalarımız Avrupa CE direktiflerine tam uyum sağlamaktadır.
               </p>
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700">
                 ✓ ISO 9001:2015 Sertifikalı • CE Normlarında İmalat

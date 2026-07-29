@@ -47,7 +47,7 @@ const megaMenuCategories = [
   {
     id: 'industrial_pump' as CategoryType,
     title: 'Endüstriyel Tip Pompalar',
-    desc: 'Paslanmaz çelik santrifüj & hidrofor pompaları',
+    desc: 'Ağır hizmet santrifüj & hidrofor pompaları',
     icon: Settings,
     badge: 'Yeni Ürün',
     iconBg: 'bg-indigo-100 text-indigo-700',
@@ -77,7 +77,8 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
 
   // Dinamik Admin Panel Ayarları (Payload CMS Globals)
   const whatsappNumber = siteSettings?.whatsapp
-  const phoneDisplay = siteSettings?.phone || '0312 543 1358'
+  const phoneDisplay = siteSettings?.phone || '0312 514 06 19'
+  const factoryPhoneDisplay = siteSettings?.factoryPhone || '0312 511 07 19'
   const siteName = siteSettings?.siteName || 'İlhan Su Depoları'
   const announcementText = siteSettings?.announcementBarText || `${siteName} — Etimesgut / Ankara • Türkiye Geneli Sigortalı Teslimat`
 
@@ -144,10 +145,10 @@ export const Navbar: React.FC<NavbarProps> = ({ siteSettings }) => {
             href={getWhatsAppUrl(whatsappNumber, 'Merhaba, İlhan Su Depoları ürünleri hakkında bilgi ve fiyat almak istiyorum.')}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 text-emerald-400 font-bold hover:underline"
+            className="flex items-center gap-2 text-emerald-400 font-bold hover:underline"
           >
             <MessageSquare className="w-3.5 h-3.5 fill-current" />
-            <span>İletişim & WhatsApp: {phoneDisplay}</span>
+            <span>Ofis: {phoneDisplay} • Fabrika: {factoryPhoneDisplay}</span>
           </a>
         </div>
       </div>

@@ -34,8 +34,14 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'phone',
               type: 'text',
-              defaultValue: '0312 543 1358',
-              label: 'Telefon / Fax Numarası',
+              defaultValue: '0312 514 06 19',
+              label: 'Ofis Telefon Numarası',
+            },
+            {
+              name: 'factoryPhone',
+              type: 'text',
+              defaultValue: '0312 511 07 19',
+              label: 'Fabrika Telefon Numarası',
             },
             {
               name: 'whatsapp',
@@ -76,7 +82,7 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'footerText',
               type: 'textarea',
-              defaultValue: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır. Ankara polietilen ve paslanmaz modüler su deposu imalatçısı.',
+              defaultValue: '© 2026 İlhan Su Depoları. Tüm hakları saklıdır. Ankara polietilen plastik su deposu imalatçısı.',
               label: 'Alt Bilgi (Footer) Telif Metni',
             },
           ],
@@ -152,7 +158,7 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'aboutDescription',
               type: 'textarea',
-              defaultValue: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen, 304/316 paslanmaz çelik ve mukavemetli polyester su depoları imalatı gerçekleştiriyoruz.',
+              defaultValue: 'İlhan Su Depoları olarak 2001 yılından bu yana Ankara Etimesgut adresimizde gıda sınıfı polietilen plastik su depoları imalatı gerçekleştiriyoruz.',
               label: 'Hakkımızda Detay Metni',
             },
             {
@@ -198,19 +204,19 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'siteMetaTitle',
               type: 'text',
-              defaultValue: 'İlhan Su Depoları — Polietilen & Paslanmaz Modüler Su Depoları',
+              defaultValue: 'İlhan Su Depoları — Polietilen Plastik Su Depoları',
               label: 'Varsayılan Meta Başlığı (Title)',
             },
             {
               name: 'siteMetaDescription',
               type: 'textarea',
-              defaultValue: 'Ankara su deposu imalatçısı İlhan Su Depoları. Yüksek kaliteli polietilen dikey, yatay ve paslanmaz modüler su depoları uygun fiyat ve fabrika garantisiyle.',
+              defaultValue: 'Ankara su deposu imalatçısı İlhan Su Depoları. Yüksek kaliteli polietilen dikey ve yatay plastik su depoları uygun fiyat ve fabrika garantisiyle.',
               label: 'Varsayılan Meta Açıklaması (Description)',
             },
             {
               name: 'siteMetaKeywords',
               type: 'text',
-              defaultValue: 'su deposu, ankara su deposu, polietilen su deposu, paslanmaz su deposu, su deposu fiyatları',
+              defaultValue: 'su deposu, ankara su deposu, polietilen su deposu, plastik su deposu, su deposu fiyatları',
               label: 'Meta Anahtar Kelimeler (Keywords)',
             },
           ],

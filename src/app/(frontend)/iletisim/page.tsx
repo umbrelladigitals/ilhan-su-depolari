@@ -5,7 +5,7 @@ import { getSiteSettings } from '@/lib/payload'
 export const metadata: Metadata = {
   title: 'İletişim & Adres — İlhan Su Depoları',
   description:
-    'Ankara Etimesgut adresimiz, telefon: 0312 543 1358, WhatsApp sipariş hattı ve hızlı iletişim formu.',
+    'Ankara Etimesgut adresimiz, Ofis: 0312 514 06 19, Fabrika: 0312 511 07 19, WhatsApp sipariş hattı ve hızlı iletişim formu.',
 }
 
 export default async function ContactPage() {
