@@ -12,6 +12,7 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 3002,
+        PAYLOAD_SECRET: 'a8f92b7c4d1e6f3a8b2c5d9e0f1a4b7c3d6e9f2a5b8c1d4e7f0a3b6c9d2e5f8',
       },
     },
   ],

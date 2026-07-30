@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { safeAssetUrl, safeInternalPath } from '../lib/safe-url'
 
 export interface HeroSlideItem {
   id?: string | number | null
@@ -63,16 +64,31 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
   }
 
   const currentSlide = slides.length > 0 ? slides[currentIndex] : defaultSlide
+  const backgroundUrl = safeAssetUrl(currentSlide.bgMediaUrl, '/images/hero_bg.jpg')
+  const primaryLink = safeInternalPath(currentSlide.primaryButtonLink, '/urunler')
 
   return (
     <section className="relative min-h-[100dvh] w-full flex items-center justify-center pt-24 sm:pt-28 pb-12 overflow-hidden bg-slate-100 border-b border-slate-200">
       {/* ─── Net Arka Plan (Görsel) ─── */}
       <div className="absolute inset-0 z-0" suppressHydrationWarning>
-        <img
-          src="/images/hero_bg.jpg"
-          alt={currentSlide.title || 'İlhan Su Depoları'}
-          className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05]"
-        />
+        {currentSlide.bgType === 'video' ? (
+          <video
+            ref={videoRef}
+            key={backgroundUrl}
+            src={backgroundUrl}
+            className="w-full h-full object-cover object-center"
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+          />
+        ) : (
+          <img
+            src={backgroundUrl}
+            alt=""
+            className="w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05]"
+          />
+        )}
         {/* İnce Şeffaf Minimalist Karartma */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/30 to-slate-950/20" />
       </div>
@@ -98,7 +114,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
       )}
 
       {/* ─── Minimalist İçi Boş Sade İçerik ─── */}
-      <div className="relative z-10 max-w-3xl mx-auto px-4 text-center my-auto space-y-4">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 text-center my-auto space-y-4" aria-live="polite">
+        {currentSlide.badgeText && (
+          <div className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-[11px] sm:text-xs font-bold tracking-wide text-white backdrop-blur-md shadow-sm">
+            {currentSlide.badgeText}
+          </div>
+        )}
         {/* Minimalist Tek Satır Başlık */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-md">
           {currentSlide.title}
@@ -114,7 +135,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
         {/* Tek Minimalist Aksiyon Butonu */}
         <div className="pt-2 flex justify-center">
           <Link
-            href={currentSlide.primaryButtonLink || '/urunler'}
+            href={primaryLink}
             className="btn-primary-sky px-6 py-3 text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg"
           >
             <span>{currentSlide.primaryButtonText || 'Ürün Kataloğunu İncele'}</span>
@@ -122,6 +143,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ slides = [] }) => {
           </Link>
         </div>
       </div>
+
+      {slides.length > 1 && (
+        <div className="absolute bottom-7 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2" aria-label="Slayt seçimi">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.id ?? index}
+              type="button"
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === currentIndex ? 'w-8 bg-white' : 'w-2 bg-white/55 hover:bg-white/80'
+              }`}
+              aria-label={`${index + 1}. slayta git`}
+              aria-current={index === currentIndex ? 'true' : undefined}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

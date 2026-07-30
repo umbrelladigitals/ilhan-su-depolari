@@ -76,18 +76,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       'https://instagram.com/ilhansudepolari',
     ],
   }
+  const serializedJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
 
   return (
     <html lang="tr" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializedJsonLd }}
         />
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between selection:bg-sky-500 selection:text-white" suppressHydrationWarning>
+        <a href="#main-content" className="skip-link">Ana içeriğe geç</a>
         <Navbar siteSettings={siteSettings} />
-        <main className="flex-grow">{children}</main>
+        <main id="main-content" className="flex-grow">{children}</main>
         <Footer siteSettings={siteSettings} />
 
         {/* Floating Sticky Action Buttons (Phone + WhatsApp) */}
@@ -103,7 +105,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <a
             href={getWhatsAppUrl((siteSettings as any)?.whatsapp, 'Merhaba, İlhan Su Depoları ürünleri hakkında bilgi ve fiyat almak istiyorum.')}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="floating-action-btn whatsapp-pulse w-13 h-13 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center border border-emerald-400/40 relative group"
             title="WhatsApp Sipariş & Teklif Hattı"
           >

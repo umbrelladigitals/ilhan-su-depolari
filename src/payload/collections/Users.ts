@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { adminOnly, isAdminField } from '../access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -11,6 +12,7 @@ export const Users: CollectionConfig = {
     group: 'Sistem & Medya',
   },
   auth: true,
+  access: adminOnly,
   fields: [
     {
       name: 'name',
@@ -21,6 +23,11 @@ export const Users: CollectionConfig = {
       name: 'role',
       type: 'select',
       defaultValue: 'admin',
+      required: true,
+      access: {
+        create: isAdminField,
+        update: isAdminField,
+      },
       options: [
         { label: 'Yönetici (Admin)', value: 'admin' },
         { label: 'Editör', value: 'editor' },

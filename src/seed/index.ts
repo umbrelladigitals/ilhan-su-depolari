@@ -16,7 +16,7 @@ export async function seedPayload() {
         data: {
           email: 'admin@ilhansudepolari.com',
           password: 'Admin123456!',
-        },
+        } as any,
       })
       console.log('Admin user created: admin@ilhansudepolari.com / Admin123456!')
     }

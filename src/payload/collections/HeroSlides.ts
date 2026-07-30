@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
+import { validateSafePathOrHttpsUrl } from '../validation'
 
 export const HeroSlides: CollectionConfig = {
   slug: 'hero-slides',
+  access: {
+    ...publicReadAuthenticatedWrite,
+    read: ({ req }) => req.user ? true : { isActive: { equals: true } },
+  },
   labels: {
     singular: 'Hero Banner Slaydı',
     plural: 'Hero Slider Bannerları',
@@ -43,6 +49,7 @@ export const HeroSlides: CollectionConfig = {
       name: 'bgMediaUrl',
       type: 'text',
       defaultValue: '/videos/hero_video.mp4',
+      validate: validateSafePathOrHttpsUrl,
       label: 'Video veya Görsel URL / Yolu',
     },
     {
@@ -55,6 +62,7 @@ export const HeroSlides: CollectionConfig = {
       name: 'primaryButtonLink',
       type: 'text',
       defaultValue: '/urunler',
+      validate: validateSafePathOrHttpsUrl,
       label: 'Birincil Buton Linki',
     },
     {

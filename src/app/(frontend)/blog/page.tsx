@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react'
 import { getBlogs, getSiteSettings } from '@/lib/payload'
+import { safeAssetUrl } from '@/lib/safe-url'
 
 export const revalidate = 0
 
@@ -71,7 +72,7 @@ export default async function BlogListPage() {
                   {/* Image */}
                   <div className="relative aspect-[16/9] bg-slate-100 overflow-hidden">
                     <img
-                      src={blog.image || 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'}
+                      src={safeAssetUrl(blog.image, '/images/hero_bg.jpg')}
                       alt={blog.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

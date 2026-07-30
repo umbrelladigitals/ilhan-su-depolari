@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Calendar, Clock, ArrowLeft, MessageSquare, Phone, ShieldCheck } from 'lucide-react'
 import { getBlogBySlug, getBlogs, getSiteSettings } from '@/lib/payload'
 import { getWhatsAppUrl } from '@/lib/whatsapp'
+import { safeAssetUrl } from '@/lib/safe-url'
 
 export const revalidate = 0
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     openGraph: {
       title: blog.title,
       description: blog.summary,
-      images: blog.image ? [{ url: blog.image }] : [],
+      images: blog.image ? [{ url: safeAssetUrl(blog.image, '/images/hero_bg.jpg') }] : [],
     },
   }
 }
@@ -149,7 +150,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               {blog.image && (
                 <div className="rounded-2xl overflow-hidden mb-8 border border-slate-200/60 shadow-sm max-h-[450px]">
                   <img
-                    src={blog.image}
+                    src={safeAssetUrl(blog.image, '/images/hero_bg.jpg')}
                     alt={blog.title}
                     className="w-full h-full object-cover"
                   />

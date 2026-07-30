@@ -169,6 +169,7 @@ export interface Product {
   material?: string | null;
   price?: number | null;
   description?: string | null;
+  detailedDescription?: string | null;
   inStock?: boolean | null;
   image?: string | null;
   specs?:
@@ -219,7 +220,7 @@ export interface Category {
  */
 export interface Media {
   id: number;
-  alt?: string | null;
+  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -330,7 +331,7 @@ export interface Faq {
 export interface User {
   id: number;
   name?: string | null;
-  role?: ('admin' | 'editor') | null;
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -525,6 +526,7 @@ export interface ProductsSelect<T extends boolean = true> {
   material?: T;
   price?: T;
   description?: T;
+  detailedDescription?: T;
   inStock?: T;
   image?: T;
   specs?: T;

@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "graphql": "^16.14.2",
+    "libsql": "^0.5.29",
     "lucide-react": "^1.26.0",
     "next": "^16.2.11",
     "payload": "^3.86.0",
@@ -40,5 +41,13 @@
     "postcss": "^8.5.22",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "dompurify": "3.4.12",
+      "esbuild@<=0.24.2": "0.25.12",
+      "postcss@<=8.5.17": "8.5.22",
+      "sharp@<0.35.0": "0.35.3"
+    }
   }
 }

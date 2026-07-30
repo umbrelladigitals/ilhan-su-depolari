@@ -1,7 +1,12 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
 
 export const JobPositions: CollectionConfig = {
   slug: 'job-positions',
+  access: {
+    ...publicReadAuthenticatedWrite,
+    read: ({ req }) => req.user ? true : { isActive: { equals: true } },
+  },
   labels: {
     singular: 'İş İlanı',
     plural: 'İş İlanları (İK)',

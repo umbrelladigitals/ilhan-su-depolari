@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Check, MessageSquare, PhoneCall, ChevronRight, Sparkles } from 'lucide-react'
 import { getWhatsAppUrl } from '@/lib/whatsapp'
+import { safeAssetUrl } from '@/lib/safe-url'
 
 interface ProductDetailClientProps {
   product: any
@@ -27,7 +28,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const categoryName = product?.categoryName || product?.category?.name || 'Polietilen Su Deposu'
   const description = product?.description || 'Gıda tüzüğüne uygun, yüksek UV katkılı LLDPE polietilen hammaddeden üretilmiş su depolama çözümü.'
   const capacityRange = product?.capacityRange || product?.capacity || '500L - 20.000L'
-  const image = product?.image || '/images/hero_bg.jpg'
+  const image = safeAssetUrl(product?.image, '/images/hero_bg.jpg')
   const material = product?.material || 'Gıda Sınıfı Polietilen'
   const features = product?.features || [
     'T.C. Sağlık Bakanlığı Onaylı Gıda Hammaddesi',

@@ -1,7 +1,9 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  access: publicReadAuthenticatedWrite,
   labels: {
     singular: 'Medya',
     plural: 'Medya Kütüphanesi',
@@ -38,6 +40,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      required: true,
       label: 'Görsel Alternatif Metni (Alt Text)',
     },
   ],

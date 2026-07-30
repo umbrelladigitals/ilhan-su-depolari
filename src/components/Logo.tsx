@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { safeAssetUrl } from '../lib/safe-url'
 
 interface LogoProps {
   variant?: 'light' | 'dark' | 'auto'
@@ -31,8 +32,8 @@ export const Logo: React.FC<LogoProps> = ({
     ? siteSettings?.darkLogo?.url
     : siteSettings?.darkLogo
 
-  const lightLogoSrc = customLightLogo || '/images/light_logo.png'
-  const darkLogoSrc = customDarkLogo || '/images/dark_logo.png'
+  const lightLogoSrc = safeAssetUrl(customLightLogo, '/images/light_logo.png')
+  const darkLogoSrc = safeAssetUrl(customDarkLogo, '/images/dark_logo.png')
 
   const selectedSrc = variant === 'dark' ? darkLogoSrc : lightLogoSrc
 

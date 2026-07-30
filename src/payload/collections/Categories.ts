@@ -1,7 +1,10 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
+import { validateSlug } from '../validation'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
+  access: publicReadAuthenticatedWrite,
   labels: {
     singular: 'Kategori',
     plural: 'Kategoriler',
@@ -22,6 +25,7 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      validate: validateSlug,
       label: 'URL Adresi (Slug)',
     },
     {

@@ -1,7 +1,10 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
+import { validateSafePathOrHttpsUrl, validateSlug } from '../validation'
 
 export const Products: CollectionConfig = {
   slug: 'products',
+  access: publicReadAuthenticatedWrite,
   labels: {
     singular: 'Ürün',
     plural: 'Ürünler',
@@ -23,6 +26,7 @@ export const Products: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      validate: validateSlug,
       label: 'URL Adresi (Slug)',
     },
     {
@@ -72,6 +76,7 @@ export const Products: CollectionConfig = {
     {
       name: 'image',
       type: 'text',
+      validate: validateSafePathOrHttpsUrl,
       label: 'Görsel URL veya Yolu',
     },
     {

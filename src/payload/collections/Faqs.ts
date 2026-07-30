@@ -1,7 +1,9 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
 
 export const Faqs: CollectionConfig = {
   slug: 'faqs',
+  access: publicReadAuthenticatedWrite,
   labels: {
     singular: 'SSS Sorusu',
     plural: 'Sıkça Sorulan Sorular',

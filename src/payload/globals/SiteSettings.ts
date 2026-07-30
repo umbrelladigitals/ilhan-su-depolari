@@ -1,7 +1,13 @@
 import type { GlobalConfig } from 'payload'
+import { isAuthenticated } from '../access'
+import { validateGoogleMapsEmbedUrl, validateSafePathOrHttpsUrl } from '../validation'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
+  access: {
+    read: () => true,
+    update: isAuthenticated,
+  },
   label: 'Genel Site & SEO Ayarları',
   admin: {
     group: 'Site Ayarları & SEO',
@@ -23,12 +29,14 @@ export const SiteSettings: GlobalConfig = {
               name: 'lightLogo',
               type: 'text',
               defaultValue: '/images/light_logo.png',
+              validate: validateSafePathOrHttpsUrl,
               label: 'Açık Tema Logo Görsel Yolu / URL',
             },
             {
               name: 'darkLogo',
               type: 'text',
               defaultValue: '/images/dark_logo.png',
+              validate: validateSafePathOrHttpsUrl,
               label: 'Koyu Tema Logo Görsel Yolu / URL',
             },
             {
@@ -77,6 +85,7 @@ export const SiteSettings: GlobalConfig = {
               name: 'googleMapsEmbedUrl',
               type: 'textarea',
               defaultValue: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.242!2d32.748!3d39.975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU4JzMwLjAiTiAzMsKwNDQnNTIuOCJF!5e0!3m2!1str!2str!4v1650000000000',
+              validate: validateGoogleMapsEmbedUrl,
               label: 'Google Haritalar Embed Iframe URL',
             },
             {

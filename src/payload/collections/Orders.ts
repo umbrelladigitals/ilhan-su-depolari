@@ -1,7 +1,9 @@
 import type { CollectionConfig } from 'payload'
+import { authenticatedOnly } from '../access'
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
+  access: authenticatedOnly,
   admin: {
     useAsTitle: 'orderCode',
   },

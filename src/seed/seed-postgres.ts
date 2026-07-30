@@ -13,7 +13,7 @@ async function seedPostgres() {
       data: {
         email: 'admin@ilhansudepolari.com',
         password: 'Admin123456!',
-      },
+      } as any,
     })
     console.log('✅ Admin kullanıcısı oluşturuldu.')
   }

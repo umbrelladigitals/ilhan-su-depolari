@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { safeAssetUrl } from '../lib/safe-url'
 import { useRouter } from 'next/navigation'
 import type { Product } from '../types'
 import { Check, Info, MessageSquare, ArrowUpRight } from 'lucide-react'
@@ -56,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     >
       {/* ─── Full Card Background Image (Visible on hover as well) ─── */}
       <img
-        src={product.image || '/images/products/placeholder.jpg'}
+        src={safeAssetUrl(product.image, '/images/hero_bg.jpg')}
         alt={product.name}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-[0.95] group-hover:brightness-[0.85]"
       />

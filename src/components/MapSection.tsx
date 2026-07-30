@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { MapPin, Navigation, ExternalLink } from 'lucide-react'
+import { safeGoogleMapsEmbedUrl } from '../lib/safe-url'
 
 interface MapSectionProps {
   siteSettings?: any
@@ -17,7 +18,8 @@ export const MapSection: React.FC<MapSectionProps> = ({
   subtitle = 'Ankara Etimesgut adresimizi harita üzerinde inceleyebilir, yol tarifi alabilirsiniz.',
 }) => {
   const addressDisplay = siteSettings?.address || 'Atakent Mahallesi 1471 Sokak no 1/1 Etimesgut Ankara'
-  const mapsEmbedUrl = siteSettings?.googleMapsEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.242!2d32.748!3d39.975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU4JzMwLjAiTiAzMsKwNDQnNTIuOCJF!5e0!3m2!1str!2str!4v1650000000000"
+  const fallbackMapsUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.242!2d32.748!3d39.975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU4JzMwLjAiTiAzMsKwNDQnNTIuOCJF!5e0!3m2!1str!2str!4v1650000000000'
+  const mapsEmbedUrl = safeGoogleMapsEmbedUrl(siteSettings?.googleMapsEmbedUrl, fallbackMapsUrl)
   
   // Google Maps Direct Navigation Link
   const googleMapsDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressDisplay)}`
@@ -38,7 +40,7 @@ export const MapSection: React.FC<MapSectionProps> = ({
           <a
             href={googleMapsDirectionsUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-extrabold shadow-sm transition-all hover:shadow hover:-translate-y-0.5 shrink-0"
           >
             <Navigation className="w-4 h-4" />
@@ -55,6 +57,7 @@ export const MapSection: React.FC<MapSectionProps> = ({
           allowFullScreen={false}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          sandbox="allow-scripts allow-same-origin allow-popups"
           className="map-iframe-container filter contrast-[1.02] w-full h-full border-0"
         />
 

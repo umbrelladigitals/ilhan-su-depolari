@@ -60,13 +60,13 @@ async function seedProducts() {
         await payload.update({
           collection: 'products',
           id: existing.docs[0].id,
-          data: productData,
+          data: productData as any,
         })
         console.log(`Güncellendi: ${p.name}`)
       } else {
         await payload.create({
           collection: 'products',
-          data: productData,
+          data: productData as any,
         })
         console.log(`Eklendi: ${p.name}`)
       }

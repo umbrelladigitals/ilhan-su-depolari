@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { publicReadAuthenticatedWrite } from '../access'
+import { validateSafePathOrHttpsUrl, validateSlug } from '../validation'
 
 export const Blogs: CollectionConfig = {
   slug: 'blogs',
+  access: {
+    ...publicReadAuthenticatedWrite,
+    read: ({ req }) => req.user ? true : { isActive: { equals: true } },
+  },
   labels: {
     singular: 'Blog Yazısı',
     plural: 'Blog Yazıları',
@@ -23,6 +29,7 @@ export const Blogs: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      validate: validateSlug,
       label: 'URL Adresi (Slug)',
     },
     {
@@ -40,6 +47,7 @@ export const Blogs: CollectionConfig = {
     {
       name: 'image',
       type: 'text',
+      validate: validateSafePathOrHttpsUrl,
       label: 'Görsel URL veya Yolu',
     },
     {

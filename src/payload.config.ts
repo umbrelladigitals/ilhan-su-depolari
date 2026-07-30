@@ -5,6 +5,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { tr } from '@payloadcms/translations/languages/tr'
 import { en } from '@payloadcms/translations/languages/en'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -23,6 +24,11 @@ import { SiteSettings } from './payload/globals/SiteSettings'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const databaseURI = process.env.DATABASE_URI
+const siteURL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) {
+  throw new Error('PAYLOAD_SECRET üretim ortamında zorunludur.')
+}
 
 const db = databaseURI
   ? postgresAdapter({
@@ -40,6 +46,10 @@ const db = databaseURI
     })
 
 export default buildConfig({
+  sharp,
+  serverURL: siteURL,
+  cors: [siteURL],
+  csrf: [siteURL],
   i18n: {
     supportedLanguages: { tr, en },
     fallbackLanguage: 'tr',
@@ -78,7 +88,7 @@ export default buildConfig({
     }),
   ],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'ilhan-su-depolari-secret-key-123456789',
+  secret: process.env.PAYLOAD_SECRET || 'development-only-payload-secret-change-before-production',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

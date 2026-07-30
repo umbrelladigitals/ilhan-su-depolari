@@ -7,7 +7,7 @@ export const PRODUCTS: Product[] = [
     name: '2 Ton Dikey Mavi Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/2000l-dikey-mavi-ilhan.jpg',
+    image: '/images/products/2000l-dikey-mavi-polietilen-su-deposu.png',
     capacityRange: '2.000 Litre (2 Ton)',
     material: '%100 Orijinal UV Katkılı Mavi LLDPE Polietilen Plastik',
     features: [
@@ -34,7 +34,7 @@ export const PRODUCTS: Product[] = [
     name: '750 Litre İnce Dikey Mavi Polietilen Su Deposu (Musluklu)',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/750l-mavi-dikey-ilhan.jpg',
+    image: '/images/products/750l-mavi-dikey-polietilen-su-deposu.png',
     capacityRange: '750 Litre',
     material: '%100 Orijinal UV Katkılı Mavi Plastik Polietilen (LLDPE)',
     features: [
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     name: '750 Litre İnce Dikey Mavi Polietilen Su Deposu (Musluklu)',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/750l-mavi-dikey-ilhan.jpg',
+    image: '/images/products/750l-mavi-dikey-polietilen-su-deposu.png',
     capacityRange: '750 Litre',
     material: '%100 Orijinal UV Katkılı Mavi Plastik Polietilen (LLDPE)',
     features: [
@@ -88,7 +88,7 @@ export const PRODUCTS: Product[] = [
     name: '1 Ton Dikey Mavi Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/1000l-dikey-mavi-polietilen-su-deposu.jpg',
+    image: '/images/products/1000l-dikey-mavi-polietilen-su-deposu.png',
     capacityRange: '1.000 Litre (1 Ton)',
     material: '%100 Orijinal UV Katkılı Mavi Plastik Polietilen',
     features: [
@@ -114,7 +114,7 @@ export const PRODUCTS: Product[] = [
     name: '1 Ton Dikey Beyaz Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/1000l-dikey-beyaz-polietilen-su-deposu.jpg',
+    image: '/images/products/1000l-dikey-beyaz-polietilen-su-deposu.png',
     capacityRange: '1.000 Litre (1 Ton)',
     material: '1. Sınıf Şeffaf Doğal Plastik Polietilen (LLDPE)',
     features: [
@@ -140,7 +140,7 @@ export const PRODUCTS: Product[] = [
     name: '5 Ton Dikey Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/vertical_poly_tank.jpg',
+    image: '/images/products/5000l-dikey-polietilen-su-deposu.png',
     capacityRange: '5.000 Litre (5 Ton)',
     material: '1. Sınıf UV Katkılı Ağır Hizmet Plastik LLDPE Polietilen',
     features: [
@@ -166,7 +166,7 @@ export const PRODUCTS: Product[] = [
     name: '500 Litre Dikey Mavi Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/500l-dikey-mavi-polietilen-su-deposu.jpg',
+    image: '/images/products/500l-dikey-mavi-polietilen-su-deposu.png',
     capacityRange: '500 Litre',
     material: '%100 Orijinal Mavi Plastik Polietilen (LLDPE)',
     features: [
@@ -191,7 +191,7 @@ export const PRODUCTS: Product[] = [
     name: '500 Litre Dikey Beyaz Polietilen Su Deposu',
     category: 'vertical_tank',
     categoryName: 'Dikey Su Depoları',
-    image: '/images/products/500l-dikey-beyaz-polietilen-su-deposu.jpg',
+    image: '/images/products/500l-dikey-beyaz-polietilen-su-deposu.png',
     capacityRange: '500 Litre',
     material: 'Gıda Sınıfı Şeffaf Doğal Plastik Polietilen',
     features: [
@@ -218,7 +218,7 @@ export const PRODUCTS: Product[] = [
     name: '1 Ton Yatay Küre Mavi Polietilen Su Deposu',
     category: 'horizontal_tank',
     categoryName: 'Yatay Su Depoları',
-    image: '/images/products/1000l-yatay-kure-ilhan.jpg',
+    image: '/images/products/1000l-yatay-kure-mavi-polietilen-su-deposu.png',
     capacityRange: '1.000 Litre (1 Ton)',
     material: 'Güneş Işığına Dayanıklı Mavi Plastik Polietilen (LLDPE)',
     features: [
@@ -243,7 +243,7 @@ export const PRODUCTS: Product[] = [
     name: '2 Ton Yatay Mavi Polietilen Su Deposu',
     category: 'horizontal_tank',
     categoryName: 'Yatay Su Depoları',
-    image: '/images/products/2000l-yatay-mavi-ilhan.jpg',
+    image: '/images/products/2000l-yatay-mavi-polietilen-su-deposu.png',
     capacityRange: '2.000 Litre (2 Ton)',
     material: '1. Sınıf UV Katkılı Mavi Plastik Polietilen (LLDPE)',
     features: [
@@ -268,7 +268,7 @@ export const PRODUCTS: Product[] = [
     name: '5 Ton Yatay Mavi Polietilen Su Deposu',
     category: 'horizontal_tank',
     categoryName: 'Yatay Su Depoları',
-    image: '/images/products/5000l-yatay-mavi-polietilen-su-deposu.jpg',
+    image: '/images/products/5000l-yatay-mavi-polietilen-su-deposu.png',
     capacityRange: '5.000 Litre (5 Ton)',
     material: '1. Sınıf Mavi Plastik Polietilen (LLDPE - UV Koruma)',
     features: [
@@ -293,7 +293,7 @@ export const PRODUCTS: Product[] = [
     name: '5 Ton Yatay Beyaz Polietilen Su Deposu',
     category: 'horizontal_tank',
     categoryName: 'Yatay Su Depoları',
-    image: '/images/products/5000l-yatay-beyaz-polietilen-su-deposu.jpg',
+    image: '/images/products/5000l-yatay-beyaz-polietilen-su-deposu.png',
     capacityRange: '5.000 Litre (5 Ton)',
     material: '1. Sınıf Şeffaf / Beyaz Plastik Polietilen (LLDPE)',
     features: [
